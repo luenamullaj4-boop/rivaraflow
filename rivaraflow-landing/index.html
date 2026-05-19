@@ -386,21 +386,38 @@
 ══════════════════════════════════════════════ -->
 <section class="form-section" id="contact" aria-labelledby="form-h">
 
-  <!-- Lime organic blob with heading text inside -->
-  <div class="form-section__blob">
-    <svg viewBox="0 0 1200 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;">
+  <!-- Heading area: lime organic blob behind large title -->
+  <div class="form-heading-area">
+
+    <!--
+      SVG blob: a broad, swooping lime-green organic shape.
+      viewBox="0 0 1200 400" — the blob fills the top ~80%
+      and has an irregular wavy bottom edge, leaving the
+      beige background visible underneath.
+    -->
+    <svg
+      class="form-blob"
+      viewBox="0 0 1200 400"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
       <path
-        d="M0,0 L1200,0 L1200,200
-           Q1100,280 950,240
-           Q800,200  700,250
-           Q580,300  440,260
-           Q300,220  150,270
-           Q60,295   0,260 Z"
+        d="
+          M0,0
+          L1200,0
+          L1200,300
+          C1100,360  980,280  860,320
+          C740,360   640,300  520,340
+          C400,380   280,300  160,340
+          C80,365    30,340   0,320
+          Z
+        "
         fill="#C4D054"
       />
     </svg>
 
-    <div class="form-section__heading-wrap">
+    <div class="form-heading-content">
       <h2 class="form-section__heading reveal" id="form-h">
         Build a circular<br>system<br>for your kitchen.
       </h2>
@@ -408,6 +425,7 @@
         Book a free demo and receive your personalised estimation report.
       </p>
     </div>
+
   </div>
 
   <!-- Form -->
