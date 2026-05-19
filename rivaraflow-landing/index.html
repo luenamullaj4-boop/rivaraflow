@@ -45,6 +45,7 @@
       <button class="hero-nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
+      <div class="nav-backdrop" id="nav-backdrop" aria-hidden="true"></div>
       <nav class="hero-nav__mobile" id="mobile-menu" aria-label="Mobile nav">
         <a href="#system">Home</a>
         <a href="#system">System</a>
@@ -355,16 +356,28 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  const hbtn  = document.getElementById('hamburger');
-  const hmenu = document.getElementById('mobile-menu');
-  hbtn.addEventListener('click', () => {
-    const open = hmenu.classList.toggle('open');
-    hbtn.setAttribute('aria-expanded', open);
-  });
-  hmenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  const hbtn     = document.getElementById('hamburger');
+  const hmenu    = document.getElementById('mobile-menu');
+  const backdrop = document.getElementById('nav-backdrop');
+
+  function openMenu() {
+    hmenu.classList.add('open');
+    backdrop.classList.add('open');
+    hbtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
     hmenu.classList.remove('open');
-    hbtn.setAttribute('aria-expanded', false);
-  }));
+    backdrop.classList.remove('open');
+    hbtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  hbtn.addEventListener('click', () => {
+    hmenu.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  backdrop.addEventListener('click', closeMenu);
+  hmenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
