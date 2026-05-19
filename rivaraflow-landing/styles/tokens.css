@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Satoshi via CDN */
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap');
+
+:root {
+  /* ─── Colors ─────────────────────────────────────── */
+  --color-bg:            #F8F4D9;
+  --color-bg-dark:       #1F2430;
+  --color-primary:       #C4D054;   /* lime green */
+  --color-accent:        #9C7BE3;   /* medium purple */
+  --color-accent-dark:   #5B43A7;   /* deep purple */
+  --color-text:          #1F2430;
+  --color-text-light:    #F8F4D9;
+  --color-purple-soft:   #BAAADE;
+  --color-card-purple:   rgba(156, 123, 227, 0.5);
+  --color-green-80:      rgba(196, 208, 84, 0.8);
+  --color-overlay:       rgba(31, 36, 48, 0.55);
+
+  /* ─── Spacing ─────────────────────────────────────── */
+  --space-xxs:   4px;
+  --space-xs:    8px;
+  --space-sm:   16px;
+  --space-md:   24px;
+  --space-lg:   40px;
+  --space-xl:   64px;
+  --space-xxl:  96px;
+
+  /* ─── Radius ──────────────────────────────────────── */
+  --radius-sm:    8px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-xl:   28px;
+  --radius-full: 9999px;
+
+  /* ─── Shadows ─────────────────────────────────────── */
+  --shadow-card:  0 4px 24px rgba(91, 67, 167, 0.12);
+  --shadow-hover: 0 8px 32px rgba(91, 67, 167, 0.22);
+  --shadow-float: -3px 4px 4px rgba(0,0,0,0.25);
+
+  /* ─── Typography scale ────────────────────────────── */
+  --font-museo:   'MuseoModerno', sans-serif;
+  --font-satoshi: 'Satoshi', sans-serif;
+
+  --text-hero:    clamp(36px, 6vw, 72px);
+  --text-h2:      clamp(24px, 3.5vw, 48px);
+  --text-h3:      clamp(18px, 2vw, 28px);
+  --text-card-num:clamp(28px, 4vw, 48px);
+  --text-stat:    clamp(38px, 5.5vw, 72px);
+  --text-metric:  clamp(36px, 5vw, 64px);
+  --text-body:    clamp(14px, 1.1vw, 16px);
+  --text-caption: clamp(12px, 0.9vw, 14px);
+  --text-label:   11px;
+
+  /* ─── Container ───────────────────────────────────── */
+  --container-max: 1200px;
+  --container-pad: clamp(16px, 4vw, 48px);
+}
