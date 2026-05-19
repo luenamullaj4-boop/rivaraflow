@@ -19,49 +19,32 @@
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════
-     ANNOUNCEMENT  (on beige, outside hero)
-══════════════════════════════════════════════ -->
+<!-- ANNOUNCEMENT -->
 <p class="announce">
   First Demo is Free. <strong>Book Now!</strong>
 </p>
 
-<!-- ══════════════════════════════════════════════
-     HERO  (rounded card with bg image)
-══════════════════════════════════════════════ -->
+<!-- HERO -->
 <div class="hero-wrap">
   <section class="hero" id="hero" aria-labelledby="hero-h1">
 
-    <!-- Background food-waste image -->
-    <img
-      class="hero__bg"
-      src="https://www.figma.com/api/mcp/asset/e90c983f-60c9-4c65-9674-b50992f24b90"
-      alt="Food being scraped into a bin"
-      loading="eager" width="1200" height="600"
-    />
+    <img class="hero__bg" src="assets/images/hero-bg.png"
+      alt="Food being scraped into a bin" loading="eager" width="1200" height="600" />
     <div class="hero__overlay" aria-hidden="true"></div>
 
-    <!-- Nav inside hero card -->
     <nav class="hero-nav" aria-label="Main navigation">
       <a href="#" class="hero-nav__logo" aria-label="Rivara Flow home">
-        <img
-          src="https://www.figma.com/api/mcp/asset/99254a57-5278-464d-a3f4-477c9ab690e9"
-          alt="Rivara Flow" width="100" height="40"
-        />
+        <img src="assets/images/logo.png" alt="Rivara Flow" width="300" height="100" />
       </a>
-
       <ul class="hero-nav__links" role="list">
         <li><a href="#system">Home</a></li>
         <li><a href="#system">System</a></li>
         <li><a href="#platform">Platform</a></li>
         <li><a href="#contact">Contacts</a></li>
       </ul>
-
       <button class="hero-nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-
-      <!-- Mobile dropdown -->
       <nav class="hero-nav__mobile" id="mobile-menu" aria-label="Mobile nav">
         <a href="#system">Home</a>
         <a href="#system">System</a>
@@ -70,7 +53,7 @@
       </nav>
     </nav>
 
-    <!-- Headline + deco cards -->
+    <!-- Headline left, deco cards right — same row -->
     <div class="hero__body">
       <div class="hero__content">
         <h1 class="hero__headline reveal" id="hero-h1">
@@ -85,25 +68,12 @@
         <a href="#contact" class="btn-demo reveal">Book a Demo</a>
       </div>
 
-      <!-- Stacked deco cards (top-right of hero) -->
+      <!-- Deco cards sit to the right of the headline -->
       <div class="hero__deco" aria-hidden="true">
         <div class="deco-stack">
-          <!-- Card 1: purple — back -->
-          <div class="deco-card deco-card--1">
-            <span>Save Money</span>
-          </div>
-          <!-- Card 2: lime — middle -->
-          <div class="deco-card deco-card--2">
-            <span>EU Standards</span>
-          </div>
-          <!-- Card 3: cream — front with fish skeleton -->
-          <div class="deco-card deco-card--3">
-            <span>Waste Nothing</span>
-            <img
-              src="https://www.figma.com/api/mcp/asset/e6a01069-feb4-40e0-8831-3d000671c9dc"
-              alt="compost illustration"
-            />
-          </div>
+          <div class="deco-card deco-card--1"><span>Save Money</span></div>
+          <div class="deco-card deco-card--2"><span>EU Standards</span></div>
+          <div class="deco-card deco-card--3"><span>Waste Nothing</span></div>
         </div>
       </div>
     </div>
@@ -113,9 +83,7 @@
 
 <main>
 
-<!-- ══════════════════════════════════════════════
-     PRODUCTS
-══════════════════════════════════════════════ -->
+<!-- PRODUCTS -->
 <section class="products" id="system" aria-labelledby="prod-title">
   <div class="container">
     <h2 class="section-title reveal" id="prod-title">
@@ -146,31 +114,19 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     IMAGE STORY
-══════════════════════════════════════════════ -->
+<!-- IMAGE STORY -->
 <section class="image-story" aria-label="Food waste imagery">
   <div class="container">
     <div class="image-story__grid">
-      <img
-        class="image-story__img reveal"
-        src="https://www.figma.com/api/mcp/asset/9c8b9d55-e803-4b13-973e-bbd4173fb020"
-        alt="Fresh produce in a restaurant kitchen"
-        loading="lazy" width="590" height="440"
-      />
-      <img
-        class="image-story__img reveal"
-        src="https://www.figma.com/api/mcp/asset/20eb6914-5387-4eb7-b972-b416776ae456"
-        alt="Chef carefully preparing food"
-        loading="lazy" width="590" height="440"
-      />
+      <img class="image-story__img reveal" src="assets/images/food-bowl.jpg"
+        alt="Fresh produce in a restaurant kitchen" loading="lazy" width="590" height="440" />
+      <img class="image-story__img reveal" src="assets/images/food-chef.jpg"
+        alt="Chef carefully preparing food" loading="lazy" width="590" height="440" />
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     STATS
-══════════════════════════════════════════════ -->
+<!-- STATS -->
 <section class="stats" aria-labelledby="stats-h">
   <div class="container">
     <h2 class="sr-only" id="stats-h">Why act now</h2>
@@ -191,149 +147,27 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     PHONE MOCKUP SECTION
-══════════════════════════════════════════════ -->
+<!-- PHONE MOCKUP -->
 <section class="phone-section" id="platform" aria-labelledby="phone-h">
   <div class="container">
     <h2 class="phone-section__title reveal" id="phone-h">
       See your kitchen's waste in real time.
     </h2>
-
-    <div class="phone-scene">
-
-      <!-- LEFT: App card -->
-      <div class="phone-left reveal">
-        <p class="phone-left__question">
-          Do you know there is <strong>value</strong> in waste?
-        </p>
-        <div class="app-bar app-bar--purple">Your Food</div>
-        <div class="app-bar app-bar--violet">Your Data</div>
-        <div class="app-bar app-bar--lime">Your Waste</div>
-        <img
-          class="phone-left__logo"
-          src="https://www.figma.com/api/mcp/asset/99254a57-5278-464d-a3f4-477c9ab690e9"
-          alt="Rivara Flow"
-          loading="lazy" width="110" height="24"
-        />
-      </div>
-
-      <!-- CENTER: iPhone mockup -->
-      <div class="phone-center reveal">
-        <div class="iphone" role="img" aria-label="Rivara Flow app interface">
-          <div class="iphone__notch" aria-hidden="true"></div>
-          <div class="iphone__notch-bar" aria-hidden="true">
-            <span class="iphone__time">9:41</span>
-            <span class="iphone__icons">▪▪▪ ▲ ▊</span>
-          </div>
-
-          <div class="iphone__screen">
-            <div class="iphone__screen-content">
-
-              <p class="iphone__greeting">
-                Good morning!
-                <span>'s your food waste overview</span>
-              </p>
-
-              <div class="iphone__waste-card">
-                <div>
-                  <p>This week you've</p>
-                  <strong>1.2 kg</strong>
-                  <p style="font-size:9px;opacity:.7;margin-top:2px;">18% less than last week!</p>
-                </div>
-                <span class="iphone__waste-badge">↗ View</span>
-              </div>
-
-              <div class="iphone__stats">
-                <div class="iphone__stat-box">
-                  <span class="val">31.2 kg CO₂</span>
-                  <span class="lbl">CO₂ avoided</span>
-                </div>
-                <div class="iphone__stat-box">
-                  <span class="val">8,450 L</span>
-                  <span class="lbl">Water saved</span>
-                </div>
-              </div>
-
-              <div class="iphone__breakdown">
-                <h4>Breakdown</h4>
-                <div class="breakdown-row">
-                  <span class="breakdown-dot" style="background:#C4D054"></span>
-                  <span>Fruits &amp; Veg</span>
-                  <span class="pct">42%</span>
-                </div>
-                <div class="breakdown-row">
-                  <span class="breakdown-dot" style="background:#9C7BE3"></span>
-                  <span>Bread</span>
-                  <span class="pct">25%</span>
-                </div>
-                <div class="breakdown-row">
-                  <span class="breakdown-dot" style="background:#5B43A7"></span>
-                  <span>Dairy</span>
-                  <span class="pct">18%</span>
-                </div>
-                <div class="breakdown-row">
-                  <span class="breakdown-dot" style="background:#1F2430"></span>
-                  <span>Leftovers</span>
-                  <span class="pct">15%</span>
-                </div>
-              </div>
-
-            </div>
-
-            <div class="iphone__bottom-bar" aria-hidden="true">
-              <span class="active">
-                <div class="nav-icon"></div>
-                Home
-              </span>
-              <span>
-                <div class="nav-icon"></div>
-                History
-              </span>
-              <span>
-                <div class="nav-plus">+</div>
-              </span>
-              <span>
-                <div class="nav-icon"></div>
-                Tips
-              </span>
-              <span>
-                <div class="nav-icon"></div>
-                Profile
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT: Green card with grocery bag image + headline -->
-      <div class="phone-right reveal">
-        <img
-          class="phone-right__img"
-          src="https://www.figma.com/api/mcp/asset/046971bf-f586-43ca-9c32-7f50ddda85d7"
-          alt="Grocery bag with fresh vegetables"
-          loading="lazy" width="320" height="200"
-        />
-        <p class="phone-right__headline">
-          Small <span class="hi">Changes</span>.<br>
-          Big <span class="hi">Impact</span>.
-        </p>
-        <p class="phone-right__sub">
-          Log in your business' daily waste and see the difference.
-        </p>
-      </div>
-
+    <div style="display:flex; justify-content:center; padding: 0 8px;">
+      <img
+        src="assets/images/phone-mockup.png"
+        alt="Rivara Flow app mockup"
+        style="max-width:860px; width:100%; display:block;"
+        loading="lazy"
+      />
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     METRICS
-══════════════════════════════════════════════ -->
+<!-- METRICS -->
 <section class="metrics" aria-labelledby="metrics-h">
   <div class="container">
     <h2 class="sr-only" id="metrics-h">Impact metrics</h2>
-
     <div class="metrics__grid">
 
       <article class="m-card m-90 reveal">
@@ -346,12 +180,9 @@
         <p class="m-card__label">Fertilizer yield achieved from household pilot</p>
       </article>
 
+      <!-- image cards — hidden on mobile, shown on desktop -->
       <div class="m-card m-ph m-img-card">
-        <img
-          src="https://www.figma.com/api/mcp/asset/0210cd83-3f37-4aef-9d20-e0e2adb4d17e"
-          alt="Fresh produce at a market stall"
-          loading="lazy" width="400" height="320"
-        />
+        <img src="assets/images/waste-heap.jpg" alt="" loading="lazy" />
       </div>
 
       <article class="m-card m-50k reveal">
@@ -360,11 +191,7 @@
       </article>
 
       <div class="m-card m-i2 m-img-card">
-        <img
-          src="https://www.figma.com/api/mcp/asset/e3a85559-b722-4b9b-9be6-c2968c71c66a"
-          alt="Organic food waste for composting"
-          loading="lazy" width="400" height="400"
-        />
+        <img src="assets/images/market.jpg" alt="" loading="lazy" />
       </div>
 
       <article class="m-card m-650 reveal">
@@ -381,42 +208,19 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════
-     FORM SECTION
-══════════════════════════════════════════════ -->
+<!-- FORM -->
 <section class="form-section" id="contact" aria-labelledby="form-h">
 
-  <!-- Heading area: lime organic blob behind large title -->
   <div class="form-heading-area">
-
-    <!--
-      SVG blob: a broad, swooping lime-green organic shape.
-      viewBox="0 0 1200 400" — the blob fills the top ~80%
-      and has an irregular wavy bottom edge, leaving the
-      beige background visible underneath.
-    -->
-    <svg
-      class="form-blob"
-      viewBox="0 0 1200 400"
-      xmlns="http://www.w3.org/2000/svg"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <path
-        d="
-          M0,0
-          L1200,0
-          L1200,300
-          C1100,360  980,280  860,320
-          C740,360   640,300  520,340
-          C400,380   280,300  160,340
-          C80,365    30,340   0,320
-          Z
-        "
-        fill="#C4D054"
-      />
+    <svg class="form-blob" viewBox="0 0 1200 400"
+      xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,0 L1200,0 L1200,300
+               C1100,360 980,280 860,320
+               C740,360 640,300 520,340
+               C400,380 280,300 160,340
+               C80,365 30,340 0,320 Z"
+        fill="#C4D054"/>
     </svg>
-
     <div class="form-heading-content">
       <h2 class="form-section__heading reveal" id="form-h">
         Build a circular<br>system<br>for your kitchen.
@@ -425,10 +229,8 @@
         Book a free demo and receive your personalised estimation report.
       </p>
     </div>
-
   </div>
 
-  <!-- Form -->
   <form class="lead-form" id="lead-form" novalidate aria-label="Book a free demo">
 
     <div class="f-group">
@@ -438,22 +240,20 @@
     </div>
 
     <div class="f-group">
-      <label class="f-label" for="phone">
-        Phone&nbsp;<span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span>
+      <label class="f-label" for="phone">Phone
+        <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span>
       </label>
       <input class="f-input" type="tel" id="phone" name="phone" autocomplete="tel" />
     </div>
 
     <div class="f-group">
       <label class="f-label" for="biz">Business Name</label>
-      <input class="f-input" type="text" id="biz" name="business_name"
-        required aria-required="true" />
+      <input class="f-input" type="text" id="biz" name="business_name" required aria-required="true" />
     </div>
 
     <div class="f-group">
       <label class="f-label" for="op-type">Operation Type</label>
-      <select class="f-select f-input" id="op-type" name="operation_type"
-        required aria-required="true">
+      <select class="f-select f-input" id="op-type" name="operation_type" required aria-required="true">
         <option value="" disabled selected>Select your Operation</option>
         <option value="restaurant">Restaurant</option>
         <option value="hotel">Hotel</option>
@@ -475,8 +275,8 @@
     </div>
 
     <div class="f-group f-group--full">
-      <label class="f-label" for="notes">
-        Anything we should know&nbsp;<span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span>
+      <label class="f-label" for="notes">Anything we should know
+        <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span>
       </label>
       <textarea class="f-textarea" id="notes" name="notes" rows="5"
         placeholder="Waste Volume, Team Size, Current Setup..."></textarea>
@@ -484,9 +284,7 @@
 
     <div class="f-consent">
       <input type="checkbox" id="consent" name="consent" required aria-required="true" />
-      <label for="consent">
-        I agree to Rivara Flow processing my data to schedule this demo.
-      </label>
+      <label for="consent">I agree to Rivara Flow processing my data to schedule this demo.</label>
     </div>
 
     <div class="f-submit">
@@ -498,32 +296,23 @@
 
 </main>
 
-<!-- ══════════════════════════════════════════════
-     SUPPORTED BY
-══════════════════════════════════════════════ -->
+<!-- SUPPORTED BY -->
 <aside class="supported" aria-label="Supported by">
   <div class="container">
     <p class="supported__label">Supported by:</p>
     <div class="supported__logos">
-      <img src="https://www.figma.com/api/mcp/asset/61672422-3c99-40ba-8951-d40f63ef2d5a"
-        alt="beVisioneers" width="130" height="36" loading="lazy" />
-      <img src="https://www.figma.com/api/mcp/asset/10622ec2-62f5-4f7b-bc35-20384d545a72"
-        alt="EU4Innovation" width="90" height="36" loading="lazy" />
-      <img src="https://www.figma.com/api/mcp/asset/2fbef040-ccea-479a-81f9-5b71de693672"
-        alt="Grace" width="110" height="36" loading="lazy" />
-      <img src="https://www.figma.com/api/mcp/asset/4a4aaa4a-2e41-480f-a120-27942225a7b2"
-        alt="ignore gravity" width="130" height="36" loading="lazy" />
+      <img src="assets/images/sponsor-bv.png"         alt="beVisioneers"  height="36" loading="lazy" />
+      <img src="assets/images/sponsor-eu4innovation.png" alt="EU4Innovation" height="36" loading="lazy" />
+      <img src="assets/images/sponsor-grace.png"      alt="Grace"         height="36" loading="lazy" />
+      <img src="assets/images/sponsor-ignore_gravity.png" alt="ignore gravity" height="36" loading="lazy" />
     </div>
   </div>
 </aside>
 
-<!-- ══════════════════════════════════════════════
-     FOOTER
-══════════════════════════════════════════════ -->
+<!-- FOOTER -->
 <footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer__grid">
-
       <div class="footer__col">
         <p class="footer__col-title">Get in touch</p>
         <ul role="list">
@@ -533,7 +322,6 @@
           <li><a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener">Instagram: @rivaraflow</a></li>
         </ul>
       </div>
-
       <div class="footer__col">
         <p class="footer__col-title">Company</p>
         <ul role="list">
@@ -542,7 +330,6 @@
           <li><a href="#">News &amp; Press</a></li>
         </ul>
       </div>
-
       <div class="footer__col">
         <p class="footer__col-title">Product</p>
         <ul role="list">
@@ -552,7 +339,6 @@
           <li><a href="#contact">Book a Demo</a></li>
         </ul>
       </div>
-
       <div class="footer__col">
         <p class="footer__col-title">Industries</p>
         <ul role="list">
@@ -561,20 +347,15 @@
           <li><a href="#">Agritourism</a></li>
         </ul>
       </div>
-
     </div>
-
-    <p class="footer__copy">
-      &copy; <span id="year"></span> Rivara Flow. All rights reserved.
-    </p>
+    <p class="footer__copy">&copy; <span id="year"></span> Rivara Flow. All rights reserved.</p>
   </div>
 </footer>
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  /* hamburger */
-  const hbtn = document.getElementById('hamburger');
+  const hbtn  = document.getElementById('hamburger');
   const hmenu = document.getElementById('mobile-menu');
   hbtn.addEventListener('click', () => {
     const open = hmenu.classList.toggle('open');
@@ -585,22 +366,16 @@
     hbtn.setAttribute('aria-expanded', false);
   }));
 
-  /* scroll reveal */
   const io = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in-view');
-        io.unobserve(e.target);
-      }
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
     });
   }, { threshold: 0.1 });
-
   document.querySelectorAll('.reveal').forEach((el, i) => {
     el.style.transitionDelay = (i % 5) * 0.07 + 's';
     io.observe(el);
   });
 
-  /* form */
   document.getElementById('lead-form').addEventListener('submit', e => {
     e.preventDefault();
     const btn = e.target.querySelector('[type=submit]');
