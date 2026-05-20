@@ -438,8 +438,10 @@ ul   { list-style: none; }
 /* ══════════════════════════════════════════════════
    PHONE / MOCKUP SECTION
 ══════════════════════════════════════════════════ */
-.phone-section { padding: 32px 0 48px; }
-@media (min-width: 768px) { .phone-section { padding: 56px 0 72px; } }
+.phone-section { display: none; }
+@media (min-width: 768px) {
+  .phone-section { display: block; padding: 56px 0 72px; }
+}
 
 .phone-section__title {
   font-family: var(--museo); font-weight: 700;
