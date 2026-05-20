@@ -84,45 +84,41 @@
 
 <main>
 
-<!-- PRODUCTS -->
+<!-- PRODUCTS — carousel on mobile, grid on desktop -->
 <section class="products" id="system" aria-labelledby="prod-title">
   <div class="container">
     <h2 class="section-title reveal" id="prod-title">
       One platform. Four components. One closed loop.
     </h2>
-    <div class="products__grid">
-      <article class="p-card reveal">
-        <span class="p-card__num">01</span>
-        <h3 class="p-card__name">Smart Bin System</h3>
-        <p class="p-card__desc">Camera and weight sensor installed in existing bins.</p>
-      </article>
-      <article class="p-card reveal">
-        <span class="p-card__num">02</span>
-        <h3 class="p-card__name">Staff Workshops</h3>
-        <p class="p-card__desc">Estimated 20 workshops and 50 employees trained in phase one.</p>
-      </article>
-      <article class="p-card reveal">
-        <span class="p-card__num">03</span>
-        <h3 class="p-card__name">Data &amp; Compliance Platform</h3>
-        <p class="p-card__desc">Waste data becomes cost projection.</p>
-      </article>
-      <article class="p-card reveal">
-        <span class="p-card__num">04</span>
-        <h3 class="p-card__name">Composting &amp; Fertilizer</h3>
-        <p class="p-card__desc">70% yield achieved in household pilot.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- IMAGE STORY -->
-<section class="image-story" aria-label="Food waste imagery">
-  <div class="container">
-    <div class="image-story__grid">
-      <img class="image-story__img reveal" src="assets/images/food-bowl.jpg"
-        alt="Fresh produce in a restaurant kitchen" loading="lazy" width="590" height="440" />
-      <img class="image-story__img reveal" src="assets/images/food-chef.jpg"
-        alt="Chef carefully preparing food" loading="lazy" width="590" height="440" />
+    <div class="carousel-wrap">
+      <div class="carousel__track">
+        <article class="p-card">
+          <span class="p-card__num">01</span>
+          <h3 class="p-card__name">Smart Bin System</h3>
+          <p class="p-card__desc">Camera and weight sensor installed in existing bins.</p>
+        </article>
+        <article class="p-card">
+          <span class="p-card__num">02</span>
+          <h3 class="p-card__name">Staff Workshops</h3>
+          <p class="p-card__desc">Estimated 20 workshops and 50 employees trained in phase one.</p>
+        </article>
+        <article class="p-card">
+          <span class="p-card__num">03</span>
+          <h3 class="p-card__name">Data &amp; Compliance Platform</h3>
+          <p class="p-card__desc">Waste data becomes cost projection.</p>
+        </article>
+        <article class="p-card">
+          <span class="p-card__num">04</span>
+          <h3 class="p-card__name">Composting &amp; Fertilizer</h3>
+          <p class="p-card__desc">70% yield achieved in household pilot.</p>
+        </article>
+      </div>
+      <div class="carousel__dots" aria-hidden="true">
+        <button class="carousel__dot active"></button>
+        <button class="carousel__dot"></button>
+        <button class="carousel__dot"></button>
+        <button class="carousel__dot"></button>
+      </div>
     </div>
   </div>
 </section>
@@ -148,20 +144,19 @@
   </div>
 </section>
 
-<!-- PHONE MOCKUP -->
+<!-- PHONE MOCKUP — full bleed -->
 <section class="phone-section" id="platform" aria-labelledby="phone-h">
   <div class="container">
     <h2 class="phone-section__title reveal" id="phone-h">
       See your kitchen's waste in real time.
     </h2>
-    <div style="display:flex; justify-content:center; padding: 0 8px;">
-      <img
-        src="assets/images/grocery-bag.png"
-        alt="Rivara Flow app mockup"
-        style="max-width:860px; width:100%; display:block;"
-        loading="lazy"
-      />
-    </div>
+  </div>
+  <div class="mockup-bleed">
+    <img
+      src="assets/images/grocery-bag.png"
+      alt="Rivara Flow app mockup"
+      loading="lazy"
+    />
   </div>
 </section>
 
@@ -236,7 +231,7 @@
 </section>
 
 <!-- FORM -->
-<section class="form-section" id="contact" aria-labelledby="form-h">
+<section class="form-section" id="contact" aria-labelledby="form-h" style="background:var(--bg)">
 
   <div class="form-heading-area">
     <svg class="form-blob" viewBox="0 0 1200 400"
@@ -404,6 +399,22 @@
   });
   backdrop.addEventListener('click', closeMenu);
   hmenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+  // Carousel
+  const track = document.querySelector('.carousel__track');
+  const dots  = document.querySelectorAll('.carousel__dot');
+  if (track && dots.length) {
+    const updateDots = () => {
+      const idx = Math.round(track.scrollLeft / track.offsetWidth);
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    };
+    track.addEventListener('scroll', updateDots, { passive: true });
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        track.scrollTo({ left: i * track.offsetWidth, behavior: 'smooth' });
+      });
+    });
+  }
 
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {

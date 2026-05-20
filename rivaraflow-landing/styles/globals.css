@@ -312,13 +312,56 @@ ul   { list-style: none; }
   margin-bottom: 16px; line-height: 1.3;
 }
 
-/* always 2 columns */
-.products__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+/* ── Carousel ───────────────────────────────── */
+.carousel-wrap { position: relative; }
+
+.carousel__track {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
-@media (min-width: 640px) { .products__grid { gap: 12px; } }
+.carousel__track::-webkit-scrollbar { display: none; }
+
+.carousel__track .p-card {
+  scroll-snap-align: start;
+  flex: 0 0 calc(100% - 4px);
+  min-height: 160px;
+}
+
+.carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+.carousel__dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  border: none; cursor: pointer; padding: 0;
+  transition: background .2s, transform .2s;
+}
+.carousel__dot.active {
+  background: var(--accent);
+  transform: scale(1.25);
+}
+
+/* Desktop: 2×2 grid, hide dots */
+@media (min-width: 640px) {
+  .carousel__track {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+  .carousel__track .p-card { flex: none; }
+  .carousel__dots { display: none; }
+}
 
 .p-card {
   background: var(--accent);
@@ -403,6 +446,17 @@ ul   { list-style: none; }
   color: var(--accent);
   text-align: center;
   margin-bottom: 24px;
+}
+
+/* Full-bleed mockup */
+.mockup-bleed {
+  width: 100%;
+  overflow: hidden;
+}
+.mockup-bleed img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 /* ══════════════════════════════════════════════════
