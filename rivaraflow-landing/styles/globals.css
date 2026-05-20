@@ -544,20 +544,20 @@ ul   { list-style: none; }
 }
 @media (min-width: 768px) { .form-section { padding-bottom: 64px; } }
 
-/* Heading area with lime blob */
+/* Heading area — solid lime, beige wave at bottom */
 .form-heading-area {
   position: relative;
+  background: var(--primary);
   text-align: center;
-  padding: 48px 20px 90px;
-  margin-bottom: 0;
+  padding: 56px 20px 96px;
 }
-@media (min-width: 640px)  { .form-heading-area { padding: 56px 24px 100px; } }
-@media (min-width: 1024px) { .form-heading-area { padding: 72px 24px 120px; } }
+@media (min-width: 640px)  { .form-heading-area { padding: 72px 24px 110px; } }
+@media (min-width: 1024px) { .form-heading-area { padding: 88px 24px 120px; } }
 
-.form-blob {
+.form-wave {
   position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
+  bottom: 0; left: 0;
+  width: 100%; height: 70px;
   display: block;
   pointer-events: none;
 }
@@ -585,7 +585,7 @@ ul   { list-style: none; }
   font-weight: 400;
   font-style: italic;
   font-size: clamp(12px, 2vw, 16px);
-  color: var(--accent-dark);
+  color: var(--bg-dark);
   line-height: 1.55;
   text-align: center;
   max-width: 420px;
