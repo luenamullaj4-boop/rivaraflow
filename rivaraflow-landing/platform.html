@@ -85,14 +85,7 @@
       border-radius: var(--r16) var(--r16) 0 0;
       background: #2a3040;
       aspect-ratio: 16/9;
-      /* placeholder — replace with real dashboard screenshot */
-      display: flex; align-items: center; justify-content: center;
-      min-height: 280px;
-    }
-    @media (min-width: 768px) { .plat-hero__mockup-img { min-height: 420px; } }
-    .plat-hero__mockup-img span {
-      font-family: var(--satoshi); font-size: 13px; font-weight: 600;
-      color: rgba(248,244,217,.3); letter-spacing: .08em; text-transform: uppercase;
+      object-fit: cover;
     }
 
     /* ── How it works ── */
@@ -349,9 +342,7 @@
     </p>
   </div>
   <div class="plat-hero__mockup container">
-    <div class="plat-hero__mockup-img">
-      <span>Dashboard screenshot</span>
-    </div>
+    <img class="plat-hero__mockup-img" src="assets/images/platform/platform-hero-dashboard.png" alt="Rivara Flow platform dashboard" style="width:100%;display:block;border-radius:var(--r16) var(--r16) 0 0;object-fit:cover;" />
   </div>
 </section>
 
@@ -402,7 +393,7 @@
 <!-- SPLIT: DATA DRIVEN -->
 <section class="split split--light" id="impact">
   <div class="split__inner split__inner--flip">
-    <div class="split__visual"><span>Dashboard image</span></div>
+    <div class="split__visual"><img src="assets/images/platform/platform-impact.png" alt="Impact tracking dashboard" style="width:100%;height:100%;object-fit:cover;border-radius:var(--r16);display:block;" /></div>
     <div class="split__text">
       <p class="split__tag">Data Driven</p>
       <h2 class="split__h2">Keep track of<br><span>your impact</span></h2>
@@ -415,11 +406,11 @@
 </section>
 
 <!-- SPLIT: SMARTER ACTIONS -->
-<section class="split split--dark" id="actions">
+<section class="split split--light" id="actions">
   <div class="split__inner">
-    <div class="split__visual"><span>App screenshot</span></div>
+    <div class="split__visual"><img src="assets/images/platform/platform-actions.png" alt="Smart actions and recommendations" style="width:100%;height:100%;object-fit:cover;border-radius:var(--r16);display:block;" /></div>
     <div class="split__text">
-      <p class="split__tag">AI-Powered</p>
+      <p class="split__tag">Smart Insights</p>
       <h2 class="split__h2">Smarter actions,<br><span>bigger savings</span></h2>
       <ul class="split__bullets">
         <li><strong>Track your food waste</strong> — real-time logs from every bin, every shift.</li>
@@ -433,7 +424,7 @@
 <!-- SPLIT: PERSONALISED DASHBOARD -->
 <section class="split split--light" id="dashboard">
   <div class="split__inner split__inner--flip">
-    <div class="split__visual"><span>Dashboard detail</span></div>
+    <div class="split__visual"><img src="assets/images/platform/platform-dashboard-detail.png" alt="Personalised waste dashboard" style="width:100%;height:100%;object-fit:cover;border-radius:var(--r16);display:block;" /></div>
     <div class="split__text">
       <p class="split__tag">Personalised Dashboard</p>
       <h2 class="split__h2">See exactly where<br><span>you can save</span></h2>
@@ -447,9 +438,9 @@
 </section>
 
 <!-- SPLIT: EU COMPLIANCE -->
-<section class="split split--dark" id="compliance">
+<section class="split split--light" id="compliance">
   <div class="split__inner">
-    <div class="split__visual"><span>Compliance report</span></div>
+    <div class="split__visual"><img src="assets/images/platform/platform-compliance.png" alt="EU compliance report" style="width:100%;height:100%;object-fit:cover;border-radius:var(--r16);display:block;" /></div>
     <div class="split__text">
       <p class="split__tag">EU Ready</p>
       <h2 class="split__h2">Built for EU<br><span>compliance</span></h2>
