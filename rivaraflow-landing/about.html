@@ -19,16 +19,31 @@
     @media (min-width: 768px) { .container { padding-inline: 48px; } }
 
     /* ── Nav ── */
-    .sys-nav { background: var(--bg-dark); display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; position: sticky; top: 0; z-index: 50; }
-    @media (min-width: 768px) { .sys-nav { padding: 20px 48px; } }
-    .sys-nav__logo img { height: 52px; width: auto; }
-    @media (min-width: 768px) { .sys-nav__logo img { height: 64px; } }
-    .sys-nav__links { display: none; list-style: none; gap: 32px; font-size: 15px; }
-    @media (min-width: 768px) { .sys-nav__links { display: flex; align-items: center; } }
-    .sys-nav__links a { color: rgba(248,244,217,.88); text-decoration: none; font-weight: 500; transition: color .2s; }
-    .sys-nav__links a:hover, .sys-nav__links a.active { color: var(--text-inv); }
-    .sys-nav__cta { display: inline-flex; align-items: center; justify-content: center; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
-    .sys-nav__cta:hover { background: #d4e060; }
+    .site-nav { background: var(--bg-dark); display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
+    @media (min-width: 768px) { .site-nav { padding: 18px 48px; } }
+    .site-nav__logo img { height: 48px; width: auto; }
+    @media (min-width: 768px) { .site-nav__logo img { height: 60px; } }
+    .site-nav__desktop { display: none; list-style: none; gap: 28px; font-size: 14px; }
+    @media (min-width: 960px) { .site-nav__desktop { display: flex; align-items: center; } }
+    .site-nav__desktop a { color: rgba(248,244,217,.85); text-decoration: none; font-weight: 500; transition: color .2s; }
+    .site-nav__desktop a:hover, .site-nav__desktop a.active { color: var(--text-inv); }
+    .site-nav__right { display: flex; align-items: center; gap: 14px; }
+    .site-nav__cta { display: none; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
+    @media (min-width: 768px) { .site-nav__cta { display: inline-flex; align-items: center; } }
+    .site-nav__cta:hover { background: #d4e060; }
+    .site-nav__burger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 6px; }
+    .site-nav__burger span { display: block; width: 24px; height: 2px; background: var(--text-inv); border-radius: 2px; transition: transform .22s, opacity .22s; }
+    /* Drawer */
+    .nav-drawer { position: fixed; inset: 0; z-index: 200; background: var(--bg-dark); display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity .22s; }
+    .nav-drawer.open { opacity: 1; pointer-events: all; }
+    .nav-drawer__head { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid rgba(248,244,217,.1); }
+    .nav-drawer__head img { height: 48px; width: auto; }
+    .nav-drawer__close { background: none; border: none; cursor: pointer; color: var(--text-inv); font-size: 24px; line-height: 1; padding: 8px; }
+    .nav-drawer__links { flex: 1; overflow-y: auto; display: flex; flex-direction: column; padding: 24px; gap: 2px; }
+    .nav-drawer__links a { font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-size: clamp(18px, 3.5vw, 26px); text-transform: uppercase; color: rgba(248,244,217,.72); text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(248,244,217,.08); transition: color .2s, padding-left .15s; }
+    .nav-drawer__links a:hover, .nav-drawer__links a.active { color: var(--text-inv); padding-left: 8px; }
+    .nav-drawer__links a.drawer-cta { margin-top: 20px; color: var(--bg-dark); background: var(--primary); padding: 14px 24px; border-radius: var(--r999); text-align: center; border: none; }
+    .nav-drawer__links a.drawer-cta:hover { background: #d4e060; padding-left: 24px; }
 
     /* ── Shared section tokens ── */
     .section-tag { font-family: 'Satoshi', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; display: block; }
@@ -133,19 +148,43 @@
 <body>
 
 <!-- NAV -->
-<header class="sys-nav">
-  <a href="index.html" class="sys-nav__logo" aria-label="Rivara Flow home">
+<header class="site-nav">
+  <a href="index.html" class="site-nav__logo" aria-label="Rivara Flow home">
     <img src="assets/images/logo.png" alt="Rivara Flow" width="200" height="70" />
   </a>
-  <ul class="sys-nav__links" role="list">
-    <li><a href="index.html">Home</a></li>
+  <ul class="site-nav__desktop" role="list">
     <li><a href="system.html">System</a></li>
     <li><a href="platform.html">Platform</a></li>
     <li><a href="industries.html">Industries</a></li>
     <li><a href="about.html" class="active">About</a></li>
   </ul>
-  <a href="contact.html" class="sys-nav__cta">Book a Demo</a>
+  <div class="site-nav__right">
+    <a href="contact.html" class="site-nav__cta">Book a Demo</a>
+    <button class="site-nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
+<div class="nav-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="nav-drawer__head">
+    <a href="index.html"><img src="assets/images/logo.png" alt="Rivara Flow" height="48" /></a>
+    <button class="nav-drawer__close" id="nav-close" aria-label="Close menu">&#x2715;</button>
+  </div>
+  <nav class="nav-drawer__links">
+    <a href="index.html">Home</a>
+    <a href="system.html">System</a>
+    <a href="platform.html">Platform</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="industries.html">Industries</a>
+    <a href="compliance.html">Compliance &amp; ESG</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="about.html" class="active">About</a>
+    <a href="blog.html">Blog</a>
+    <a href="partners.html">Partners</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="drawer-cta">Book a Demo</a>
+  </nav>
+</div>
 
 <!-- 1. HERO -->
 <section class="hero" aria-labelledby="about-h1">
@@ -231,79 +270,17 @@
   </div>
 </section>
 
-<!-- 5. FOUNDER / TEAM -->
+<!-- 5. JOIN THE TEAM -->
 <section class="team" id="team" aria-labelledby="team-h2">
-  <div class="container">
-    <div class="team__header">
-      <span class="section-tag section-tag--light">The Team</span>
-      <h2 class="section-h2 section-h2--light" id="team-h2">Built by people<br>who understand the region.</h2>
-    </div>
-    <div class="founder-card">
-      <div class="founder-card__img" aria-label="Photo of Luena Mullaj">
-        <span>Photo coming soon</span>
-      </div>
-      <div class="founder-card__info">
-        <p class="founder-card__name">Luena Mullaj</p>
-        <p class="founder-card__title">Founder &amp; CEO</p>
-        <p class="founder-card__bio">With a background spanning hospitality operations, sustainability consulting, and technology entrepreneurship, Luena founded Rivara Flow to solve a problem she witnessed firsthand: kitchens across Albania discarding 20% of their food budget with no visibility, no accountability, and no tools to change it. Rivara Flow is the answer she couldn't find anywhere else.</p>
-      </div>
-    </div>
-    <div class="advisors" aria-label="Advisory team">
-      <div class="advisor-card">
-        <div class="advisor-card__avatar" aria-hidden="true"></div>
-        <div>
-          <p class="advisor-card__name">Dr. [Name]</p>
-          <p class="advisor-card__role">Sustainability &amp; ESG Advisor</p>
-        </div>
-      </div>
-      <div class="advisor-card">
-        <div class="advisor-card__avatar" aria-hidden="true"></div>
-        <div>
-          <p class="advisor-card__name">[Name]</p>
-          <p class="advisor-card__role">Hospitality Operations Advisor</p>
-        </div>
-      </div>
-      <div class="advisor-card">
-        <div class="advisor-card__avatar" aria-hidden="true"></div>
-        <div>
-          <p class="advisor-card__name">[Name]</p>
-          <p class="advisor-card__role">EU Regulatory Consultant</p>
-        </div>
-      </div>
-    </div>
-    <p class="team__note">Team details coming soon as we grow.</p>
+  <div class="container" style="text-align:center; max-width: 680px;">
+    <span class="section-tag section-tag--light">The Team</span>
+    <h2 class="section-h2 section-h2--light" id="team-h2" style="margin-bottom:24px;">Want to join<br>our mission?</h2>
+    <p style="font-size:clamp(16px,2vw,18px); color:#2e3347; line-height:1.75; margin-bottom:36px;">We're building Albania's first food-waste management platform from the ground up. If you care about sustainability, hospitality, or technology in the Western Balkans — we'd love to hear from you.</p>
+    <a href="contact.html" class="cta-strip__btn" style="display:inline-flex;">Get in Touch</a>
   </div>
 </section>
 
-<!-- 6. VISION / ROADMAP -->
-<section class="vision" aria-labelledby="vision-h2">
-  <div class="container">
-    <div class="vision__header">
-      <span class="section-tag section-tag--dark">Vision</span>
-      <h2 class="section-h2 section-h2--dark" id="vision-h2">Where we're<br>going.</h2>
-    </div>
-    <div class="timeline" role="list">
-      <div class="timeline__item" role="listitem">
-        <p class="timeline__year">2024</p>
-        <p class="timeline__body">Pilot launch — 5 hospitality businesses in Tirana. Smart bins installed. First waste datasets collected.</p>
-      </div>
-      <div class="timeline__item" role="listitem">
-        <p class="timeline__year">2025</p>
-        <p class="timeline__body">Platform maturity — Dashboard v2, AI recommendations, EU compliance module.</p>
-      </div>
-      <div class="timeline__item" role="listitem">
-        <p class="timeline__year">2026</p>
-        <p class="timeline__body">Regional expansion — Kosovo, North Macedonia, Montenegro. 50+ active clients.</p>
-      </div>
-      <div class="timeline__item" role="listitem">
-        <p class="timeline__year">2027+</p>
-        <p class="timeline__body">EU alignment — Full CSRD reporting support. Export certification. Partnership with regional sustainability bodies.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 7. VALUES -->
+<!-- 6. VALUES -->
 <section class="values" aria-labelledby="values-h2">
   <div class="container">
     <div class="values__header">
@@ -381,6 +358,14 @@
     <p class="footer__copy">&copy; <span id="year"></span> Rivara Flow. All rights reserved.</p>
   </div>
 </footer>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const burger = document.getElementById('nav-burger');
+  const drawer = document.getElementById('nav-drawer');
+  const close  = document.getElementById('nav-close');
+  burger.addEventListener('click', () => { drawer.classList.add('open'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; });
+  close.addEventListener('click',  () => { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; });
+  drawer.addEventListener('click', e => { if (e.target === drawer) { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; } });
+</script>
 </body>
 </html>
