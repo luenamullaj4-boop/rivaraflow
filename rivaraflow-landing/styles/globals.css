@@ -130,43 +130,98 @@ ul   { list-style: none; }
 }
 @media (min-width: 768px) { .hero-nav__hamburger { display: none; } }
 
-/* Backdrop */
-.nav-backdrop {
-  display: none;
-  position: fixed; inset: 0; z-index: 98;
-  background: rgba(0,0,0,.45);
-  opacity: 0;
-  transition: opacity .28s ease;
-}
-.nav-backdrop.open {
-  display: block;
-  opacity: 1;
-}
-
-/* Slide-in drawer */
+/* Full-screen mobile menu */
 .hero-nav__mobile {
-  position: fixed; top: 0; right: 0;
-  height: 100dvh; width: 72%; max-width: 270px;
-  z-index: 99;
+  position: fixed; inset: 0; z-index: 99;
   background: var(--bg-dark);
   display: flex; flex-direction: column;
-  padding: 72px 28px 40px;
-  gap: 6px;
-  transform: translateX(100%);
-  transition: transform .3s cubic-bezier(.4,0,.2,1);
+  opacity: 0; pointer-events: none;
+  transition: opacity .22s ease;
   overflow-y: auto;
 }
-.hero-nav__mobile.open { transform: translateX(0); }
-.hero-nav__mobile a {
-  font-family: var(--museo); font-size: 20px;
-  color: var(--primary);
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(196,208,84,.12);
-  transition: opacity .2s;
+.hero-nav__mobile.open { opacity: 1; pointer-events: all; }
+@media (min-width: 768px) { .hero-nav__mobile { display: none !important; } }
+
+/* Menu header */
+.mmenu__header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(196,208,84,.15);
+  flex-shrink: 0;
 }
-.hero-nav__mobile a:last-child { border-bottom: none; }
-.hero-nav__mobile a:hover { opacity: .7; }
-@media (min-width: 768px) { .hero-nav__mobile, .nav-backdrop { display: none !important; } }
+.mmenu__logo img { height: 48px; width: auto; }
+.mmenu__cta {
+  background: var(--primary); color: var(--text);
+  font-family: var(--museo); font-weight: 700; font-size: 14px;
+  padding: 10px 18px; border-radius: var(--r999);
+}
+.mmenu__close {
+  background: none; border: none;
+  color: var(--text-inv); font-size: 20px;
+  cursor: pointer; padding: 6px; line-height: 1;
+}
+
+/* Nav rows */
+.mmenu__links { flex: 1; display: flex; flex-direction: column; }
+
+.mmenu__item {
+  font-family: var(--museo); font-size: 18px;
+  color: var(--text-inv);
+  padding: 18px 20px;
+  border: none; border-bottom: 1px solid rgba(255,255,255,.07);
+  background: none; cursor: pointer;
+  text-align: left; text-decoration: none;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: color .2s;
+}
+.mmenu__item:hover { color: var(--primary); }
+
+.mmenu__chevron {
+  flex-shrink: 0; color: var(--primary);
+  transition: transform .25s;
+}
+.mmenu__acc-btn[aria-expanded="true"] .mmenu__chevron { transform: rotate(180deg); }
+
+.mmenu__sub { display: flex; flex-direction: column; background: rgba(255,255,255,.03); }
+.mmenu__sub[hidden] { display: none; }
+.mmenu__sub-item {
+  font-family: var(--satoshi); font-size: 16px;
+  color: rgba(248,244,217,.65);
+  padding: 14px 20px 14px 36px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  transition: color .2s; text-decoration: none; display: block;
+}
+.mmenu__sub-item:hover { color: var(--primary); }
+
+/* Language switcher */
+.mmenu__lang {
+  padding: 20px; border-top: 1px solid rgba(196,208,84,.15);
+  display: flex; gap: 10px; flex-shrink: 0;
+}
+.lang-btn {
+  background: none; border: 1.5px solid rgba(196,208,84,.3);
+  border-radius: var(--r999); color: rgba(248,244,217,.6);
+  font-family: var(--satoshi); font-size: 14px;
+  padding: 8px 16px; cursor: pointer; transition: all .2s;
+}
+.lang-btn.active {
+  background: var(--primary); border-color: var(--primary);
+  color: var(--text); font-weight: 700;
+}
+
+/* Desktop lang toggle */
+.nav-lang-desktop {
+  display: flex; align-items: center; gap: 4px;
+}
+.lang-sep { color: var(--primary); opacity: .5; }
+.lang-sm {
+  background: none; border: none;
+  font-family: var(--museo); font-size: 13px;
+  color: rgba(196,208,84,.6); cursor: pointer;
+  padding: 2px 4px; transition: color .2s;
+}
+.lang-sm.active { color: var(--primary); font-weight: 700; }
 
 /* ── Hero body: content left, deco right ─────── */
 .hero__body {
