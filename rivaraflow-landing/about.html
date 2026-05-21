@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Rivara Flow</title>
+  <meta name="description" content="Learn about Rivara Flow — Albania's first smart food-waste management platform, built for the hospitality industry in the Western Balkans." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/globals.css" />
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Satoshi', sans-serif; }
+    .container { max-width: 1100px; margin-inline: auto; padding-inline: 20px; }
+    @media (min-width: 768px) { .container { padding-inline: 48px; } }
+
+    /* ── Nav ── */
+    .sys-nav { background: var(--bg-dark); display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; position: sticky; top: 0; z-index: 50; }
+    @media (min-width: 768px) { .sys-nav { padding: 20px 48px; } }
+    .sys-nav__logo img { height: 52px; width: auto; }
+    @media (min-width: 768px) { .sys-nav__logo img { height: 64px; } }
+    .sys-nav__links { display: none; list-style: none; gap: 32px; font-size: 15px; }
+    @media (min-width: 768px) { .sys-nav__links { display: flex; align-items: center; } }
+    .sys-nav__links a { color: rgba(248,244,217,.88); text-decoration: none; font-weight: 500; transition: color .2s; }
+    .sys-nav__links a:hover, .sys-nav__links a.active { color: var(--text-inv); }
+    .sys-nav__cta { display: inline-flex; align-items: center; justify-content: center; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
+    .sys-nav__cta:hover { background: #d4e060; }
+
+    /* ── Shared section tokens ── */
+    .section-tag { font-family: 'Satoshi', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; display: block; }
+    .section-tag--light { color: var(--accent); }
+    .section-tag--dark  { color: var(--primary); }
+    .section-h2 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; text-transform: uppercase; line-height: 1.08; font-size: clamp(28px, 5vw, 52px); }
+    .section-h2--light { color: var(--bg-dark); }
+    .section-h2--dark  { color: var(--text-inv); }
+
+    /* ── 1. HERO ── */
+    .hero { background: var(--bg-dark); padding: 96px 0 80px; text-align: center; }
+    .hero .section-tag { margin-bottom: 20px; }
+    .hero__h1 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(36px, 8vw, 78px); color: var(--text-inv); line-height: 1.0; margin-bottom: 24px; }
+    .hero__h1 span { display: block; }
+    .hero__sub { font-size: clamp(16px, 2.2vw, 20px); color: rgba(248,244,217,.82); max-width: 640px; margin-inline: auto; line-height: 1.6; }
+
+    /* ── 2. MISSION ── */
+    .mission { background: var(--bg); padding: 88px 0; }
+    .mission__inner { display: grid; gap: 48px; }
+    @media (min-width: 768px) { .mission__inner { grid-template-columns: 1fr 1fr; align-items: start; } }
+    .mission__pull { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(22px, 3.5vw, 40px); color: var(--bg-dark); line-height: 1.15; text-transform: uppercase; }
+    .mission__body { font-size: 16px; line-height: 1.75; color: #2e3347; }
+    .mission__body p + p { margin-top: 16px; }
+
+    /* ── 3. THE PROBLEM ── */
+    .problem { background: var(--bg-dark); padding: 88px 0; }
+    .problem__header { text-align: center; margin-bottom: 56px; }
+    .problem__cards { display: grid; gap: 24px; grid-template-columns: 1fr; }
+    @media (min-width: 600px) { .problem__cards { grid-template-columns: repeat(3, 1fr); } }
+    .stat-card { background: rgba(255,255,255,.04); border: 1px solid var(--primary); border-radius: var(--r16); padding: 36px 28px; text-align: center; }
+    .stat-card__number { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(36px, 5vw, 56px); color: var(--primary); line-height: 1; margin-bottom: 12px; }
+    .stat-card__label { font-size: 15px; color: rgba(248,244,217,.82); line-height: 1.5; }
+    .problem__body { margin-top: 48px; display: grid; gap: 20px; }
+    @media (min-width: 768px) { .problem__body { grid-template-columns: 1fr 1fr; } }
+    .problem__body p { font-size: 16px; color: rgba(248,244,217,.82); line-height: 1.75; }
+
+    /* ── 4. WHY CURRENT SOLUTIONS FAIL ── */
+    .gap { background: var(--bg); padding: 88px 0; }
+    .gap__header { margin-bottom: 52px; }
+    .gap__grid { display: grid; gap: 24px; }
+    @media (min-width: 600px) { .gap__grid { grid-template-columns: repeat(2, 1fr); } }
+    .fail-card { background: #fff; border-left: 4px solid var(--primary); border-radius: var(--r12); padding: 28px 24px; }
+    .fail-card__title { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: 18px; color: var(--bg-dark); text-transform: uppercase; margin-bottom: 10px; }
+    .fail-card__body { font-size: 15px; color: #2e3347; line-height: 1.65; }
+
+    /* ── 5. FOUNDER / TEAM ── */
+    .team { background: var(--bg); padding: 88px 0; }
+    .team__header { margin-bottom: 52px; }
+    .founder-card { display: grid; gap: 36px; align-items: start; }
+    @media (min-width: 768px) { .founder-card { grid-template-columns: 240px 1fr; } }
+    .founder-card__img { background: #e8e4cc; border-radius: var(--r16); aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; }
+    .founder-card__img span { font-size: 13px; color: #6b6652; font-style: italic; }
+    .founder-card__name { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: 26px; color: var(--bg-dark); text-transform: uppercase; margin-bottom: 4px; }
+    .founder-card__title { font-size: 14px; font-weight: 700; color: var(--accent-dark); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 16px; }
+    .founder-card__bio { font-size: 16px; color: #2e3347; line-height: 1.75; }
+    .advisors { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 40px; }
+    .advisor-card { display: flex; align-items: center; gap: 14px; background: #f0eccc; border-radius: var(--r12); padding: 16px 18px; }
+    .advisor-card__avatar { width: 40px; height: 40px; border-radius: 50%; background: #d9d4b8; flex-shrink: 0; }
+    .advisor-card__name { font-weight: 700; font-size: 14px; color: var(--bg-dark); margin-bottom: 2px; }
+    .advisor-card__role { font-size: 12px; color: #4e4b38; }
+    .team__note { margin-top: 20px; font-size: 13px; color: #6b6652; font-style: italic; }
+
+    /* ── 6. VISION / ROADMAP ── */
+    .vision { background: var(--bg-dark); padding: 88px 0; }
+    .vision__header { margin-bottom: 56px; }
+    .timeline { display: grid; gap: 0; }
+    @media (min-width: 768px) { .timeline { grid-template-columns: repeat(4, 1fr); } }
+    .timeline__item { position: relative; padding: 28px 24px; border-top: 3px solid rgba(196,208,84,.3); }
+    @media (min-width: 768px) { .timeline__item { border-top: none; border-left: 3px solid rgba(196,208,84,.3); } }
+    .timeline__item:first-child { border-top-color: var(--primary); }
+    @media (min-width: 768px) { .timeline__item:first-child { border-left-color: var(--primary); border-top: none; } }
+    .timeline__year { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: 22px; color: var(--primary); margin-bottom: 10px; }
+    .timeline__body { font-size: 14px; color: rgba(248,244,217,.82); line-height: 1.65; }
+
+    /* ── 7. VALUES ── */
+    .values { background: var(--bg); padding: 88px 0; }
+    .values__header { text-align: center; margin-bottom: 52px; }
+    .values__grid { display: grid; gap: 24px; }
+    @media (min-width: 600px) { .values__grid { grid-template-columns: repeat(3, 1fr); } }
+    .value-card { background: var(--bg); border: 1.5px solid #c8c4a8; border-radius: var(--r16); padding: 32px 26px; }
+    .value-card__title { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: 20px; color: var(--bg-dark); text-transform: uppercase; margin-bottom: 12px; }
+    .value-card__body { font-size: 15px; color: #2e3347; line-height: 1.65; }
+
+    /* ── 8. CTA STRIP ── */
+    .cta-strip { background: var(--primary); padding: 72px 0; text-align: center; }
+    .cta-strip__h2 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(24px, 4vw, 44px); color: var(--bg-dark); text-transform: uppercase; margin-bottom: 28px; }
+    .cta-strip__btn { display: inline-flex; align-items: center; justify-content: center; background: var(--bg-dark); color: var(--text-inv); font-weight: 700; font-size: 16px; text-decoration: none; padding: 14px 36px; border-radius: var(--r999); transition: background .2s; }
+    .cta-strip__btn:hover { background: #2e3347; }
+
+    /* ── Footer ── */
+    .footer { background: var(--bg-dark); padding: 56px 0 32px; }
+    .footer .container { max-width: 1100px; }
+    .footer__grid { display: grid; gap: 32px; grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 768px) { .footer__grid { grid-template-columns: repeat(4, 1fr); } }
+    .footer__col-title { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(248,244,217,.65); margin-bottom: 12px; }
+    .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer__col a { font-size: 14px; color: rgba(248,244,217,.88); text-decoration: none; transition: color .2s; }
+    .footer__col a:hover { color: var(--text-inv); }
+    .footer__copy { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(248,244,217,.15); font-size: 13px; color: rgba(248,244,217,.55); text-align: center; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="sys-nav">
+  <a href="index.html" class="sys-nav__logo" aria-label="Rivara Flow home">
+    <img src="assets/images/logo.png" alt="Rivara Flow" width="200" height="70" />
+  </a>
+  <ul class="sys-nav__links" role="list">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="system.html">System</a></li>
+    <li><a href="platform.html">Platform</a></li>
+    <li><a href="industries.html">Industries</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+  </ul>
+  <a href="contact.html" class="sys-nav__cta">Book a Demo</a>
+</header>
+
+<!-- 1. HERO -->
+<section class="hero" aria-labelledby="about-h1">
+  <div class="container">
+    <span class="section-tag section-tag--dark">Our Story</span>
+    <h1 class="hero__h1" id="about-h1">
+      <span>We're turning</span>
+      <span>waste into data.</span>
+    </h1>
+    <p class="hero__sub">Rivara Flow is Albania's first smart food-waste management platform — built to help the hospitality industry eliminate invisible losses and stay ahead of EU standards.</p>
+  </div>
+</section>
+
+<!-- 2. MISSION -->
+<section class="mission" aria-labelledby="mission-h2">
+  <div class="container">
+    <span class="section-tag section-tag--light">Mission</span>
+    <h2 class="section-h2 section-h2--light" id="mission-h2" style="margin-bottom: 48px;">A cleaner kitchen.<br>A stronger bottom line.</h2>
+    <div class="mission__inner">
+      <p class="mission__pull">"Food waste isn't a charity issue. It's a profitability issue."</p>
+      <div class="mission__body">
+        <p>Rivara Flow was built because Balkan hospitality businesses lose 15–30% of their food budget to waste that is never measured, never reported, and never reduced. Every week, kitchens across Albania discard hundreds of euros worth of food — and most managers have no idea it's happening.</p>
+        <p>Our mission is to change that — not by asking businesses to care about the environment (though they will), but by showing them the money. When waste becomes visible, it becomes manageable. When it becomes manageable, it becomes a competitive advantage.</p>
+        <p>Rivara Flow gives hospitality operators the data they need to make decisions their competitors can't. That's not altruism — that's good business.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. THE PROBLEM -->
+<section class="problem" aria-labelledby="problem-h2">
+  <div class="container">
+    <div class="problem__header">
+      <span class="section-tag section-tag--dark">The Problem</span>
+      <h2 class="section-h2 section-h2--dark" id="problem-h2">The Western Balkans<br>hospitality gap.</h2>
+    </div>
+    <div class="problem__cards">
+      <div class="stat-card">
+        <p class="stat-card__number">€2.4B+</p>
+        <p class="stat-card__label">in food waste across Balkan hospitality annually</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-card__number">0</p>
+        <p class="stat-card__label">EU-compliant digital waste tracking tools built for this region</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-card__number">2027</p>
+        <p class="stat-card__label">Estimated year EU food waste reporting becomes mandatory for Albanian exports</p>
+      </div>
+    </div>
+    <div class="problem__body">
+      <p>While EU markets have dozens of food waste SaaS tools, the Western Balkans has none built for local conditions. The tools that exist were designed for German supermarket chains and Dutch catering conglomerates — not for a 30-seat restaurant in Tirana or a family agritourism property in the Berat hills.</p>
+      <p>Rivara Flow is built from the ground up for this gap: the right language, the right pricing, the right integrations, and the right regulatory mapping for a region that is rapidly approaching EU alignment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4. WHY CURRENT SOLUTIONS FAIL -->
+<section class="gap" aria-labelledby="gap-h2">
+  <div class="container">
+    <div class="gap__header">
+      <span class="section-tag section-tag--light">The Gap</span>
+      <h2 class="section-h2 section-h2--light" id="gap-h2">Why existing tools<br>don't work here.</h2>
+    </div>
+    <div class="gap__grid">
+      <div class="fail-card">
+        <p class="fail-card__title">Too expensive</p>
+        <p class="fail-card__body">Enterprise pricing designed for EU multinationals, not Albanian restaurants and guesthouses. Monthly fees that exceed an entire kitchen's weekly wage bill.</p>
+      </div>
+      <div class="fail-card">
+        <p class="fail-card__title">Wrong language, wrong culture</p>
+        <p class="fail-card__body">No Albanian-language support. No understanding of the region's hospitality culture, seasonal business patterns, or the informal economy dynamics that shape day-to-day operations.</p>
+      </div>
+      <div class="fail-card">
+        <p class="fail-card__title">Requires IT teams</p>
+        <p class="fail-card__body">Complex setup that assumes dedicated tech staff and reliable enterprise infrastructure. Most Balkan hospitality businesses have neither — and shouldn't need them.</p>
+      </div>
+      <div class="fail-card">
+        <p class="fail-card__title">No local compliance mapping</p>
+        <p class="fail-card__body">Built for German or Dutch regulation. Not mapped to Albania's EU accession timeline, the Western Balkans sustainability roadmap, or the specific reporting formats Albanian exporters will need.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. FOUNDER / TEAM -->
+<section class="team" id="team" aria-labelledby="team-h2">
+  <div class="container">
+    <div class="team__header">
+      <span class="section-tag section-tag--light">The Team</span>
+      <h2 class="section-h2 section-h2--light" id="team-h2">Built by people<br>who understand the region.</h2>
+    </div>
+    <div class="founder-card">
+      <div class="founder-card__img" aria-label="Photo of Luena Mullaj">
+        <span>Photo coming soon</span>
+      </div>
+      <div class="founder-card__info">
+        <p class="founder-card__name">Luena Mullaj</p>
+        <p class="founder-card__title">Founder &amp; CEO</p>
+        <p class="founder-card__bio">With a background spanning hospitality operations, sustainability consulting, and technology entrepreneurship, Luena founded Rivara Flow to solve a problem she witnessed firsthand: kitchens across Albania discarding 20% of their food budget with no visibility, no accountability, and no tools to change it. Rivara Flow is the answer she couldn't find anywhere else.</p>
+      </div>
+    </div>
+    <div class="advisors" aria-label="Advisory team">
+      <div class="advisor-card">
+        <div class="advisor-card__avatar" aria-hidden="true"></div>
+        <div>
+          <p class="advisor-card__name">Dr. [Name]</p>
+          <p class="advisor-card__role">Sustainability &amp; ESG Advisor</p>
+        </div>
+      </div>
+      <div class="advisor-card">
+        <div class="advisor-card__avatar" aria-hidden="true"></div>
+        <div>
+          <p class="advisor-card__name">[Name]</p>
+          <p class="advisor-card__role">Hospitality Operations Advisor</p>
+        </div>
+      </div>
+      <div class="advisor-card">
+        <div class="advisor-card__avatar" aria-hidden="true"></div>
+        <div>
+          <p class="advisor-card__name">[Name]</p>
+          <p class="advisor-card__role">EU Regulatory Consultant</p>
+        </div>
+      </div>
+    </div>
+    <p class="team__note">Team details coming soon as we grow.</p>
+  </div>
+</section>
+
+<!-- 6. VISION / ROADMAP -->
+<section class="vision" aria-labelledby="vision-h2">
+  <div class="container">
+    <div class="vision__header">
+      <span class="section-tag section-tag--dark">Vision</span>
+      <h2 class="section-h2 section-h2--dark" id="vision-h2">Where we're<br>going.</h2>
+    </div>
+    <div class="timeline" role="list">
+      <div class="timeline__item" role="listitem">
+        <p class="timeline__year">2024</p>
+        <p class="timeline__body">Pilot launch — 5 hospitality businesses in Tirana. Smart bins installed. First waste datasets collected.</p>
+      </div>
+      <div class="timeline__item" role="listitem">
+        <p class="timeline__year">2025</p>
+        <p class="timeline__body">Platform maturity — Dashboard v2, AI recommendations, EU compliance module.</p>
+      </div>
+      <div class="timeline__item" role="listitem">
+        <p class="timeline__year">2026</p>
+        <p class="timeline__body">Regional expansion — Kosovo, North Macedonia, Montenegro. 50+ active clients.</p>
+      </div>
+      <div class="timeline__item" role="listitem">
+        <p class="timeline__year">2027+</p>
+        <p class="timeline__body">EU alignment — Full CSRD reporting support. Export certification. Partnership with regional sustainability bodies.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. VALUES -->
+<section class="values" aria-labelledby="values-h2">
+  <div class="container">
+    <div class="values__header">
+      <h2 class="section-h2 section-h2--light" id="values-h2">What we stand for.</h2>
+    </div>
+    <div class="values__grid">
+      <div class="value-card">
+        <p class="value-card__title">Transparency</p>
+        <p class="value-card__body">We show you the numbers others hide. Every gram tracked. Every cost visible. No abstractions, no greenwashing — just data you can act on.</p>
+      </div>
+      <div class="value-card">
+        <p class="value-card__title">Simplicity</p>
+        <p class="value-card__body">Built for kitchen staff, not software engineers. If it's hard to use, it won't get used. Every feature earns its place by making someone's job easier.</p>
+      </div>
+      <div class="value-card">
+        <p class="value-card__title">Relevance</p>
+        <p class="value-card__body">Designed for this region, this culture, this regulatory moment. Not copy-pasted from the EU. Built to reflect the real conditions of Western Balkan hospitality.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. CTA STRIP -->
+<section class="cta-strip" aria-labelledby="cta-h2">
+  <div class="container">
+    <h2 class="cta-strip__h2" id="cta-h2">Ready to see it in your kitchen?</h2>
+    <a href="contact.html" class="cta-strip__btn">Book a Free Demo</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <p class="footer__col-title">Get in touch</p>
+        <ul role="list">
+          <li><a href="mailto:contact@rivaraflow.com">contact@rivaraflow.com</a></li>
+          <li><a href="tel:+355677398906">+355 (0) 67 73 98 906</a></li>
+          <li><a href="https://linkedin.com/company/rivaraflow" target="_blank" rel="noopener">LinkedIn: Rivara Flow</a></li>
+          <li><a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener">Instagram: @rivaraflow</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-title">Company</p>
+        <ul role="list">
+          <li><a href="about.html">About</a></li>
+          <li><a href="about.html#team">Team</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="partners.html">Partners</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-title">Product</p>
+        <ul role="list">
+          <li><a href="system.html">System</a></li>
+          <li><a href="platform.html">Platform</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="compliance.html">Compliance &amp; ESG</a></li>
+          <li><a href="case-studies.html">Case Studies</a></li>
+          <li><a href="contact.html">Book a Demo</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-title">Industries</p>
+        <ul role="list">
+          <li><a href="industries.html#restaurants">Restaurants</a></li>
+          <li><a href="industries.html#hotels">Hotels</a></li>
+          <li><a href="industries.html#agritourism">Agritourism</a></li>
+          <li><a href="industries.html#catering">Catering</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer__copy">&copy; <span id="year"></span> Rivara Flow. All rights reserved.</p>
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
