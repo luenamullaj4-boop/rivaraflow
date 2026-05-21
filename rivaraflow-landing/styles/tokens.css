@@ -2,20 +2,24 @@
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap');
 
 :root {
-  --bg:          #F8F4D9;
-  --bg-dark:     #1F2430;
+  /* ── Base palette ── */
+  --bg:          #F8F4ED;
+  --bg-dark:     #13151F;
   --primary:     #C4D054;
   --accent:      #9C7BE3;
   --accent-dark: #5B43A7;
   --accent-soft: #BAAADE;
   --input-bg:    #C4B5F4;
-  --text:        #1F2430;
-  --text-inv:    #F8F4D9;
+  --text:        #1A1C2E;
+  --text-inv:    #F8F4ED;
+  --text-muted:  #6B6E85;
   --white:       #FFFFFF;
 
+  /* ── Typography ── */
   --museo:   'MuseoModerno', sans-serif;
   --satoshi: 'Satoshi', sans-serif;
 
+  /* ── Border radius ── */
   --r8:   8px;
   --r12:  12px;
   --r16:  16px;
@@ -23,4 +27,14 @@
   --r24:  24px;
   --r32:  32px;
   --r999: 999px;
+
+  /* ── Shadows ── */
+  --shadow-sm:  0 1px 3px rgba(26,28,46,0.08), 0 1px 2px rgba(26,28,46,0.04);
+  --shadow-md:  0 4px 16px rgba(26,28,46,0.10), 0 2px 6px rgba(26,28,46,0.06);
+  --shadow-lg:  0 16px 48px rgba(26,28,46,0.14), 0 4px 16px rgba(26,28,46,0.08);
+  --shadow-phone: 0 60px 120px rgba(0,0,0,0.5), 0 20px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.06);
+
+  /* ── Spacing ── */
+  --section-pad: clamp(80px, 10vw, 140px);
+  --container:   1200px;
 }
