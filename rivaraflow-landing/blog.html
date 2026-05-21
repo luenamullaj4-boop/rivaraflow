@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog &amp; Insights — Rivara Flow</title>
+  <meta name="description" content="Perspectives on food waste reduction, EU sustainability trends, and what they mean for Balkan hospitality businesses." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/globals.css" />
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Satoshi', sans-serif; }
+    .container { max-width: 1100px; margin-inline: auto; padding-inline: 20px; }
+    @media (min-width: 768px) { .container { padding-inline: 48px; } }
+
+    /* ── Nav ── */
+    .sys-nav { background: var(--bg-dark); display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; position: sticky; top: 0; z-index: 50; }
+    @media (min-width: 768px) { .sys-nav { padding: 20px 48px; } }
+    .sys-nav__logo img { height: 52px; width: auto; }
+    @media (min-width: 768px) { .sys-nav__logo img { height: 64px; } }
+    .sys-nav__links { display: none; list-style: none; gap: 32px; font-size: 15px; }
+    @media (min-width: 768px) { .sys-nav__links { display: flex; align-items: center; } }
+    .sys-nav__links a { color: rgba(248,244,217,.88); text-decoration: none; font-weight: 500; transition: color .2s; }
+    .sys-nav__links a:hover, .sys-nav__links a.active { color: var(--text-inv); }
+    .sys-nav__cta { display: inline-flex; align-items: center; justify-content: center; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
+    .sys-nav__cta:hover { background: #d4e060; }
+
+    /* ── Shared ── */
+    .section-tag { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; display: block; margin-bottom: 16px; }
+    .section-tag--light { color: var(--accent-dark); }
+    .section-tag--dark  { color: var(--primary); }
+
+    .cat-tag { display: inline-block; padding: 4px 12px; border-radius: var(--r999); font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .cat-tag--light { background: rgba(156,123,227,.15); color: var(--accent-dark); }
+    .cat-tag--dark  { background: rgba(196,208,84,.18); color: var(--primary); }
+
+    /* ── 1. HERO ── */
+    .hero { background: var(--bg-dark); padding: 96px 0 80px; }
+    .hero__inner { max-width: 720px; }
+    .hero__h1 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(36px, 8vw, 78px); color: var(--text-inv); line-height: 1.0; margin-bottom: 24px; }
+    .hero__h1 span { display: block; }
+    .hero__sub { font-size: clamp(16px, 2.2vw, 20px); color: rgba(248,244,217,.82); line-height: 1.6; max-width: 580px; }
+
+    /* ── 2. FEATURED ARTICLE ── */
+    .featured { background: var(--bg); padding: 80px 0; }
+    .featured__card { display: grid; gap: 40px; background: #fff; border-radius: var(--r24); overflow: hidden; box-shadow: 0 2px 24px rgba(31,36,48,.07); }
+    @media (min-width: 768px) { .featured__card { grid-template-columns: 1fr 1fr; } }
+    .featured__img { background: #e8e3c4; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; min-height: 260px; }
+    @media (min-width: 768px) { .featured__img { min-height: 340px; aspect-ratio: unset; } }
+    .featured__img-label { font-size: 13px; font-weight: 600; color: rgba(31,36,48,.45); letter-spacing: .05em; }
+    .featured__body { padding: 40px 40px 40px 0; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+    @media (max-width: 767px) { .featured__body { padding: 0 28px 36px; } }
+    .featured__meta { display: flex; align-items: center; gap: 12px; }
+    .featured__date { font-size: 13px; color: rgba(31,36,48,.55); font-weight: 500; }
+    .featured__title { font-family: 'MuseoModerno', sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(20px, 2.8vw, 30px); color: var(--text); line-height: 1.15; }
+    .featured__excerpt { font-size: 15px; line-height: 1.75; color: #2e3347; }
+    .featured__link { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: var(--accent-dark); text-decoration: none; margin-top: 8px; transition: gap .2s; }
+    .featured__link:hover { gap: 12px; }
+
+    /* ── 3. ARTICLE GRID ── */
+    .articles { background: var(--bg); padding: 0 0 88px; }
+    .articles__grid { display: grid; gap: 28px; grid-template-columns: 1fr; }
+    @media (min-width: 600px) { .articles__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 900px) { .articles__grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .article-card { background: #fff; border-radius: var(--r20); overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 2px 16px rgba(31,36,48,.06); transition: transform .2s, box-shadow .2s; }
+    .article-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(31,36,48,.1); }
+    .article-card__img { background: #e8e3c4; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; }
+    .article-card__img-label { font-size: 12px; font-weight: 600; color: rgba(31,36,48,.4); }
+    .article-card__body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .article-card__meta { display: flex; align-items: center; gap: 10px; }
+    .article-card__date { font-size: 12px; color: rgba(31,36,48,.5); font-weight: 500; }
+    .article-card__title { font-family: 'MuseoModerno', sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(14px, 1.8vw, 17px); color: var(--text); line-height: 1.2; flex: 1; }
+    .article-card__excerpt { font-size: 14px; line-height: 1.7; color: #2e3347; }
+    .article-card__link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--accent-dark); text-decoration: none; margin-top: auto; padding-top: 8px; transition: gap .2s; }
+    .article-card__link:hover { gap: 10px; }
+
+    /* ── 4. NEWSLETTER ── */
+    .newsletter { background: var(--bg-dark); padding: 80px 0; text-align: center; }
+    .newsletter__h2 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(26px, 5vw, 52px); color: var(--text-inv); line-height: 1.08; margin-bottom: 16px; }
+    .newsletter__sub { font-size: clamp(15px, 2vw, 18px); color: rgba(248,244,217,.78); margin-bottom: 36px; }
+    .newsletter__form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; max-width: 480px; margin-inline: auto; }
+    .newsletter__input { flex: 1; min-width: 220px; padding: 12px 20px; border-radius: var(--r999); border: none; background: rgba(248,244,217,.12); color: var(--text-inv); font-family: 'Satoshi', sans-serif; font-size: 15px; outline: none; }
+    .newsletter__input::placeholder { color: rgba(248,244,217,.45); }
+    .newsletter__input:focus { background: rgba(248,244,217,.18); }
+    .newsletter__btn { padding: 12px 28px; border-radius: var(--r999); background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 15px; border: none; cursor: pointer; font-family: 'Satoshi', sans-serif; transition: background .2s; white-space: nowrap; }
+    .newsletter__btn:hover { background: #d4e060; }
+    .newsletter__note { margin-top: 16px; font-size: 12px; color: rgba(248,244,217,.45); }
+
+    /* ── 5. DISCLAIMER ── */
+    .disclaimer { background: var(--bg); padding: 32px 0 48px; text-align: center; }
+    .disclaimer__text { font-size: 13px; color: rgba(31,36,48,.5); max-width: 640px; margin-inline: auto; line-height: 1.65; }
+
+    /* ── Footer ── */
+    .footer { background: var(--bg-dark); padding: 56px 0 32px; }
+    .footer .container { max-width: 1100px; }
+    .footer__grid { display: grid; gap: 32px; grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 768px) { .footer__grid { grid-template-columns: repeat(4, 1fr); } }
+    .footer__col-title { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(248,244,217,.65); margin-bottom: 12px; }
+    .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer__col a { font-size: 14px; color: rgba(248,244,217,.88); text-decoration: none; transition: color .2s; }
+    .footer__col a:hover { color: var(--text-inv); }
+    .footer__copy { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(248,244,217,.15); font-size: 13px; color: rgba(248,244,217,.55); text-align: center; }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <header class="sys-nav">
+    <a href="index.html" class="sys-nav__logo" aria-label="Rivara Flow home">
+      <img src="assets/images/logo.png" alt="Rivara Flow" width="200" height="70" />
+    </a>
+    <ul class="sys-nav__links" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="system.html">System</a></li>
+      <li><a href="platform.html">Platform</a></li>
+      <li><a href="industries.html">Industries</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="contact.html" class="sys-nav__cta">Book a Demo</a>
+  </header>
+
+  <main>
+
+    <!-- ── 1. HERO ── -->
+    <section class="hero">
+      <div class="container">
+        <span class="section-tag section-tag--dark">Insights</span>
+        <h1 class="hero__h1 hero__inner">
+          <span>Food waste, data,</span>
+          <span>and the Balkans.</span>
+        </h1>
+        <p class="hero__sub">Perspectives on food waste reduction, EU sustainability trends, and what they mean for Balkan hospitality.</p>
+      </div>
+    </section>
+
+    <!-- ── 2. FEATURED ARTICLE ── -->
+    <section class="featured">
+      <div class="container">
+        <div class="featured__card">
+          <div class="featured__img" aria-label="Article image placeholder">
+            <span class="featured__img-label">Featured Article</span>
+          </div>
+          <div class="featured__body">
+            <div class="featured__meta">
+              <span class="cat-tag cat-tag--light">EU Regulation</span>
+              <span class="featured__date">May 2025</span>
+            </div>
+            <h2 class="featured__title">What the EU's Farm to Fork Strategy means for Albanian restaurants in 2025</h2>
+            <p class="featured__excerpt">Albania's EU accession candidacy means one thing for hospitality: the sustainability reporting wave isn't optional anymore. Here's what every restaurant owner needs to know about what's coming — and how to prepare without expensive consultants or technical complexity.</p>
+            <a href="#" class="featured__link">Read Article <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 3. ARTICLE GRID ── -->
+    <section class="articles">
+      <div class="container">
+        <div class="articles__grid">
+
+          <!-- Article 1 -->
+          <article class="article-card">
+            <div class="article-card__img" aria-label="Article image">
+              <span class="article-card__img-label">Food Waste</span>
+            </div>
+            <div class="article-card__body">
+              <div class="article-card__meta">
+                <span class="cat-tag cat-tag--light">Food Waste</span>
+                <span class="article-card__date">April 2025</span>
+              </div>
+              <h3 class="article-card__title">Why Balkan restaurants lose 20% more food than their European counterparts</h3>
+              <p class="article-card__excerpt">It's not about culture. It's about data. A look at the structural reasons food waste is higher in the Western Balkans — and what's changing.</p>
+              <a href="#" class="article-card__link">Read Article <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+
+          <!-- Article 2 -->
+          <article class="article-card">
+            <div class="article-card__img" aria-label="Article image">
+              <span class="article-card__img-label">ESG</span>
+            </div>
+            <div class="article-card__body">
+              <div class="article-card__meta">
+                <span class="cat-tag cat-tag--light">ESG</span>
+                <span class="article-card__date">March 2025</span>
+              </div>
+              <h3 class="article-card__title">The CSRD explained for hospitality managers (without the legal jargon)</h3>
+              <p class="article-card__excerpt">The Corporate Sustainability Reporting Directive will affect your business sooner than you think. Here's a plain-language breakdown of what it requires and who it applies to.</p>
+              <a href="#" class="article-card__link">Read Article <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+
+          <!-- Article 3 -->
+          <article class="article-card">
+            <div class="article-card__img" aria-label="Article image">
+              <span class="article-card__img-label">Operations</span>
+            </div>
+            <div class="article-card__body">
+              <div class="article-card__meta">
+                <span class="cat-tag cat-tag--light">Operations</span>
+                <span class="article-card__date">March 2025</span>
+              </div>
+              <h3 class="article-card__title">Buffet waste: the silent budget killer that no one tracks</h3>
+              <p class="article-card__excerpt">Hotels with buffet service are among the highest food-waste generators in hospitality. Here's why — and what data-driven kitchens are doing differently.</p>
+              <a href="#" class="article-card__link">Read Article <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+
+          <!-- Article 4 -->
+          <article class="article-card">
+            <div class="article-card__img" aria-label="Article image">
+              <span class="article-card__img-label">Technology</span>
+            </div>
+            <div class="article-card__body">
+              <div class="article-card__meta">
+                <span class="cat-tag cat-tag--light">Technology</span>
+                <span class="article-card__date">February 2025</span>
+              </div>
+              <h3 class="article-card__title">How AI waste classification works — and why accuracy matters</h3>
+              <p class="article-card__excerpt">Not all food waste tracking is equal. We explain how computer vision classification works, what 85% accuracy means in practice, and why small errors compound into big decisions.</p>
+              <a href="#" class="article-card__link">Read Article <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+
+          <!-- Article 5 -->
+          <article class="article-card">
+            <div class="article-card__img" aria-label="Article image">
+              <span class="article-card__img-label">Sustainability</span>
+            </div>
+            <div class="article-card__body">
+              <div class="article-card__meta">
+                <span class="cat-tag cat-tag--light">Sustainability</span>
+                <span class="article-card__date">January 2025</span>
+              </div>
+              <h3 class="article-card__title">Agritourism and sustainability: turning your values into a booking advantage</h3>
+              <p class="article-card__excerpt">Eco-conscious travellers are a growing segment in Albanian tourism. Here's how agritourism businesses can use waste data to tell a sustainability story that converts.</p>
+              <a href="#" class="article-card__link">Read Article <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+
+          <!-- Article 6 -->
+          <article class="article-card">
+            <div class="article-card__img" aria-label="Article image">
+              <span class="article-card__img-label">Business</span>
+            </div>
+            <div class="article-card__body">
+              <div class="article-card__meta">
+                <span class="cat-tag cat-tag--light">Business</span>
+                <span class="article-card__date">January 2025</span>
+              </div>
+              <h3 class="article-card__title">The 90-day ROI question: when does food waste software pay for itself?</h3>
+              <p class="article-card__excerpt">We break down the math for restaurants, hotels, and catering companies. The answer depends on your current waste rate — and it's usually faster than you think.</p>
+              <a href="#" class="article-card__link">Read Article <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 4. NEWSLETTER ── -->
+    <section class="newsletter">
+      <div class="container">
+        <h2 class="newsletter__h2">Stay informed.</h2>
+        <p class="newsletter__sub">Occasional insights on food waste, EU regulation, and hospitality sustainability. No spam.</p>
+        <form class="newsletter__form" action="#" method="post" novalidate>
+          <label for="newsletter-email" class="visually-hidden">Email address</label>
+          <input
+            id="newsletter-email"
+            class="newsletter__input"
+            type="email"
+            name="email"
+            placeholder="your@email.com"
+            required
+            autocomplete="email"
+          />
+          <button type="submit" class="newsletter__btn">Subscribe</button>
+        </form>
+        <p class="newsletter__note">Form connects to your email provider.</p>
+      </div>
+    </section>
+
+    <!-- ── 5. DISCLAIMER ── -->
+    <section class="disclaimer">
+      <div class="container">
+        <p class="disclaimer__text">Articles are published periodically. Content reflects current research and Rivara Flow's perspective on industry trends. Regulatory information is for guidance only — consult a compliance specialist for legal advice.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__col"><p class="footer__col-title">Get in touch</p><ul role="list"><li><a href="mailto:contact@rivaraflow.com">contact@rivaraflow.com</a></li><li><a href="tel:+355677398906">+355 (0) 67 73 98 906</a></li><li><a href="https://linkedin.com/company/rivaraflow" target="_blank" rel="noopener">LinkedIn: Rivara Flow</a></li><li><a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener">Instagram: @rivaraflow</a></li></ul></div>
+        <div class="footer__col"><p class="footer__col-title">Company</p><ul role="list"><li><a href="about.html">About</a></li><li><a href="about.html#team">Team</a></li><li><a href="blog.html">Blog</a></li><li><a href="partners.html">Partners</a></li></ul></div>
+        <div class="footer__col"><p class="footer__col-title">Product</p><ul role="list"><li><a href="system.html">System</a></li><li><a href="platform.html">Platform</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="compliance.html">Compliance &amp; ESG</a></li><li><a href="case-studies.html">Case Studies</a></li><li><a href="contact.html">Book a Demo</a></li></ul></div>
+        <div class="footer__col"><p class="footer__col-title">Industries</p><ul role="list"><li><a href="industries.html#restaurants">Restaurants</a></li><li><a href="industries.html#hotels">Hotels</a></li><li><a href="industries.html#agritourism">Agritourism</a></li><li><a href="industries.html#catering">Catering</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
+      </div>
+      <p class="footer__copy">&copy; <span id="year"></span> Rivara Flow. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <style>
+    .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  </style>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

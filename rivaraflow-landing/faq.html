@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — Rivara Flow</title>
+  <meta name="description" content="Frequently asked questions about Rivara Flow — Albania's smart food-waste management platform for hospitality businesses." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/globals.css" />
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Satoshi', sans-serif; }
+    .container { max-width: 1100px; margin-inline: auto; padding-inline: 20px; }
+    @media (min-width: 768px) { .container { padding-inline: 48px; } }
+
+    /* ── Nav ── */
+    .sys-nav { background: var(--bg-dark); display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; position: sticky; top: 0; z-index: 50; }
+    @media (min-width: 768px) { .sys-nav { padding: 20px 48px; } }
+    .sys-nav__logo img { height: 52px; width: auto; }
+    @media (min-width: 768px) { .sys-nav__logo img { height: 64px; } }
+    .sys-nav__links { display: none; list-style: none; gap: 32px; font-size: 15px; }
+    @media (min-width: 768px) { .sys-nav__links { display: flex; align-items: center; } }
+    .sys-nav__links a { color: rgba(248,244,217,.88); text-decoration: none; font-weight: 500; transition: color .2s; }
+    .sys-nav__links a:hover, .sys-nav__links a.active { color: var(--text-inv); }
+    .sys-nav__cta { display: inline-flex; align-items: center; justify-content: center; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
+    .sys-nav__cta:hover { background: #d4e060; }
+
+    /* ── Shared ── */
+    .section-tag { font-family: 'Satoshi', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; display: block; }
+    .section-tag--light { color: var(--accent-dark); }
+    .section-tag--dark  { color: var(--primary); }
+
+    /* ── 1. HERO ── */
+    .hero { background: var(--bg-dark); padding: 96px 0 80px; text-align: center; }
+    .hero__h1 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(36px, 8vw, 78px); color: var(--text-inv); line-height: 1.0; margin-bottom: 24px; }
+    .hero__h1 span { display: block; }
+    .hero__sub { font-size: clamp(16px, 2.2vw, 20px); color: rgba(248,244,217,.82); max-width: 640px; margin-inline: auto; line-height: 1.6; }
+
+    /* ── 2. FAQ CONTENT ── */
+    .faq-section { background: var(--bg); padding: 80px 0 96px; }
+    .faq-layout { display: grid; gap: 48px; }
+    @media (min-width: 900px) { .faq-layout { grid-template-columns: 220px 1fr; align-items: start; } }
+
+    /* Category nav pills */
+    .faq-nav { display: flex; flex-wrap: wrap; gap: 10px; }
+    @media (min-width: 900px) { .faq-nav { flex-direction: column; flex-wrap: nowrap; position: sticky; top: 96px; } }
+    .faq-nav__pill { display: inline-block; padding: 8px 16px; border-radius: var(--r999); font-size: 13px; font-weight: 600; color: #2e3347; background: transparent; border: 2px solid rgba(31,36,48,.18); text-decoration: none; transition: background .2s, color .2s, border-color .2s; cursor: pointer; }
+    .faq-nav__pill:hover, .faq-nav__pill.active { background: var(--accent-dark); color: var(--text-inv); border-color: var(--accent-dark); }
+
+    /* FAQ categories */
+    .faq-categories { display: flex; flex-direction: column; gap: 56px; }
+    .faq-category__title { font-family: 'MuseoModerno', sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(18px, 2.5vw, 26px); color: var(--accent-dark); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid rgba(92,67,167,.18); }
+
+    /* Accordion items */
+    .faq-list { display: flex; flex-direction: column; }
+    .faq-item { border-bottom: 1px solid rgba(31,36,48,.14); }
+    .faq-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; background: none; border: none; padding: 20px 0; cursor: pointer; text-align: left; font-family: 'Satoshi', sans-serif; font-size: 16px; font-weight: 600; color: #1F2430; line-height: 1.4; }
+    .faq-btn:hover { color: var(--accent-dark); }
+    .faq-btn__icon { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: rgba(31,36,48,.08); display: flex; align-items: center; justify-content: center; transition: background .2s, transform .3s; }
+    .faq-btn__icon svg { width: 12px; height: 12px; transition: transform .3s; }
+    .faq-item.open .faq-btn__icon { background: var(--accent-dark); }
+    .faq-item.open .faq-btn__icon svg { transform: rotate(45deg); fill: var(--text-inv); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-item.open .faq-answer { max-height: 400px; }
+    .faq-answer__inner { padding: 0 0 20px; font-size: 15px; line-height: 1.75; color: #2e3347; }
+
+    /* ── 3. STILL HAVE QUESTIONS ── */
+    .contact-cta { background: var(--bg-dark); padding: 80px 0; text-align: center; }
+    .contact-cta__h2 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(26px, 5vw, 52px); color: var(--text-inv); line-height: 1.08; margin-bottom: 16px; }
+    .contact-cta__sub { font-size: clamp(15px, 2vw, 18px); color: rgba(248,244,217,.78); margin-bottom: 40px; }
+    .contact-cta__actions { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; align-items: center; }
+    .btn-outline { display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px; border-radius: var(--r999); font-weight: 700; font-size: 15px; text-decoration: none; border: 2px solid rgba(248,244,217,.55); color: var(--text-inv); transition: border-color .2s, background .2s; }
+    .btn-outline:hover { border-color: var(--text-inv); background: rgba(248,244,217,.08); }
+    .btn-lime { display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px; border-radius: var(--r999); font-weight: 700; font-size: 15px; text-decoration: none; background: var(--primary); color: var(--bg-dark); transition: background .2s; }
+    .btn-lime:hover { background: #d4e060; }
+
+    /* ── Footer ── */
+    .footer { background: var(--bg-dark); padding: 56px 0 32px; }
+    .footer .container { max-width: 1100px; }
+    .footer__grid { display: grid; gap: 32px; grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 768px) { .footer__grid { grid-template-columns: repeat(4, 1fr); } }
+    .footer__col-title { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(248,244,217,.65); margin-bottom: 12px; }
+    .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer__col a { font-size: 14px; color: rgba(248,244,217,.88); text-decoration: none; transition: color .2s; }
+    .footer__col a:hover { color: var(--text-inv); }
+    .footer__copy { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(248,244,217,.15); font-size: 13px; color: rgba(248,244,217,.55); text-align: center; }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <header class="sys-nav">
+    <a href="index.html" class="sys-nav__logo" aria-label="Rivara Flow home">
+      <img src="assets/images/logo.png" alt="Rivara Flow" width="200" height="70" />
+    </a>
+    <ul class="sys-nav__links" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="system.html">System</a></li>
+      <li><a href="platform.html">Platform</a></li>
+      <li><a href="industries.html">Industries</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a href="contact.html" class="sys-nav__cta">Book a Demo</a>
+  </header>
+
+  <main>
+
+    <!-- ── 1. HERO ── -->
+    <section class="hero">
+      <div class="container">
+        <span class="section-tag section-tag--dark">FAQ</span>
+        <h1 class="hero__h1">
+          <span>Frequently asked</span>
+          <span>questions.</span>
+        </h1>
+        <p class="hero__sub">Everything you need to know about Rivara Flow — from hardware to compliance.</p>
+      </div>
+    </section>
+
+    <!-- ── 2. FAQ CONTENT ── -->
+    <section class="faq-section">
+      <div class="container">
+        <div class="faq-layout">
+
+          <!-- Left: category nav -->
+          <nav class="faq-nav" aria-label="FAQ categories">
+            <a href="#getting-started" class="faq-nav__pill active">Getting Started</a>
+            <a href="#hardware" class="faq-nav__pill">Hardware</a>
+            <a href="#platform" class="faq-nav__pill">Platform</a>
+            <a href="#compliance" class="faq-nav__pill">Compliance</a>
+            <a href="#pricing" class="faq-nav__pill">Pricing &amp; Contracts</a>
+          </nav>
+
+          <!-- Right: accordion categories -->
+          <div class="faq-categories">
+
+            <!-- Getting Started -->
+            <div id="getting-started">
+              <h2 class="faq-category__title">Getting Started</h2>
+              <div class="faq-list">
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    What exactly does Rivara Flow do?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">Rivara Flow is a food waste management platform for hospitality businesses. We install a compact sensor on your existing kitchen bins that automatically records every waste event — weight, category, time — and sends that data to a cloud dashboard. You get real-time visibility into what's being wasted, AI-powered recommendations to reduce it, and automated compliance reports. No manual entry. No workflow changes.</p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    How quickly can we get started?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">From signed contract to live dashboard typically takes 5–7 business days. Hardware installation takes 2–3 hours on site. Your dashboard is live the same day. Staff training is built into the onboarding — it takes about 30 minutes and can be done on any device.</p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    Can small restaurants use this?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">Yes. Our Essential plan is designed specifically for independent restaurants and small properties. There's no minimum kitchen size or team size requirement. If you're spending €3,000+ per month on food, Rivara Flow will pay for itself.</p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    Do I need technical expertise to use the platform?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">No. The dashboard is designed to be used by kitchen managers and owners — not software engineers. If you can use a smartphone, you can use Rivara Flow. Our team handles all technical setup and provides ongoing support.</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Hardware -->
+            <div id="hardware">
+              <h2 class="faq-category__title">Hardware</h2>
+              <div class="faq-list">
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    Do I need to buy new bins?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">No. The Rivara Flow sensor is a retrofit device that installs into your existing bins. We don't sell bins, and you don't need to replace anything.</p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    What's in the sensor kit?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">The sensor kit includes a camera module, a weight sensor pad, a connectivity hub (Wi-Fi + mobile data backup), and a power adapter. Everything is included in your plan. No additional purchases required.</p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    Does it work offline?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">Yes. The sensor stores data locally if internet connection is unavailable, then syncs automatically when connection is restored. You will not lose waste data due to connectivity issues.</p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    What happens if the sensor malfunctions?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">All plans include hardware warranty and remote diagnostics. If a sensor needs replacement, we ship a new unit within 2 business days. Professional and Enterprise plans include same-business-day support response.</p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    How do you handle hygiene in a kitchen environment?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">The sensor is designed for food service environments. The camera and housing are IP54-rated (splash-resistant), cleanable with standard kitchen sanitisers, and positioned above the bin opening to avoid direct contact with waste.</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Platform -->
+            <div id="platform">
+              <h2 class="faq-category__title">Platform</h2>
+              <div class="faq-list">
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    How does the AI waste classification work?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">The camera captures an image each time waste is deposited. Our computer vision model classifies the waste into categories (vegetables, protein, starch, dairy, etc.) with approximately 85% accuracy. You can review and correct classifications from the dashboard. Each correction improves future accuracy for your kitchen.</p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    Can I access the dashboard on my phone?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">Yes. The dashboard is fully responsive and works on any device — desktop, tablet, or mobile. There's no app to install. Access from your browser.</p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    How many bins can one account manage?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">Essential plan covers 1–3 bins. Professional covers up to 10. Enterprise is unlimited. Multi-bin setups allow you to track waste by station (prep kitchen, line, buffet, etc.)</p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    Can multiple staff members have accounts?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">Yes. You can create sub-accounts with different permission levels — manager view (full data) and staff view (limited, station-specific).</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Compliance -->
+            <div id="compliance">
+              <h2 class="faq-category__title">Compliance</h2>
+              <div class="faq-list">
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    What EU standards does Rivara Flow support?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">Rivara Flow generates reports aligned with EU Waste Framework Directive requirements, CSRD (Corporate Sustainability Reporting Directive) food waste metrics, and GRI 306 (Waste) disclosures. We are actively mapping to Albania's EU accession sustainability framework.</p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    Is the data GDPR compliant?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">Yes. No personal data about customers or kitchen staff is collected in waste data. Camera images are processed for waste classification and then deleted within 24 hours. Account access data is stored in compliance with EU GDPR requirements.</p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    Can I use Rivara Flow data in a formal audit?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">Yes. The platform maintains a full immutable audit trail with timestamps, bin IDs, and data provenance. Reports can be exported in CSV, PDF, and JSON formats and are accepted by Albanian environmental reporting bodies.</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Pricing & Contracts -->
+            <div id="pricing">
+              <h2 class="faq-category__title">Pricing &amp; Contracts</h2>
+              <div class="faq-list">
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    How much does Rivara Flow cost?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">Plans start at €299/month for the Essential plan. See our full pricing on the System page. The first demo is always free, and we offer a 30-day pilot period for qualifying businesses.</p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    Is there a minimum contract term?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">We offer monthly and annual contracts. Annual contracts include a 15% discount. There's no setup fee — hardware installation is included in all plans.</p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    What happens if I want to cancel?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">Monthly contracts can be cancelled with 30 days notice. Annual contracts are non-refundable but we will work with you to resolve any issues before cancellation. Hardware must be returned or purchased outright on exit.</p>
+                  </div>
+                </div>
+
+                <div class="faq-item">
+                  <button class="faq-btn" aria-expanded="false">
+                    Do you offer trials?
+                    <span class="faq-btn__icon" aria-hidden="true">
+                      <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
+                    </span>
+                  </button>
+                  <div class="faq-answer" role="region">
+                    <p class="faq-answer__inner">Yes. We offer a 30-day pilot to qualifying hospitality businesses. During the pilot, you get full platform access and hardware installation. You pay the first month's subscription fee; if you're not satisfied, we refund it and collect the hardware.</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div><!-- /faq-categories -->
+        </div><!-- /faq-layout -->
+      </div>
+    </section>
+
+    <!-- ── 3. STILL HAVE QUESTIONS ── -->
+    <section class="contact-cta">
+      <div class="container">
+        <h2 class="contact-cta__h2">Still have questions?</h2>
+        <p class="contact-cta__sub">Our team responds within 1 business day.</p>
+        <div class="contact-cta__actions">
+          <a href="mailto:contact@rivaraflow.com" class="btn-outline">Email us</a>
+          <a href="contact.html" class="btn-lime">Book a demo</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__col"><p class="footer__col-title">Get in touch</p><ul role="list"><li><a href="mailto:contact@rivaraflow.com">contact@rivaraflow.com</a></li><li><a href="tel:+355677398906">+355 (0) 67 73 98 906</a></li><li><a href="https://linkedin.com/company/rivaraflow" target="_blank" rel="noopener">LinkedIn: Rivara Flow</a></li><li><a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener">Instagram: @rivaraflow</a></li></ul></div>
+        <div class="footer__col"><p class="footer__col-title">Company</p><ul role="list"><li><a href="about.html">About</a></li><li><a href="about.html#team">Team</a></li><li><a href="blog.html">Blog</a></li><li><a href="partners.html">Partners</a></li></ul></div>
+        <div class="footer__col"><p class="footer__col-title">Product</p><ul role="list"><li><a href="system.html">System</a></li><li><a href="platform.html">Platform</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="compliance.html">Compliance &amp; ESG</a></li><li><a href="case-studies.html">Case Studies</a></li><li><a href="contact.html">Book a Demo</a></li></ul></div>
+        <div class="footer__col"><p class="footer__col-title">Industries</p><ul role="list"><li><a href="industries.html#restaurants">Restaurants</a></li><li><a href="industries.html#hotels">Hotels</a></li><li><a href="industries.html#agritourism">Agritourism</a></li><li><a href="industries.html#catering">Catering</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
+      </div>
+      <p class="footer__copy">&copy; <span id="year"></span> Rivara Flow. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Accordion: single-open, aria-expanded
+    document.querySelectorAll('.faq-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const open = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-btn').setAttribute('aria-expanded', 'false');
+        });
+        if (!open) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // Category nav: smooth scroll + active pill highlight
+    const pills = document.querySelectorAll('.faq-nav__pill');
+    pills.forEach(pill => {
+      pill.addEventListener('click', e => {
+        pills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

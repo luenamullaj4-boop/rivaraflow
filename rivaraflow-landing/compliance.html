@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compliance &amp; ESG — Rivara Flow</title>
+  <meta name="description" content="EU food waste directives are coming to the Western Balkans. Rivara Flow ensures Albanian hospitality businesses are compliant before the deadline — and benefit commercially from being early." />
+  <link rel="canonical" href="https://rivaraflow.com/compliance.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/globals.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Satoshi', sans-serif; }
+    .container { max-width: 1100px; margin-inline: auto; padding-inline: 20px; }
+    @media (min-width: 768px) { .container { padding-inline: 48px; } }
+
+    /* NAV */
+    .sys-nav { background: var(--bg-dark); display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; position: sticky; top: 0; z-index: 50; }
+    @media (min-width: 768px) { .sys-nav { padding: 20px 48px; } }
+    .sys-nav__logo img { height: 52px; width: auto; }
+    @media (min-width: 768px) { .sys-nav__logo img { height: 64px; } }
+    .sys-nav__links { display: none; list-style: none; gap: 32px; font-size: 15px; }
+    @media (min-width: 768px) { .sys-nav__links { display: flex; align-items: center; } }
+    .sys-nav__links a { color: rgba(248,244,217,.88); text-decoration: none; font-weight: 500; transition: color .2s; }
+    .sys-nav__links a:hover, .sys-nav__links a.active { color: var(--text-inv); }
+    .sys-nav__cta { display: inline-flex; align-items: center; justify-content: center; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
+    .sys-nav__cta:hover { background: #d4e060; }
+
+    /* HERO */
+    .hero-section { background: var(--bg-dark); padding: 80px 0 72px; text-align: center; }
+    .hero-tag { display: inline-block; background: var(--primary); color: var(--bg-dark); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 6px 16px; border-radius: var(--r999); margin-bottom: 24px; }
+    .hero-h1 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.08; text-transform: uppercase; color: var(--text-inv); margin-bottom: 20px; }
+    .hero-h1 span { display: block; }
+    .hero-sub { font-size: clamp(1rem, 2vw, 1.125rem); color: rgba(248,244,217,.82); max-width: 600px; margin-inline: auto; line-height: 1.65; }
+
+    /* SECTION SHARED */
+    .sec-tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; padding: 5px 14px; border-radius: var(--r999); margin-bottom: 16px; }
+    .sec-tag--light { background: rgba(156,123,227,.18); color: var(--accent-dark); }
+    .sec-tag--dark { background: rgba(196,208,84,.18); color: var(--primary); }
+    .sec-h2 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(1.7rem, 3.5vw, 2.5rem); line-height: 1.1; text-transform: uppercase; }
+    .sec-h2--light { color: var(--text); }
+    .sec-h2--dark { color: var(--text-inv); }
+
+    /* TIMELINE */
+    .timeline-section { background: var(--bg); padding: 80px 0; }
+    .timeline-intro { max-width: 680px; margin-bottom: 48px; }
+    .timeline-intro p { font-size: 1rem; line-height: 1.7; color: #2e3347; margin-top: 16px; }
+    .timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 16px; top: 0; bottom: 0; width: 2px; background: rgba(31,36,48,.15); }
+    @media (min-width: 768px) {
+      .timeline { flex-direction: row; align-items: flex-start; }
+      .timeline::before { top: 24px; left: 0; right: 0; bottom: auto; width: auto; height: 2px; }
+    }
+    .timeline-item { flex: 1; padding-left: 40px; padding-bottom: 32px; position: relative; }
+    @media (min-width: 768px) { .timeline-item { padding-left: 0; padding-top: 48px; padding-right: 24px; padding-bottom: 0; } }
+    .timeline-item__dot { position: absolute; left: 8px; top: 6px; width: 18px; height: 18px; border-radius: 50%; background: var(--bg-dark); border: 3px solid var(--bg); outline: 2px solid var(--bg-dark); }
+    @media (min-width: 768px) { .timeline-item__dot { left: 0; top: 15px; transform: translateX(-50%); } }
+    .timeline-item__year { font-family: 'MuseoModerno', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--accent-dark); margin-bottom: 8px; }
+    .timeline-item__text { font-size: 14px; line-height: 1.6; color: #2e3347; }
+
+    /* WHY IT MATTERS */
+    .why-section { background: var(--bg-dark); padding: 80px 0; }
+    .why-header { text-align: center; margin-bottom: 48px; }
+    .why-header p { font-size: 1rem; color: rgba(248,244,217,.72); margin-top: 14px; max-width: 560px; margin-inline: auto; line-height: 1.65; }
+    .why-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+    @media (min-width: 600px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 900px) { .why-grid { grid-template-columns: repeat(3, 1fr); } }
+    .why-card { background: rgba(248,244,217,.06); border: 1px solid rgba(248,244,217,.12); border-radius: var(--r16); padding: 28px 24px; }
+    .why-card__icon { width: 44px; height: 44px; border-radius: var(--r12); background: rgba(196,208,84,.18); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+    .why-card__icon svg { flex-shrink: 0; }
+    .why-card__title { font-size: 1rem; font-weight: 700; color: var(--text-inv); margin-bottom: 10px; }
+    .why-card__body { font-size: 14px; line-height: 1.65; color: rgba(248,244,217,.78); }
+
+    /* FEATURE GRID */
+    .features-section { background: var(--bg); padding: 80px 0; }
+    .features-header { margin-bottom: 48px; }
+    .features-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+    @media (min-width: 600px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 900px) { .features-grid { grid-template-columns: repeat(3, 1fr); } }
+    .feature-item { display: flex; gap: 16px; align-items: flex-start; }
+    .feature-item__icon { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; background: rgba(91,67,167,.12); display: flex; align-items: center; justify-content: center; }
+    .feature-item__name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .feature-item__desc { font-size: 14px; line-height: 1.55; color: #2e3347; }
+
+    /* REPORTING DEMO */
+    .reporting-section { background: var(--bg-dark); padding: 80px 0; }
+    .reporting-grid { display: grid; gap: 48px; align-items: center; }
+    @media (min-width: 768px) { .reporting-grid { grid-template-columns: 1fr 1fr; gap: 64px; } }
+    .reporting-desc p { font-size: 1rem; color: rgba(248,244,217,.82); line-height: 1.7; margin-top: 16px; }
+    .report-contents { margin-top: 24px; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .report-contents li { font-size: 14px; color: rgba(248,244,217,.82); padding-left: 22px; position: relative; }
+    .report-contents li::before { content: '→'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+    .reporting-visual__placeholder { width: 100%; aspect-ratio: 4/3; border-radius: var(--r16); background: rgba(248,244,217,.05); border: 1px solid rgba(248,244,217,.12); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+    .reporting-visual__label { font-size: 13px; color: rgba(248,244,217,.4); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+
+    /* STANDARDS */
+    .standards-section { background: var(--bg); padding: 72px 0; }
+    .standards-header { margin-bottom: 36px; }
+    .standards-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .standard-badge { background: var(--bg-dark); color: rgba(248,244,217,.88); font-size: 13px; font-weight: 600; padding: 10px 20px; border-radius: var(--r12); white-space: nowrap; }
+    .standard-badge--muted { background: var(--bg-dark); color: rgba(248,244,217,.55); font-size: 13px; font-weight: 500; padding: 10px 20px; border-radius: var(--r12); white-space: nowrap; }
+
+    /* CTA STRIP */
+    .cta-strip { background: var(--bg-dark); padding: 80px 0; text-align: center; }
+    .cta-strip__h2 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(1.6rem, 3.5vw, 2.5rem); text-transform: uppercase; color: var(--text-inv); margin-bottom: 28px; line-height: 1.1; }
+    .cta-strip__h2 span { display: block; }
+    .cta-btn { display: inline-flex; align-items: center; justify-content: center; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 15px; text-decoration: none; padding: 14px 32px; border-radius: var(--r999); transition: background .2s; }
+    .cta-btn:hover { background: #d4e060; }
+    .cta-strip__sub { font-size: 14px; color: rgba(248,244,217,.65); margin-top: 16px; }
+
+    /* FOOTER */
+    .footer { background: var(--bg-dark); padding: 56px 0 32px; }
+    .footer .container { max-width: 1100px; }
+    .footer__grid { display: grid; gap: 32px; grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 768px) { .footer__grid { grid-template-columns: repeat(4, 1fr); } }
+    .footer__col-title { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(248,244,217,.65); margin-bottom: 12px; }
+    .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer__col a { font-size: 14px; color: rgba(248,244,217,.88); text-decoration: none; transition: color .2s; }
+    .footer__col a:hover { color: var(--text-inv); }
+    .footer__copy { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(248,244,217,.15); font-size: 13px; color: rgba(248,244,217,.55); text-align: center; }
+  </style>
+</head>
+<body>
+
+<header class="sys-nav">
+  <a href="index.html" class="sys-nav__logo" aria-label="Rivara Flow home">
+    <img src="assets/images/logo.png" alt="Rivara Flow" width="200" height="70" />
+  </a>
+  <ul class="sys-nav__links" role="list">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="system.html">System</a></li>
+    <li><a href="platform.html">Platform</a></li>
+    <li><a href="industries.html">Industries</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="contact.html" class="sys-nav__cta">Book a Demo</a>
+</header>
+
+<!-- HERO -->
+<section class="hero-section" aria-labelledby="compliance-h1">
+  <div class="container">
+    <span class="hero-tag">EU Compliance &amp; ESG</span>
+    <h1 class="hero-h1" id="compliance-h1">
+      <span>Don't wait for</span>
+      <span>the regulation.</span>
+    </h1>
+    <p class="hero-sub">EU food waste directives are coming to the Western Balkans. Rivara Flow ensures you're already compliant when they arrive — and that you benefit commercially from being early.</p>
+  </div>
+</section>
+
+<!-- EU TIMELINE -->
+<section class="timeline-section" aria-labelledby="timeline-h2">
+  <div class="container">
+    <div class="timeline-intro">
+      <span class="sec-tag sec-tag--light">Regulatory Landscape</span>
+      <h2 class="sec-h2 sec-h2--light" id="timeline-h2">The regulation<br>is moving fast.</h2>
+      <p>The EU's Farm to Fork Strategy and the EU Waste Framework Directive are driving mandatory food waste measurement and reporting across all candidate and associated countries — including Albania. The window to prepare is now.</p>
+    </div>
+    <div class="timeline" role="list">
+      <div class="timeline-item" role="listitem">
+        <div class="timeline-item__dot" aria-hidden="true"></div>
+        <p class="timeline-item__year">2021</p>
+        <p class="timeline-item__text">EU Farm to Fork Strategy adopted. Food waste reduction targets set: 50% reduction by 2030 across EU member states.</p>
+      </div>
+      <div class="timeline-item" role="listitem">
+        <div class="timeline-item__dot" aria-hidden="true"></div>
+        <p class="timeline-item__year">2023</p>
+        <p class="timeline-item__text">Albania's EU accession candidacy formalized. Sustainability harmonization begins across Albanian regulation.</p>
+      </div>
+      <div class="timeline-item" role="listitem">
+        <div class="timeline-item__dot" aria-hidden="true"></div>
+        <p class="timeline-item__year">2025–2026</p>
+        <p class="timeline-item__text">CSRD (Corporate Sustainability Reporting Directive) begins applying to larger companies in EU. Ripple effects expected in export-facing Albanian businesses.</p>
+      </div>
+      <div class="timeline-item" role="listitem">
+        <div class="timeline-item__dot" aria-hidden="true"></div>
+        <p class="timeline-item__year">2027+</p>
+        <p class="timeline-item__text">Projected mandatory food waste tracking for hospitality businesses in Western Balkans under EU accession framework.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY IT MATTERS -->
+<section class="why-section" aria-labelledby="why-h2">
+  <div class="container">
+    <div class="why-header">
+      <span class="sec-tag sec-tag--dark">ESG Pressure</span>
+      <h2 class="sec-h2 sec-h2--dark" id="why-h2">Three forces driving<br>compliance urgency.</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="5" width="18" height="13" rx="2" stroke="#C4D054" stroke-width="1.5"/><path d="M2 9h18" stroke="#C4D054" stroke-width="1.5"/><circle cx="6" cy="14" r="1.5" fill="#C4D054"/></svg>
+        </div>
+        <p class="why-card__title">Booking platform standards</p>
+        <p class="why-card__body">International OTAs (Booking.com, Expedia) are rolling out sustainability badges. Hotels without verified ESG data will lose ranking visibility to competitors who have it.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 2l2.5 6.5H20l-5.5 4 2 6.5L11 15l-5.5 4 2-6.5L2 8.5h6.5z" stroke="#C4D054" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </div>
+        <p class="why-card__title">Export certification</p>
+        <p class="why-card__body">Albanian food and beverage exports to EU markets increasingly require sustainability documentation. Hospitality businesses in the supply chain need to comply to retain access.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 3v4M17.66 5.34l-2.83 2.83M20 12h-4M17.66 18.66l-2.83-2.83M11 20v-4M4.34 18.66l2.83-2.83M2 12h4M4.34 5.34l2.83 2.83" stroke="#C4D054" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <p class="why-card__title">Investor expectations</p>
+        <p class="why-card__body">Growth capital for Albanian hospitality is increasingly tied to ESG readiness. Investors want proof of operational sustainability before committing funds to expansion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT RIVARA FLOW PROVIDES -->
+<section class="features-section" aria-labelledby="features-h2">
+  <div class="container">
+    <div class="features-header">
+      <span class="sec-tag sec-tag--light">Platform Features</span>
+      <h2 class="sec-h2 sec-h2--light" id="features-h2">Your compliance<br>engine.</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-item__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2z" stroke="#5B43A7" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="#5B43A7" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <p class="feature-item__name">Automated waste logging</p>
+          <p class="feature-item__desc">Every gram tracked without manual entry. Audit-ready data from day one.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="8" stroke="#5B43A7" stroke-width="1.5"/><path d="M7 10l2 2 4-4" stroke="#5B43A7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <p class="feature-item__name">CO₂ equivalent calculation</p>
+          <p class="feature-item__desc">Food waste converted to carbon impact automatically, per EU methodology.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="3" width="12" height="15" rx="2" stroke="#5B43A7" stroke-width="1.5"/><path d="M7 7h6M7 10h6M7 13h4" stroke="#5B43A7" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <p class="feature-item__name">One-click EU reports</p>
+          <p class="feature-item__desc">Export waste reports in formats accepted by Albanian and EU regulators.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 10h14M3 5h14M3 15h9" stroke="#5B43A7" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <p class="feature-item__name">CSRD-aligned metrics</p>
+          <p class="feature-item__desc">KPIs mapped to the Corporate Sustainability Reporting Directive framework.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 2v4M10 14v4M2 10h4M14 10h4" stroke="#5B43A7" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="10" r="4" stroke="#5B43A7" stroke-width="1.5"/></svg>
+        </div>
+        <div>
+          <p class="feature-item__name">Historical audit trail</p>
+          <p class="feature-item__desc">Full data history with timestamps. Immutable logs suitable for external audit.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-item__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="7" r="3" stroke="#5B43A7" stroke-width="1.5"/><path d="M4 17c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="#5B43A7" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <p class="feature-item__name">Staff accountability module</p>
+          <p class="feature-item__desc">Track which team, station, and shift generates waste — with privacy compliance.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REPORTING DEMO -->
+<section class="reporting-section" aria-labelledby="reporting-h2">
+  <div class="container">
+    <div class="reporting-grid">
+      <div class="reporting-desc">
+        <span class="sec-tag sec-tag--dark">See It In Action</span>
+        <h2 class="sec-h2 sec-h2--dark" id="reporting-h2">What a report<br>looks like.</h2>
+        <p>Every Rivara Flow report is structured for regulatory submission and commercial use. Each export includes:</p>
+        <ul class="report-contents" role="list">
+          <li>Waste by category (prep, plate, spoilage, buffet) with kg and % breakdown</li>
+          <li>CO₂ equivalent calculated per category using EU emission factors</li>
+          <li>Cost impact mapped to € per day and per month</li>
+          <li>Trend analysis vs. previous reporting period</li>
+          <li>Compliance status against applicable regulatory thresholds</li>
+          <li>Exportable in PDF and CSV formats for client or regulator submission</li>
+        </ul>
+      </div>
+      <div class="reporting-visual">
+        <div class="reporting-visual__placeholder" role="img" aria-label="Dashboard report preview — screenshot coming soon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="6" y="10" width="36" height="28" rx="3" stroke="rgba(248,244,217,0.3)" stroke-width="1.5"/><rect x="10" y="22" width="6" height="12" rx="1" fill="rgba(196,208,84,0.4)"/><rect x="19" y="18" width="6" height="16" rx="1" fill="rgba(196,208,84,0.6)"/><rect x="28" y="14" width="6" height="20" rx="1" fill="rgba(196,208,84,0.8)"/><path d="M10 20l6-4 9-2 9-6" stroke="rgba(248,244,217,0.4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="reporting-visual__label">Dashboard preview</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STANDARDS SUPPORTED -->
+<section class="standards-section" aria-labelledby="standards-h2">
+  <div class="container">
+    <div class="standards-header">
+      <span class="sec-tag sec-tag--light">Standards</span>
+      <h2 class="sec-h2 sec-h2--light" id="standards-h2">Standards we<br>align with.</h2>
+    </div>
+    <div class="standards-row" role="list">
+      <span class="standard-badge" role="listitem">EU Farm to Fork</span>
+      <span class="standard-badge" role="listitem">CSRD</span>
+      <span class="standard-badge" role="listitem">GRI 306 (Waste)</span>
+      <span class="standard-badge" role="listitem">ISO 14001 (referenced)</span>
+      <span class="standard-badge--muted" role="listitem">Albanian ENV Regulation (in progress)</span>
+      <span class="standard-badge--muted" role="listitem">Tirana Municipality Standards</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip" aria-labelledby="cta-h2">
+  <div class="container">
+    <h2 class="cta-strip__h2" id="cta-h2">
+      <span>Don't let compliance</span>
+      <span>catch you off guard.</span>
+    </h2>
+    <a href="contact.html" class="cta-btn">Get Compliance Ready</a>
+    <p class="cta-strip__sub">Book a demo and get a free compliance readiness assessment for your business.</p>
+  </div>
+</section>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__col"><p class="footer__col-title">Get in touch</p><ul role="list"><li><a href="mailto:contact@rivaraflow.com">contact@rivaraflow.com</a></li><li><a href="tel:+355677398906">+355 (0) 67 73 98 906</a></li><li><a href="https://linkedin.com/company/rivaraflow" target="_blank" rel="noopener">LinkedIn: Rivara Flow</a></li><li><a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener">Instagram: @rivaraflow</a></li></ul></div>
+      <div class="footer__col"><p class="footer__col-title">Company</p><ul role="list"><li><a href="about.html">About</a></li><li><a href="about.html#team">Team</a></li><li><a href="blog.html">Blog</a></li><li><a href="partners.html">Partners</a></li></ul></div>
+      <div class="footer__col"><p class="footer__col-title">Product</p><ul role="list"><li><a href="system.html">System</a></li><li><a href="platform.html">Platform</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="compliance.html">Compliance &amp; ESG</a></li><li><a href="case-studies.html">Case Studies</a></li><li><a href="contact.html">Book a Demo</a></li></ul></div>
+      <div class="footer__col"><p class="footer__col-title">Industries</p><ul role="list"><li><a href="industries.html#restaurants">Restaurants</a></li><li><a href="industries.html#hotels">Hotels</a></li><li><a href="industries.html#agritourism">Agritourism</a></li><li><a href="industries.html#catering">Catering</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
+    </div>
+    <p class="footer__copy">&copy; <span id="year"></span> Rivara Flow. All rights reserved.</p>
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+</body>
+</html>

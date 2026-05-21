@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Studies — Rivara Flow</title>
+  <meta name="description" content="Pilot simulation data from Rivara Flow implementations across restaurants, hotels, and catering companies in Albania. Based on industry benchmarks and controlled pilot simulations." />
+  <link rel="canonical" href="https://rivaraflow.com/case-studies.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/globals.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Satoshi', sans-serif; }
+    .container { max-width: 1100px; margin-inline: auto; padding-inline: 20px; }
+    @media (min-width: 768px) { .container { padding-inline: 48px; } }
+
+    /* NAV */
+    .sys-nav { background: var(--bg-dark); display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; position: sticky; top: 0; z-index: 50; }
+    @media (min-width: 768px) { .sys-nav { padding: 20px 48px; } }
+    .sys-nav__logo img { height: 52px; width: auto; }
+    @media (min-width: 768px) { .sys-nav__logo img { height: 64px; } }
+    .sys-nav__links { display: none; list-style: none; gap: 32px; font-size: 15px; }
+    @media (min-width: 768px) { .sys-nav__links { display: flex; align-items: center; } }
+    .sys-nav__links a { color: rgba(248,244,217,.88); text-decoration: none; font-weight: 500; transition: color .2s; }
+    .sys-nav__links a:hover, .sys-nav__links a.active { color: var(--text-inv); }
+    .sys-nav__cta { display: inline-flex; align-items: center; justify-content: center; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
+    .sys-nav__cta:hover { background: #d4e060; }
+
+    /* HERO */
+    .hero-section { background: var(--bg-dark); padding: 80px 0 72px; text-align: center; }
+    .hero-tag { display: inline-block; background: var(--primary); color: var(--bg-dark); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 6px 16px; border-radius: var(--r999); margin-bottom: 24px; }
+    .hero-h1 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.08; text-transform: uppercase; color: var(--text-inv); margin-bottom: 20px; }
+    .hero-h1 span { display: block; }
+    .hero-sub { font-size: clamp(1rem, 2vw, 1.125rem); color: rgba(248,244,217,.82); max-width: 600px; margin-inline: auto; line-height: 1.65; margin-bottom: 24px; }
+    .disclaimer-pill { display: inline-flex; align-items: center; gap: 7px; background: rgba(251,191,36,.15); color: #f5c842; border: 1px solid rgba(251,191,36,.35); font-size: 12px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: 7px 16px; border-radius: var(--r999); }
+    .disclaimer-pill__dot { width: 7px; height: 7px; border-radius: 50%; background: #f5c842; flex-shrink: 0; }
+
+    /* METHODOLOGY BANNER */
+    .methodology-banner { background: var(--bg); padding: 32px 0; border-bottom: 1px solid rgba(31,36,48,.1); }
+    .methodology-inner { background: rgba(31,36,48,.06); border: 1px solid rgba(31,36,48,.12); border-radius: var(--r16); padding: 24px 28px; display: flex; gap: 16px; align-items: flex-start; }
+    .methodology-inner__icon { flex-shrink: 0; margin-top: 2px; }
+    .methodology-inner p { font-size: 14px; line-height: 1.7; color: #2e3347; }
+    .methodology-inner strong { color: var(--text); }
+
+    /* SECTION SHARED */
+    .sec-tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; padding: 5px 14px; border-radius: var(--r999); margin-bottom: 16px; }
+    .sec-tag--light { background: rgba(156,123,227,.18); color: var(--accent-dark); }
+    .sec-tag--dark { background: rgba(196,208,84,.18); color: var(--primary); }
+    .sec-tag--amber { background: rgba(251,191,36,.15); color: #c48a00; }
+    .sec-h2 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(1.7rem, 3.5vw, 2.5rem); line-height: 1.1; text-transform: uppercase; }
+    .sec-h2--light { color: var(--text); }
+    .sec-h2--dark { color: var(--text-inv); }
+
+    /* CASE STUDY CARDS */
+    .cards-section { background: var(--bg); padding: 72px 0; }
+    .cards-section__header { margin-bottom: 48px; }
+    .cards-grid { display: grid; gap: 28px; grid-template-columns: 1fr; }
+    @media (min-width: 768px) { .cards-grid { grid-template-columns: repeat(3, 1fr); } }
+    .cs-card { background: #fff; border: 1px solid rgba(31,36,48,.1); border-radius: var(--r20); overflow: hidden; display: flex; flex-direction: column; }
+    .cs-card__image { width: 100%; aspect-ratio: 16/9; background: rgba(31,36,48,.07); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .cs-card__image svg { opacity: .25; }
+    .cs-card__body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+    .cs-card__sim-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(251,191,36,.12); color: #a06e00; border: 1px solid rgba(251,191,36,.3); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 4px 12px; border-radius: var(--r999); margin-bottom: 12px; width: fit-content; }
+    .cs-card__name { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .cs-card__meta { font-size: 13px; color: rgba(31,36,48,.55); margin-bottom: 16px; }
+    .cs-card__challenge-label { font-size: 11px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: rgba(31,36,48,.45); margin-bottom: 6px; }
+    .cs-card__challenge { font-size: 14px; line-height: 1.6; color: #2e3347; margin-bottom: 20px; }
+    .cs-card__stats { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .cs-stat { background: var(--bg-dark); border-radius: var(--r12); padding: 12px 16px; }
+    .cs-stat__number { font-family: 'MuseoModerno', sans-serif; font-weight: 800; font-size: 1.25rem; color: var(--primary); line-height: 1; margin-bottom: 3px; }
+    .cs-stat__label { font-size: 12px; color: rgba(248,244,217,.72); }
+    .cs-card__quote { margin-top: auto; padding-top: 16px; border-top: 1px solid rgba(31,36,48,.08); }
+    .cs-card__quote p { font-size: 13px; font-style: italic; line-height: 1.6; color: rgba(31,36,48,.65); }
+    .cs-card__quote cite { display: block; font-size: 12px; font-style: normal; color: rgba(31,36,48,.45); margin-top: 6px; }
+
+    /* KEY METRICS STRIP */
+    .metrics-strip { background: var(--bg-dark); padding: 64px 0; }
+    .metrics-grid { display: grid; gap: 24px; grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 768px) { .metrics-grid { grid-template-columns: repeat(4, 1fr); } }
+    .metric-item { text-align: center; }
+    .metric-item__number { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(1.8rem, 4vw, 2.6rem); color: var(--primary); line-height: 1; margin-bottom: 8px; }
+    .metric-item__label { font-size: 13px; color: rgba(248,244,217,.68); line-height: 1.5; max-width: 160px; margin-inline: auto; }
+
+    /* BEFORE / AFTER */
+    .before-after-section { background: var(--bg); padding: 80px 0; }
+    .before-after-header { margin-bottom: 40px; }
+    .ba-table { display: grid; gap: 0; border-radius: var(--r16); overflow: hidden; border: 1px solid rgba(31,36,48,.1); }
+    .ba-header-row { display: grid; grid-template-columns: 1fr 1fr 1fr; background: var(--bg-dark); }
+    .ba-header-row .ba-cell { padding: 14px 20px; font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+    .ba-header-row .ba-cell:first-child { color: rgba(248,244,217,.55); }
+    .ba-header-row .ba-cell:nth-child(2) { color: rgba(248,244,217,.55); border-left: 1px solid rgba(248,244,217,.1); }
+    .ba-header-row .ba-cell:nth-child(3) { color: var(--primary); border-left: 1px solid rgba(248,244,217,.1); }
+    .ba-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border-top: 1px solid rgba(31,36,48,.08); }
+    .ba-row:nth-child(odd) { background: rgba(31,36,48,.03); }
+    .ba-cell { padding: 16px 20px; font-size: 14px; line-height: 1.5; }
+    .ba-cell:first-child { font-weight: 600; color: var(--text); }
+    .ba-cell:nth-child(2) { color: rgba(31,36,48,.6); border-left: 1px solid rgba(31,36,48,.07); }
+    .ba-cell:nth-child(3) { color: #2e3347; border-left: 1px solid rgba(31,36,48,.07); font-weight: 500; }
+    .ba-cell__check { color: var(--accent-dark); font-weight: 700; }
+
+    /* CTA STRIP */
+    .cta-strip { background: var(--primary); padding: 72px 0; text-align: center; }
+    .cta-strip__h2 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(1.6rem, 3.5vw, 2.4rem); text-transform: uppercase; color: var(--bg-dark); margin-bottom: 28px; line-height: 1.1; }
+    .cta-strip__h2 span { display: block; }
+    .cta-btn { display: inline-flex; align-items: center; justify-content: center; background: var(--bg-dark); color: var(--text-inv); font-weight: 700; font-size: 15px; text-decoration: none; padding: 14px 32px; border-radius: var(--r999); transition: opacity .2s; }
+    .cta-btn:hover { opacity: .88; }
+    .cta-strip__sub { font-size: 14px; color: rgba(31,36,48,.68); margin-top: 16px; }
+
+    /* FOOTER */
+    .footer { background: var(--bg-dark); padding: 56px 0 32px; }
+    .footer .container { max-width: 1100px; }
+    .footer__grid { display: grid; gap: 32px; grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 768px) { .footer__grid { grid-template-columns: repeat(4, 1fr); } }
+    .footer__col-title { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(248,244,217,.65); margin-bottom: 12px; }
+    .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer__col a { font-size: 14px; color: rgba(248,244,217,.88); text-decoration: none; transition: color .2s; }
+    .footer__col a:hover { color: var(--text-inv); }
+    .footer__copy { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(248,244,217,.15); font-size: 13px; color: rgba(248,244,217,.55); text-align: center; }
+  </style>
+</head>
+<body>
+
+<header class="sys-nav">
+  <a href="index.html" class="sys-nav__logo" aria-label="Rivara Flow home">
+    <img src="assets/images/logo.png" alt="Rivara Flow" width="200" height="70" />
+  </a>
+  <ul class="sys-nav__links" role="list">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="system.html">System</a></li>
+    <li><a href="platform.html">Platform</a></li>
+    <li><a href="industries.html">Industries</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="contact.html" class="sys-nav__cta">Book a Demo</a>
+</header>
+
+<!-- HERO -->
+<section class="hero-section" aria-labelledby="cs-h1">
+  <div class="container">
+    <span class="hero-tag">Results</span>
+    <h1 class="hero-h1" id="cs-h1">
+      <span>What the data</span>
+      <span>shows.</span>
+    </h1>
+    <p class="hero-sub">The following implementations are based on pilot simulations and industry benchmarks. Results are indicative. Real-world outcomes vary by kitchen size, cuisine type, and existing waste levels.</p>
+    <div class="disclaimer-pill" role="note" aria-label="Data disclaimer">
+      <span class="disclaimer-pill__dot" aria-hidden="true"></span>
+      Pilot simulation data
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY NOTE -->
+<section class="methodology-banner" aria-label="Methodology note">
+  <div class="container">
+    <div class="methodology-inner">
+      <div class="methodology-inner__icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="8" stroke="#5B43A7" stroke-width="1.5"/><path d="M10 9v5" stroke="#5B43A7" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="6.5" r="1" fill="#5B43A7"/></svg>
+      </div>
+      <p><strong>A note on our methodology.</strong> Rivara Flow is currently in early pilot phase. The case studies below are constructed from industry research, food waste benchmarks from WRAP and the EU Commission, and controlled pilot simulations. We will replace these with real client data as pilots complete. Our commitment to transparency means we will never publish unverified claims.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY CARDS -->
+<section class="cards-section" aria-labelledby="cards-h2">
+  <div class="container">
+    <div class="cards-section__header">
+      <span class="sec-tag sec-tag--light">Pilot Simulations</span>
+      <h2 class="sec-h2 sec-h2--light" id="cards-h2">Three scenarios.<br>Real benchmarks.</h2>
+    </div>
+    <div class="cards-grid">
+
+      <!-- CARD 1: RESTAURANT TIRANA -->
+      <article class="cs-card" aria-labelledby="cs1-name">
+        <div class="cs-card__image" role="img" aria-label="Restaurant kitchen in central Tirana">
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="28" cy="28" r="18" stroke="#1F2430" stroke-width="1.5"/><path d="M28 18v10l7 4" stroke="#1F2430" stroke-width="1.5" stroke-linecap="round"/><path d="M14 44l5-5" stroke="#1F2430" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="cs-card__body">
+          <span class="cs-card__sim-tag" aria-label="Pilot Simulation">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><circle cx="5" cy="5" r="4" stroke="#a06e00" stroke-width="1.2"/><circle cx="5" cy="5" r="2" fill="#a06e00"/></svg>
+            Pilot Simulation · Restaurant
+          </span>
+          <p class="cs-card__name" id="cs1-name">Mid-size restaurant, central Tirana</p>
+          <p class="cs-card__meta">60 seats &nbsp;·&nbsp; ~€6,500/month food spend</p>
+          <p class="cs-card__challenge-label">The challenge</p>
+          <p class="cs-card__challenge">No visibility into prep waste. The chef team estimated "about 10% waste" — actual measurement revealed 24%.</p>
+          <div class="cs-card__stats" aria-label="Simulation outcomes">
+            <div class="cs-stat">
+              <p class="cs-stat__number">24% → 11%</p>
+              <p class="cs-stat__label">waste reduction after 90 days</p>
+            </div>
+            <div class="cs-stat">
+              <p class="cs-stat__number">€845/month</p>
+              <p class="cs-stat__label">in food cost recovered</p>
+            </div>
+            <div class="cs-stat">
+              <p class="cs-stat__number">100%</p>
+              <p class="cs-stat__label">EU-ready waste reports from week one</p>
+            </div>
+          </div>
+          <div class="cs-card__quote">
+            <p>"We thought we had waste under control. The first week of data made it very clear we didn't."</p>
+            <cite>— Restaurant Manager (simulated)</cite>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 2: BOUTIQUE HOTEL SARANDË -->
+      <article class="cs-card" aria-labelledby="cs2-name">
+        <div class="cs-card__image" role="img" aria-label="Boutique hotel on Sarandë seafront">
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="10" y="22" width="36" height="26" rx="3" stroke="#1F2430" stroke-width="1.5"/><path d="M10 34h36" stroke="#1F2430" stroke-width="1.5"/><path d="M6 48l10-10 12 8 12-8 10 10" stroke="#1F2430" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="22" y="10" width="12" height="12" rx="2" stroke="#1F2430" stroke-width="1.5"/></svg>
+        </div>
+        <div class="cs-card__body">
+          <span class="cs-card__sim-tag" aria-label="Pilot Simulation">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><circle cx="5" cy="5" r="4" stroke="#a06e00" stroke-width="1.2"/><circle cx="5" cy="5" r="2" fill="#a06e00"/></svg>
+            Pilot Simulation · Hotel
+          </span>
+          <p class="cs-card__name" id="cs2-name">Boutique hotel, Sarandë seafront</p>
+          <p class="cs-card__meta">24 rooms &nbsp;·&nbsp; Buffet breakfast + dinner service</p>
+          <p class="cs-card__challenge-label">The challenge</p>
+          <p class="cs-card__challenge">Buffet overproduction at dinner was invisible — staff restocked as a precaution. No data existed to challenge this behaviour.</p>
+          <div class="cs-card__stats" aria-label="Simulation outcomes">
+            <div class="cs-stat">
+              <p class="cs-stat__number">31%</p>
+              <p class="cs-stat__label">reduction in buffet overproduction</p>
+            </div>
+            <div class="cs-stat">
+              <p class="cs-stat__number">€1,200/month</p>
+              <p class="cs-stat__label">recovered from over-catering</p>
+            </div>
+            <div class="cs-stat">
+              <p class="cs-stat__number">ESG report</p>
+              <p class="cs-stat__label">delivered to international booking partner</p>
+            </div>
+          </div>
+          <div class="cs-card__quote">
+            <p>"Our international guests started asking about sustainability. Now we can actually answer them."</p>
+            <cite>— General Manager (simulated)</cite>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 3: CATERING COMPANY DURRËS -->
+      <article class="cs-card" aria-labelledby="cs3-name">
+        <div class="cs-card__image" role="img" aria-label="Events catering operation in Durrës">
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="10" y="26" width="36" height="8" rx="2" stroke="#1F2430" stroke-width="1.5"/><path d="M14 26v-8a4 4 0 014-4h20a4 4 0 014 4v8" stroke="#1F2430" stroke-width="1.5"/><path d="M14 34v8a4 4 0 004 4h20a4 4 0 004-4v-8" stroke="#1F2430" stroke-width="1.5"/><line x1="28" y1="14" x2="28" y2="46" stroke="#1F2430" stroke-width="1.2" stroke-dasharray="3 3"/></svg>
+        </div>
+        <div class="cs-card__body">
+          <span class="cs-card__sim-tag" aria-label="Pilot Simulation">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true"><circle cx="5" cy="5" r="4" stroke="#a06e00" stroke-width="1.2"/><circle cx="5" cy="5" r="2" fill="#a06e00"/></svg>
+            Pilot Simulation · Catering
+          </span>
+          <p class="cs-card__name" id="cs3-name">Events catering company, Durrës</p>
+          <p class="cs-card__meta">8–15 events/month &nbsp;·&nbsp; 100–400 guests/event</p>
+          <p class="cs-card__challenge-label">The challenge</p>
+          <p class="cs-card__challenge">Over-catering was the company's safety policy. No client ever complained — but margins were shrinking every quarter.</p>
+          <div class="cs-card__stats" aria-label="Simulation outcomes">
+            <div class="cs-stat">
+              <p class="cs-stat__number">23%</p>
+              <p class="cs-stat__label">reduction in per-event food preparation</p>
+            </div>
+            <div class="cs-stat">
+              <p class="cs-stat__number">€3,100/month</p>
+              <p class="cs-stat__label">recovered across all events</p>
+            </div>
+            <div class="cs-stat">
+              <p class="cs-stat__number">2 new tenders</p>
+              <p class="cs-stat__label">won citing sustainability credentials</p>
+            </div>
+          </div>
+          <div class="cs-card__quote">
+            <p>"We started winning tenders we used to lose. Sustainability reporting made the difference."</p>
+            <cite>— Operations Director (simulated)</cite>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- KEY METRICS STRIP -->
+<section class="metrics-strip" aria-labelledby="metrics-h2">
+  <div class="container">
+    <div class="metrics-grid">
+      <div class="metric-item">
+        <p class="metric-item__number">15–30%</p>
+        <p class="metric-item__label">typical food cost lost to waste before implementation</p>
+      </div>
+      <div class="metric-item">
+        <p class="metric-item__number">90 days</p>
+        <p class="metric-item__label">average time to measurable ROI</p>
+      </div>
+      <div class="metric-item">
+        <p class="metric-item__number">100%</p>
+        <p class="metric-item__label">of pilot clients achieved EU-format reporting from week one</p>
+      </div>
+      <div class="metric-item">
+        <p class="metric-item__number">€845–3,100</p>
+        <p class="metric-item__label">per month recovered across pilot simulation scenarios</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE / AFTER -->
+<section class="before-after-section" aria-labelledby="ba-h2">
+  <div class="container">
+    <div class="before-after-header">
+      <span class="sec-tag sec-tag--light">Before &amp; After</span>
+      <h2 class="sec-h2 sec-h2--light" id="ba-h2">The transformation<br>in your kitchen.</h2>
+    </div>
+    <div class="ba-table" role="table" aria-label="Before and after Rivara Flow comparison">
+      <div class="ba-header-row" role="row">
+        <div class="ba-cell" role="columnheader">Category</div>
+        <div class="ba-cell" role="columnheader">Before Rivara Flow</div>
+        <div class="ba-cell" role="columnheader">After Rivara Flow</div>
+      </div>
+      <div class="ba-row" role="row">
+        <div class="ba-cell" role="cell">Waste visibility</div>
+        <div class="ba-cell" role="cell">None — estimates only</div>
+        <div class="ba-cell" role="cell"><span class="ba-cell__check">✓</span> Real-time, per-category data</div>
+      </div>
+      <div class="ba-row" role="row">
+        <div class="ba-cell" role="cell">Reporting</div>
+        <div class="ba-cell" role="cell">Manual spreadsheets, if at all</div>
+        <div class="ba-cell" role="cell"><span class="ba-cell__check">✓</span> Automated EU-format reports</div>
+      </div>
+      <div class="ba-row" role="row">
+        <div class="ba-cell" role="cell">Cost insight</div>
+        <div class="ba-cell" role="cell">Monthly food bill only</div>
+        <div class="ba-cell" role="cell"><span class="ba-cell__check">✓</span> Waste cost mapped to €/day</div>
+      </div>
+      <div class="ba-row" role="row">
+        <div class="ba-cell" role="cell">Staff accountability</div>
+        <div class="ba-cell" role="cell">No data on which shift wastes most</div>
+        <div class="ba-cell" role="cell"><span class="ba-cell__check">✓</span> Per-station, per-shift tracking</div>
+      </div>
+      <div class="ba-row" role="row">
+        <div class="ba-cell" role="cell">Compliance</div>
+        <div class="ba-cell" role="cell">Not possible without dedicated staff</div>
+        <div class="ba-cell" role="cell"><span class="ba-cell__check">✓</span> One-click, always-on</div>
+      </div>
+      <div class="ba-row" role="row">
+        <div class="ba-cell" role="cell">Decision making</div>
+        <div class="ba-cell" role="cell">Intuition and experience</div>
+        <div class="ba-cell" role="cell"><span class="ba-cell__check">✓</span> AI-powered recommendations</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip" aria-labelledby="cta-h2">
+  <div class="container">
+    <h2 class="cta-strip__h2" id="cta-h2">
+      <span>See what Rivara Flow</span>
+      <span>can do for your kitchen.</span>
+    </h2>
+    <a href="contact.html" class="cta-btn">Book a Pilot Demo</a>
+    <p class="cta-strip__sub">We're currently accepting pilot partners in Albania. First demo is free.</p>
+  </div>
+</section>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__col"><p class="footer__col-title">Get in touch</p><ul role="list"><li><a href="mailto:contact@rivaraflow.com">contact@rivaraflow.com</a></li><li><a href="tel:+355677398906">+355 (0) 67 73 98 906</a></li><li><a href="https://linkedin.com/company/rivaraflow" target="_blank" rel="noopener">LinkedIn: Rivara Flow</a></li><li><a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener">Instagram: @rivaraflow</a></li></ul></div>
+      <div class="footer__col"><p class="footer__col-title">Company</p><ul role="list"><li><a href="about.html">About</a></li><li><a href="about.html#team">Team</a></li><li><a href="blog.html">Blog</a></li><li><a href="partners.html">Partners</a></li></ul></div>
+      <div class="footer__col"><p class="footer__col-title">Product</p><ul role="list"><li><a href="system.html">System</a></li><li><a href="platform.html">Platform</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="compliance.html">Compliance &amp; ESG</a></li><li><a href="case-studies.html">Case Studies</a></li><li><a href="contact.html">Book a Demo</a></li></ul></div>
+      <div class="footer__col"><p class="footer__col-title">Industries</p><ul role="list"><li><a href="industries.html#restaurants">Restaurants</a></li><li><a href="industries.html#hotels">Hotels</a></li><li><a href="industries.html#agritourism">Agritourism</a></li><li><a href="industries.html#catering">Catering</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
+    </div>
+    <p class="footer__copy">&copy; <span id="year"></span> Rivara Flow. All rights reserved.</p>
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+</body>
+</html>
