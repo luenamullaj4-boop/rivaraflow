@@ -426,28 +426,13 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
 }
 .btn-demo::after { content: '→'; font-size: 1.1em; }
 
-/* Floating pills */
-.hero__pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 2rem;
-}
-.hero__pill {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: rgba(248,244,237,0.7);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  padding: 7px 16px;
-  border-radius: var(--r999);
-  backdrop-filter: blur(8px);
-}
-.hero__pill--lime {
-  background: rgba(196,208,84,0.12);
-  border-color: rgba(196,208,84,0.3);
-  color: var(--lime);
+/* Compost hero image */
+.hero__compost-img {
+  margin-top: 2.5rem;
+  width: clamp(160px, 30vw, 260px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 24px 48px rgba(0,0,0,0.45));
 }
 
 /* ============================================================
@@ -1234,11 +1219,7 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
           Rivara Flow turns kitchen waste into data, compliance, and fertilizer — one closed loop for restaurants, hotels, and agritourism.
         </p>
         <a href="#contact" class="btn-demo reveal" data-i18n="hero.cta">Book a Demo</a>
-        <div class="hero__pills reveal" aria-hidden="true">
-          <span class="hero__pill hero__pill--lime" data-i18n="deco.1">Save Money</span>
-          <span class="hero__pill" data-i18n="deco.2">EU Standards</span>
-          <span class="hero__pill" data-i18n="deco.3">Waste Nothing</span>
-        </div>
+        <img src="assets/images/compost.png" alt="Food waste going into a smart bin" class="hero__compost-img reveal" />
       </div>
 
       <!-- RIGHT: Phone mockup -->
