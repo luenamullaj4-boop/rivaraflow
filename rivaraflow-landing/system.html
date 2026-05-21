@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>System — Rivara Flow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/globals.css" />
+  <style>
+    /* ── System page ─────────────────────────── */
+
+    /* Shared nav overrides for non-hero pages */
+    .sys-nav {
+      background: var(--bg-dark);
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 18px 24px;
+      position: sticky; top: 0; z-index: 50;
+    }
+    @media (min-width: 768px) { .sys-nav { padding: 20px 48px; } }
+    .sys-nav__logo img { height: 52px; width: auto; }
+    @media (min-width: 768px) { .sys-nav__logo img { height: 64px; } }
+
+    /* ── Hero ── */
+    .sys-hero {
+      background: var(--bg-dark);
+      text-align: center;
+      padding: 64px 20px 72px;
+    }
+    .sys-hero__tag {
+      display: inline-block;
+      font-family: var(--satoshi); font-size: 13px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--primary); margin-bottom: 20px;
+    }
+    .sys-hero__h1 {
+      font-family: var(--museo); font-weight: 900;
+      font-size: clamp(36px, 8vw, 80px);
+      line-height: 1;
+      color: var(--text-inv);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .sys-hero__h1 span { color: var(--primary); display: block; }
+    .sys-hero__sub {
+      font-family: var(--satoshi); font-size: clamp(14px, 2vw, 17px);
+      color: rgba(248,244,217,.7); max-width: 600px;
+      margin: 20px auto 0; line-height: 1.65;
+    }
+
+    /* ── Pricing ── */
+    .pricing { padding: 72px 0; background: var(--bg); }
+    .pricing__inner {
+      max-width: 1100px; margin-inline: auto;
+      padding-inline: 20px;
+    }
+    .pricing__title {
+      font-family: var(--museo); font-weight: 700;
+      font-size: clamp(26px, 5vw, 48px);
+      color: var(--text); text-align: center;
+      margin-bottom: 48px;
+    }
+    .pricing__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    @media (min-width: 640px) { .pricing__grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 960px) { .pricing__grid { grid-template-columns: 1fr 1fr 1fr; } }
+
+    .plan-card {
+      background: var(--white);
+      border: 2px solid rgba(156,123,227,.15);
+      border-radius: var(--r20);
+      padding: 32px 28px;
+      display: flex; flex-direction: column;
+      position: relative;
+    }
+    .plan-card--popular {
+      border-color: var(--primary);
+      background: var(--bg-dark);
+    }
+    .plan-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: var(--primary); color: var(--text);
+      font-family: var(--museo); font-weight: 700; font-size: 11px;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 4px 16px; border-radius: var(--r999);
+      white-space: nowrap;
+    }
+    .plan-name {
+      font-family: var(--museo); font-weight: 700;
+      font-size: clamp(22px, 3vw, 28px);
+      color: var(--accent); margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+    .plan-card--popular .plan-name { color: var(--primary); }
+    .plan-desc {
+      font-family: var(--satoshi); font-size: 13px;
+      color: rgba(31,36,48,.6); margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .plan-card--popular .plan-desc { color: rgba(248,244,217,.6); }
+    .plan-price {
+      font-family: var(--museo); font-weight: 700;
+      font-size: clamp(32px, 5vw, 44px);
+      color: var(--text); margin-bottom: 4px; line-height: 1;
+    }
+    .plan-card--popular .plan-price { color: var(--text-inv); }
+    .plan-per {
+      font-family: var(--satoshi); font-size: 13px;
+      color: rgba(31,36,48,.5); margin-bottom: 24px;
+    }
+    .plan-card--popular .plan-per { color: rgba(248,244,217,.5); }
+    .plan-cta {
+      display: block; text-align: center;
+      background: var(--accent); color: var(--text-inv);
+      font-family: var(--museo); font-weight: 700; font-size: 15px;
+      padding: 14px 24px; border-radius: var(--r999);
+      margin-bottom: 28px; transition: transform .2s, box-shadow .2s;
+      border: none; cursor: pointer; text-decoration: none;
+    }
+    .plan-card--popular .plan-cta {
+      background: var(--primary); color: var(--text);
+    }
+    .plan-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.18); }
+    .plan-divider {
+      height: 1px; background: rgba(156,123,227,.15);
+      margin-bottom: 20px;
+    }
+    .plan-card--popular .plan-divider { background: rgba(196,208,84,.15); }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .plan-features li {
+      font-family: var(--satoshi); font-size: 14px;
+      color: rgba(31,36,48,.75);
+      display: flex; align-items: flex-start; gap: 10px; line-height: 1.4;
+    }
+    .plan-card--popular .plan-features li { color: rgba(248,244,217,.75); }
+    .plan-features li::before {
+      content: '';
+      width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px;
+      background: var(--accent);
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 5' stroke='white' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 5' stroke='white' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
+    .plan-card--popular .plan-features li::before { background: var(--primary); }
+
+    /* ── Compare table ── */
+    .compare { padding: 72px 0; background: var(--bg); border-top: 1px solid rgba(156,123,227,.1); }
+    .compare__inner { max-width: 1100px; margin-inline: auto; padding-inline: 20px; }
+    .compare__title {
+      font-family: var(--museo); font-weight: 700;
+      font-size: clamp(24px, 5vw, 44px);
+      color: var(--text); text-align: center;
+      text-transform: uppercase; margin-bottom: 40px;
+    }
+    .compare-table { width: 100%; border-collapse: collapse; }
+    .compare-table th {
+      font-family: var(--museo); font-weight: 700;
+      font-size: clamp(13px, 2vw, 17px); padding: 12px 16px;
+      color: var(--accent); text-align: center;
+    }
+    .compare-table th:first-child { text-align: left; color: var(--text); }
+    .compare-table th.col-pop { color: var(--primary); }
+    .compare-table td {
+      padding: 14px 16px; text-align: center;
+      font-family: var(--satoshi); font-size: 13px;
+      border-top: 1px solid rgba(156,123,227,.1);
+      color: rgba(31,36,48,.6);
+    }
+    .compare-table td:first-child {
+      text-align: left; color: var(--text); font-weight: 500;
+    }
+    .compare-table tr:hover td { background: rgba(196,208,84,.05); }
+    .check { color: var(--accent); font-size: 16px; font-weight: 700; }
+    .col-pop .check { color: var(--primary); }
+    .compare-table tbody tr td.col-pop { background: rgba(196,208,84,.04); }
+    .compare-cta-row td { padding: 20px 16px; }
+    .compare-cta {
+      display: inline-block; background: var(--accent); color: var(--text-inv);
+      font-family: var(--museo); font-weight: 700; font-size: 13px;
+      padding: 10px 20px; border-radius: var(--r999); text-decoration: none;
+      transition: transform .2s;
+    }
+    .compare-cta:hover { transform: translateY(-2px); }
+    .compare-cta--pop { background: var(--primary); color: var(--text); }
+
+    /* ── Testimonial ── */
+    .testimonial {
+      background: var(--bg); padding: 64px 20px;
+      text-align: center; border-top: 1px solid rgba(156,123,227,.1);
+    }
+    .testimonial__quote {
+      font-family: var(--satoshi); font-style: italic;
+      font-size: clamp(15px, 2.5vw, 20px);
+      color: var(--text); max-width: 700px;
+      margin: 0 auto 24px; line-height: 1.7;
+    }
+    .testimonial__quote::before { content: '\201C'; }
+    .testimonial__quote::after  { content: '\201D'; }
+    .testimonial__name {
+      font-family: var(--museo); font-weight: 700;
+      font-size: 15px; color: var(--accent); margin-bottom: 2px;
+    }
+    .testimonial__role {
+      font-family: var(--satoshi); font-size: 13px;
+      color: rgba(31,36,48,.5);
+    }
+
+    /* ── FAQ ── */
+    .faq { padding: 72px 0; background: var(--bg); border-top: 1px solid rgba(156,123,227,.1); }
+    .faq__inner { max-width: 760px; margin-inline: auto; padding-inline: 20px; }
+    .faq__title {
+      font-family: var(--museo); font-weight: 900;
+      font-size: clamp(28px, 6vw, 52px);
+      color: var(--accent); text-transform: uppercase;
+      line-height: 1; margin-bottom: 40px;
+    }
+    .faq-item {
+      border-top: 1px solid rgba(156,123,227,.2);
+    }
+    .faq-item:last-child { border-bottom: 1px solid rgba(156,123,227,.2); }
+    .faq-btn {
+      width: 100%; background: none; border: none;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 20px 0; cursor: pointer;
+      font-family: var(--satoshi); font-weight: 700;
+      font-size: clamp(14px, 2vw, 16px);
+      color: var(--text); text-align: left;
+    }
+    .faq-icon {
+      flex-shrink: 0; width: 24px; height: 24px;
+      border: 1.5px solid rgba(156,123,227,.4);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      color: var(--accent); font-size: 16px; line-height: 1;
+      transition: transform .25s;
+    }
+    .faq-btn[aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      font-family: var(--satoshi); font-size: 14px;
+      color: rgba(31,36,48,.65); line-height: 1.7;
+      padding-bottom: 20px; display: none;
+    }
+    .faq-item.open .faq-answer { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="sys-nav">
+  <a href="index.html" class="sys-nav__logo" aria-label="Rivara Flow home">
+    <img src="assets/images/logo.png" alt="Rivara Flow" />
+  </a>
+  <ul class="hero-nav__links" role="list" style="display:flex">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="system.html" style="color:var(--primary)">System</a></li>
+    <li><a href="index.html#platform">Platform</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li class="nav-lang-desktop">
+      <button class="lang-sm active" data-lang="en">EN</button>
+      <span class="lang-sep">/</span>
+      <button class="lang-sm" data-lang="al">AL</button>
+    </li>
+  </ul>
+  <a href="index.html#contact" class="btn-demo" style="display:inline-flex;margin-top:0">Book a Demo</a>
+</header>
+
+<!-- HERO -->
+<section class="sys-hero">
+  <p class="sys-hero__tag">Rivara Flow System</p>
+  <h1 class="sys-hero__h1">
+    Smarter Kitchens,
+    <span>Zero Waste.</span>
+  </h1>
+  <p class="sys-hero__sub">
+    Save up to €17K per kitchen annually with Rivara Flow's smart bin tracking,
+    staff training, and automated EU compliance reporting.
+    No extra work — just real results.
+  </p>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing__inner">
+    <h2 class="pricing__title">Choose your plan</h2>
+    <div class="pricing__grid">
+
+      <!-- Essential -->
+      <div class="plan-card">
+        <p class="plan-name">Essential</p>
+        <p class="plan-desc">Clarity without the guesswork. Start tracking what's really happening in your kitchen.</p>
+        <p class="plan-price">€299</p>
+        <p class="plan-per">/ month per location</p>
+        <a href="index.html#contact" class="plan-cta">Get started</a>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Smart bin installation (1 bin)</li>
+          <li>Waste tracking dashboard</li>
+          <li>Monthly waste reports</li>
+          <li>Category-level insights</li>
+          <li>Basic EU compliance data</li>
+          <li>Email support</li>
+        </ul>
+      </div>
+
+      <!-- Professional (popular) -->
+      <div class="plan-card plan-card--popular">
+        <div class="plan-badge">Most popular</div>
+        <p class="plan-name">Professional</p>
+        <p class="plan-desc">Precision that pays off. Track exactly what's wasted — and turn insights into daily improvements.</p>
+        <p class="plan-price">€599</p>
+        <p class="plan-per">/ month per location</p>
+        <a href="index.html#contact" class="plan-cta">Choose plan</a>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Everything in Essential</li>
+          <li>Up to 3 smart bins</li>
+          <li>Staff workshop (up to 15 staff)</li>
+          <li>Weekly waste reports</li>
+          <li>Advanced analytics &amp; cost projection</li>
+          <li>Full EU compliance reporting</li>
+          <li>Data export &amp; integrations</li>
+        </ul>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="plan-card">
+        <p class="plan-name">Enterprise</p>
+        <p class="plan-desc">Built to scale. Ready to perform. Closed-loop insights across locations and drive results everywhere.</p>
+        <p class="plan-price">Custom</p>
+        <p class="plan-per">contact us for pricing</p>
+        <a href="index.html#contact" class="plan-cta">Talk to sales</a>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li>Everything in Professional</li>
+          <li>Unlimited bins &amp; locations</li>
+          <li>Ongoing staff training programme</li>
+          <li>Composting &amp; fertilizer service</li>
+          <li>Dedicated account manager</li>
+          <li>Custom reporting &amp; branding</li>
+          <li>Long-term coverage</li>
+          <li>Full EU audit support</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE FEATURES -->
+<section class="compare" id="compare">
+  <div class="compare__inner">
+    <h2 class="compare__title">Compare Features</h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Essential</th>
+          <th class="col-pop">Professional</th>
+          <th>Enterprise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Smart bin installation</td>
+          <td><span class="check">✓</span></td>
+          <td class="col-pop"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Waste tracking dashboard</td>
+          <td><span class="check">✓</span></td>
+          <td class="col-pop"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Monthly waste reports</td>
+          <td><span class="check">✓</span></td>
+          <td class="col-pop"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Staff workshops</td>
+          <td>—</td>
+          <td class="col-pop"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Weekly waste reports</td>
+          <td>—</td>
+          <td class="col-pop"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>EU compliance reporting</td>
+          <td>—</td>
+          <td class="col-pop"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Advanced analytics &amp; cost projection</td>
+          <td>—</td>
+          <td class="col-pop"><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Composting &amp; fertilizer service</td>
+          <td>—</td>
+          <td class="col-pop">—</td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Dedicated account manager</td>
+          <td>—</td>
+          <td class="col-pop">—</td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Custom reporting &amp; EU audit support</td>
+          <td>—</td>
+          <td class="col-pop">—</td>
+          <td><span class="check">✓</span></td>
+        </tr>
+        <tr class="compare-cta-row">
+          <td></td>
+          <td><a href="index.html#contact" class="compare-cta">Get started</a></td>
+          <td class="col-pop"><a href="index.html#contact" class="compare-cta compare-cta--pop">Get started</a></td>
+          <td><a href="index.html#contact" class="compare-cta">Get started</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial">
+  <p class="testimonial__quote">
+    Balancing guest expectations with minimising food waste is now seamless with Rivara Flow.
+    The data makes it visible, the training makes it stick — and the results speak for themselves.
+  </p>
+  <p class="testimonial__name">Early Pilot Partner</p>
+  <p class="testimonial__role">Restaurant owner, Tirana</p>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="faq__inner">
+    <h2 class="faq__title">Frequently<br>Asked<br>Questions</h2>
+
+    <div class="faq-item">
+      <button class="faq-btn" aria-expanded="false">
+        What's included in the monthly price?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Each plan includes full access to your Rivara Flow smart bin device, automated waste tracking,
+        and the data compliance dashboard. Professional and Enterprise plans also include
+        staff workshops and EU reporting. Hardware setup is covered in your first month.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn" aria-expanded="false">
+        Is the hardware included?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Yes — the smart bin camera and weight sensor are included with every plan.
+        Our team installs them into your existing bins. No need to purchase new equipment.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn" aria-expanded="false">
+        How long does setup take?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Most kitchens are fully set up within one day. Hardware installation takes 2–3 hours,
+        and your dashboard is live the same day. Staff workshops are scheduled within the first two weeks.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn" aria-expanded="false">
+        Do I need technical skills to use the platform?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Not at all. The dashboard is designed to be simple and visual — your team sees
+        clear reports with no technical setup required. We handle everything on the backend.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn" aria-expanded="false">
+        What data does the system collect?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        The system tracks waste weight, food category, time of day, and frequency patterns.
+        All data stays within your account and is fully EU GDPR compliant. No personal data
+        about customers or staff is collected.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-btn" aria-expanded="false">
+        How does the composting programme work?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        Available on the Enterprise plan. Rivara Flow collects your organic waste on a regular
+        schedule, processes it into compost and fertilizer, and provides you with a monthly
+        circular impact report. Our pilot achieved 70% fertilizer yield from collected waste.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <p class="footer__col-title">Get in touch</p>
+        <ul role="list">
+          <li><a href="mailto:contact@rivaraflow.com">contact@rivaraflow.com</a></li>
+          <li><a href="tel:+355677398906">+355 (0) 67 73 98 906</a></li>
+          <li><a href="https://linkedin.com/company/rivaraflow" target="_blank" rel="noopener">LinkedIn: Rivara Flow</a></li>
+          <li><a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener">Instagram: @rivaraflow</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-title">Company</p>
+        <ul role="list">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Team</a></li>
+          <li><a href="#">News &amp; Press</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-title">Product</p>
+        <ul role="list">
+          <li><a href="system.html">System</a></li>
+          <li><a href="index.html#platform">Platform</a></li>
+          <li><a href="#">Impact</a></li>
+          <li><a href="index.html#contact">Book a Demo</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-title">Industries</p>
+        <ul role="list">
+          <li><a href="#">Restaurants</a></li>
+          <li><a href="#">Hotels</a></li>
+          <li><a href="#">Agritourism</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer__copy">&copy; <span id="year"></span> Rivara Flow. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      document.querySelectorAll('.faq-btn').forEach(b => b.setAttribute('aria-expanded', 'false'));
+      if (!open) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>
+</body>
+</html>
