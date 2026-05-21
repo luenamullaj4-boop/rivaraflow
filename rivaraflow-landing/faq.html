@@ -308,13 +308,13 @@
 
                 <div class="faq-item">
                   <button class="faq-btn" aria-expanded="false">
-                    How does the AI waste classification work?
+                    How does automated waste classification work?
                     <span class="faq-btn__icon" aria-hidden="true">
                       <svg viewBox="0 0 12 12" fill="#1F2430" xmlns="http://www.w3.org/2000/svg"><path d="M6 1v10M1 6h10" stroke="#1F2430" stroke-width="2" stroke-linecap="round"/></svg>
                     </span>
                   </button>
                   <div class="faq-answer" role="region">
-                    <p class="faq-answer__inner">The camera captures an image each time waste is deposited. Our computer vision model classifies the waste into categories (vegetables, protein, starch, dairy, etc.) with approximately 85% accuracy. You can review and correct classifications from the dashboard. Each correction improves future accuracy for your kitchen.</p>
+                    <p class="faq-answer__inner">The smart sensor captures an image each time waste is deposited. Our computer vision model classifies the waste into categories (vegetables, protein, starch, dairy, etc.) with approximately 85% accuracy. You can review and correct classifications from the dashboard. Each correction improves future accuracy for your kitchen.</p>
                   </div>
                 </div>
 
@@ -491,6 +491,12 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+    const burger = document.getElementById('nav-burger');
+    const drawer = document.getElementById('nav-drawer');
+    const close  = document.getElementById('nav-close');
+    burger.addEventListener('click', () => { drawer.classList.add('open'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; });
+    close.addEventListener('click',  () => { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; });
+    drawer.addEventListener('click', e => { if (e.target === drawer) { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; } });
 
     // Accordion: single-open, aria-expanded
     document.querySelectorAll('.faq-btn').forEach(btn => {

@@ -122,23 +122,72 @@
     .footer__col a { font-size: 14px; color: rgba(248,244,217,.88); text-decoration: none; transition: color .2s; }
     .footer__col a:hover { color: var(--text-inv); }
     .footer__copy { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(248,244,217,.15); font-size: 13px; color: rgba(248,244,217,.55); text-align: center; }
+      /* ── Nav ── */
+    .site-nav { background: var(--bg-dark); display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
+    @media (min-width: 768px) { .site-nav { padding: 18px 48px; } }
+    .site-nav__logo img { height: 48px; width: auto; }
+    @media (min-width: 768px) { .site-nav__logo img { height: 60px; } }
+    .site-nav__desktop { display: none; list-style: none; gap: 28px; font-size: 14px; }
+    @media (min-width: 960px) { .site-nav__desktop { display: flex; align-items: center; } }
+    .site-nav__desktop a { color: rgba(248,244,217,.85); text-decoration: none; font-weight: 500; transition: color .2s; }
+    .site-nav__desktop a:hover, .site-nav__desktop a.active { color: var(--text-inv); }
+    .site-nav__right { display: flex; align-items: center; gap: 14px; }
+    .site-nav__cta { display: none; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
+    @media (min-width: 768px) { .site-nav__cta { display: inline-flex; align-items: center; } }
+    .site-nav__cta:hover { background: #d4e060; }
+    .site-nav__burger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 6px; }
+    .site-nav__burger span { display: block; width: 24px; height: 2px; background: var(--text-inv); border-radius: 2px; }
+    .nav-drawer { position: fixed; inset: 0; z-index: 200; background: var(--bg-dark); display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity .22s; }
+    .nav-drawer.open { opacity: 1; pointer-events: all; }
+    .nav-drawer__head { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid rgba(248,244,217,.1); }
+    .nav-drawer__head img { height: 48px; width: auto; }
+    .nav-drawer__close { background: none; border: none; cursor: pointer; color: var(--text-inv); font-size: 24px; line-height: 1; padding: 8px; }
+    .nav-drawer__links { flex: 1; overflow-y: auto; display: flex; flex-direction: column; padding: 24px; gap: 2px; }
+    .nav-drawer__links a { font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-size: clamp(18px, 3.5vw, 26px); text-transform: uppercase; color: rgba(248,244,217,.72); text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(248,244,217,.08); transition: color .2s, padding-left .15s; }
+    .nav-drawer__links a:hover, .nav-drawer__links a.active { color: var(--text-inv); padding-left: 8px; }
+    .nav-drawer__links a.drawer-cta { margin-top: 20px; color: var(--bg-dark); background: var(--primary); padding: 14px 24px; border-radius: var(--r999); text-align: center; border: none; }
+    .nav-drawer__links a.drawer-cta:hover { background: #d4e060; padding-left: 24px; }
   </style>
 </head>
 <body>
 
-<header class="sys-nav">
-  <a href="index.html" class="sys-nav__logo" aria-label="Rivara Flow home">
+<header class="site-nav">
+  <a href="index.html" class="site-nav__logo" aria-label="Rivara Flow home">
     <img src="assets/images/logo.png" alt="Rivara Flow" width="200" height="70" />
   </a>
-  <ul class="sys-nav__links" role="list">
-    <li><a href="index.html">Home</a></li>
+  <ul class="site-nav__desktop" role="list">
     <li><a href="system.html">System</a></li>
     <li><a href="platform.html">Platform</a></li>
     <li><a href="industries.html">Industries</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
-  <a href="contact.html" class="sys-nav__cta">Book a Demo</a>
+  <div class="site-nav__right">
+    <a href="contact.html" class="site-nav__cta">Book a Demo</a>
+    <button class="site-nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
+<div class="nav-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="nav-drawer__head">
+    <a href="index.html"><img src="assets/images/logo.png" alt="Rivara Flow" height="48" /></a>
+    <button class="nav-drawer__close" id="nav-close" aria-label="Close menu">&#x2715;</button>
+  </div>
+  <nav class="nav-drawer__links">
+    <a href="index.html">Home</a>
+    <a href="system.html">System</a>
+    <a href="platform.html">Platform</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="industries.html">Industries</a>
+    <a href="compliance.html">Compliance &amp; ESG</a>
+    <a href="case-studies.html" class="active">Case Studies</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Blog</a>
+    <a href="partners.html">Partners</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="drawer-cta">Book a Demo</a>
+  </nav>
+</div>
 
 <!-- HERO -->
 <section class="hero-section" aria-labelledby="cs-h1">
@@ -351,7 +400,7 @@
       <div class="ba-row" role="row">
         <div class="ba-cell" role="cell">Decision making</div>
         <div class="ba-cell" role="cell">Intuition and experience</div>
-        <div class="ba-cell" role="cell"><span class="ba-cell__check">✓</span> AI-powered recommendations</div>
+        <div class="ba-cell" role="cell"><span class="ba-cell__check">✓</span> data-driven recommendations</div>
       </div>
     </div>
   </div>
@@ -380,7 +429,13 @@
     <p class="footer__copy">&copy; <span id="year"></span> Rivara Flow. All rights reserved.</p>
   </div>
 </footer>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();  const burger = document.getElementById('nav-burger');
+  const drawer = document.getElementById('nav-drawer');
+  const navClose = document.getElementById('nav-close');
+  burger.addEventListener('click', () => { drawer.classList.add('open'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; });
+  navClose.addEventListener('click', () => { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; });
+  drawer.addEventListener('click', e => { if (e.target === drawer) { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; } });
+</script>
 
 </body>
 </html>

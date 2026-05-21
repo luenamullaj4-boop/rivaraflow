@@ -19,36 +19,33 @@
     .container { max-width: 1100px; margin-inline: auto; padding-inline: 20px; }
     @media (min-width: 768px) { .container { padding-inline: 48px; } }
 
-    /* ── Nav ── */
-    .sys-nav {
-      background: var(--bg-dark);
-      display: flex; align-items: center;
-      justify-content: space-between;
-      padding: 18px 24px;
-      position: sticky; top: 0; z-index: 50;
-    }
-    @media (min-width: 768px) { .sys-nav { padding: 20px 48px; } }
-    .sys-nav__logo img { height: 52px; width: auto; }
-    @media (min-width: 768px) { .sys-nav__logo img { height: 64px; } }
-    .sys-nav__links {
-      display: none; list-style: none; gap: 32px;
-      font-family: var(--satoshi); font-size: 15px;
-    }
-    @media (min-width: 768px) { .sys-nav__links { display: flex; align-items: center; } }
-    .sys-nav__links a {
-      color: rgba(248,244,217,.88); text-decoration: none; font-weight: 500;
-      transition: color .2s;
-    }
-    .sys-nav__links a:hover, .sys-nav__links a.active { color: var(--text-inv); }
-    .sys-nav__cta {
-      display: inline-flex; align-items: center; justify-content: center;
-      background: var(--primary); color: var(--bg-dark);
-      font-family: var(--satoshi); font-weight: 700; font-size: 14px;
-      text-decoration: none; border: none; cursor: pointer;
-      padding: 10px 22px; border-radius: var(--r999);
-      white-space: nowrap;
-    }
-    .sys-nav__cta:hover { background: #d4e060; }
+        /* ── Nav ── */
+    .site-nav { background: var(--bg-dark); display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
+    @media (min-width: 768px) { .site-nav { padding: 18px 48px; } }
+    .site-nav__logo img { height: 48px; width: auto; }
+    @media (min-width: 768px) { .site-nav__logo img { height: 60px; } }
+    .site-nav__desktop { display: none; list-style: none; gap: 28px; font-size: 14px; }
+    @media (min-width: 960px) { .site-nav__desktop { display: flex; align-items: center; } }
+    .site-nav__desktop a { color: rgba(248,244,217,.85); text-decoration: none; font-weight: 500; transition: color .2s; }
+    .site-nav__desktop a:hover, .site-nav__desktop a.active { color: var(--text-inv); }
+    .site-nav__right { display: flex; align-items: center; gap: 14px; }
+    .site-nav__cta { display: none; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
+    @media (min-width: 768px) { .site-nav__cta { display: inline-flex; align-items: center; } }
+    .site-nav__cta:hover { background: #d4e060; }
+    .site-nav__burger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 6px; }
+    .site-nav__burger span { display: block; width: 24px; height: 2px; background: var(--text-inv); border-radius: 2px; }
+    .nav-drawer { position: fixed; inset: 0; z-index: 200; background: var(--bg-dark); display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity .22s; }
+    .nav-drawer.open { opacity: 1; pointer-events: all; }
+    .nav-drawer__head { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid rgba(248,244,217,.1); }
+    .nav-drawer__head img { height: 48px; width: auto; }
+    .nav-drawer__close { background: none; border: none; cursor: pointer; color: var(--text-inv); font-size: 24px; line-height: 1; padding: 8px; }
+    .nav-drawer__links { flex: 1; overflow-y: auto; display: flex; flex-direction: column; padding: 24px; gap: 2px; }
+    .nav-drawer__links a { font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-size: clamp(18px, 3.5vw, 26px); text-transform: uppercase; color: rgba(248,244,217,.72); text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(248,244,217,.08); transition: color .2s, padding-left .15s; }
+    .nav-drawer__links a:hover, .nav-drawer__links a.active { color: var(--text-inv); padding-left: 8px; }
+    .nav-drawer__links a.drawer-cta { margin-top: 20px; color: var(--bg-dark); background: var(--primary); padding: 14px 24px; border-radius: var(--r999); text-align: center; border: none; }
+    .nav-drawer__links a.drawer-cta:hover { background: #d4e060; padding-left: 24px; }
+
+
 
     /* ── Hero ── */
     .plat-hero {
@@ -300,19 +297,43 @@
 <body>
 
 <!-- NAV -->
-<header class="sys-nav">
-  <a href="index.html" class="sys-nav__logo" aria-label="Rivara Flow home">
+<header class="site-nav">
+  <a href="index.html" class="site-nav__logo" aria-label="Rivara Flow home">
     <img src="assets/images/logo.png" alt="Rivara Flow" width="200" height="70" />
   </a>
-  <ul class="sys-nav__links" role="list">
-    <li><a href="index.html">Home</a></li>
+  <ul class="site-nav__desktop" role="list">
     <li><a href="system.html">System</a></li>
     <li><a href="platform.html" class="active">Platform</a></li>
     <li><a href="industries.html">Industries</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
-  <a href="contact.html" class="sys-nav__cta">Book a Demo</a>
+  <div class="site-nav__right">
+    <a href="contact.html" class="site-nav__cta">Book a Demo</a>
+    <button class="site-nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
+<div class="nav-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="nav-drawer__head">
+    <a href="index.html"><img src="assets/images/logo.png" alt="Rivara Flow" height="48" /></a>
+    <button class="nav-drawer__close" id="nav-close" aria-label="Close menu">&#x2715;</button>
+  </div>
+  <nav class="nav-drawer__links">
+    <a href="index.html">Home</a>
+    <a href="system.html">System</a>
+    <a href="platform.html" class="active">Platform</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="industries.html">Industries</a>
+    <a href="compliance.html">Compliance &amp; ESG</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Blog</a>
+    <a href="partners.html">Partners</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="drawer-cta">Book a Demo</a>
+  </nav>
+</div>
 
 <!-- HERO -->
 <section class="plat-hero">
@@ -324,7 +345,7 @@
     </h1>
     <p class="plat-hero__sub">
       Rivara Flow connects your kitchen bins to a real-time analytics dashboard.
-      Track waste, identify patterns, act on AI-powered recommendations — all in one place.
+      Track waste, identify patterns, act on data-driven recommendations — all in one place.
     </p>
   </div>
   <div class="plat-hero__mockup container">
@@ -369,7 +390,7 @@
         <h3 class="how-step__name">Turn waste into savings</h3>
         <p class="how-step__desc">
           Check your dashboard to see exactly what's being wasted.
-          Then take <strong>AI-powered action</strong> — adjust portions, change orders,
+          Then take <strong>data-driven action</strong> — adjust portions, change orders,
           and start saving money from day one.
         </p>
       </div>
@@ -402,7 +423,7 @@
       <h2 class="split__h2">Smarter actions,<br><span>bigger savings</span></h2>
       <ul class="split__bullets">
         <li><strong>Track your food waste</strong> — real-time logs from every bin, every shift.</li>
-        <li><strong><span class="hi">Act with AI-powered recommendations</span></strong> — automatically get data-driven suggestions tailored to your kitchen.</li>
+        <li><strong><span class="hi">Act with data-driven recommendations</span></strong> — automatically get data-driven suggestions tailored to your kitchen.</li>
         <li><strong>Monitor your progress</strong> — weekly and monthly reports show exactly how far you've come.</li>
       </ul>
     </div>
@@ -484,7 +505,7 @@
             <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.93V15a1 1 0 0 0-2 0v1.93A8 8 0 0 1 4.07 11H6a1 1 0 0 0 0-2H4.07A8 8 0 0 1 11 4.07V6a1 1 0 0 0 2 0V4.07A8 8 0 0 1 19.93 11H18a1 1 0 0 0 0 2h1.93A8 8 0 0 1 13 16.93z"/>
           </svg>
         </div>
-        <p class="apart-card__name">AI-powered insights</p>
+        <p class="apart-card__name">Smart insights</p>
         <p class="apart-card__desc">
           Rivara Flow <strong>recognises waste patterns</strong> automatically and turns that data into
           clear, actionable tips — no data analyst needed.
@@ -558,6 +579,12 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+  const burger = document.getElementById('nav-burger');
+  const drawer = document.getElementById('nav-drawer');
+  const navClose = document.getElementById('nav-close');
+  burger.addEventListener('click', () => { drawer.classList.add('open'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; });
+  navClose.addEventListener('click', () => { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; });
+  drawer.addEventListener('click', e => { if (e.target === drawer) { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; } });
 </script>
 </body>
 </html>

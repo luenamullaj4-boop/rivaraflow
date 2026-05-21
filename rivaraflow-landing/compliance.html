@@ -106,14 +106,16 @@
 
     /* REPORTING DEMO */
     .reporting-section { background: var(--bg); padding: 80px 0; }
+    .reporting-section .sec-tag--dark { background: rgba(156,123,227,.18); color: var(--accent); }
+    .reporting-section .sec-h2--dark { color: var(--bg-dark); }
     .reporting-grid { display: grid; gap: 48px; align-items: center; }
     @media (min-width: 768px) { .reporting-grid { grid-template-columns: 1fr 1fr; gap: 64px; } }
-    .reporting-desc p { font-size: 1rem; color: rgba(248,244,217,.82); line-height: 1.7; margin-top: 16px; }
+    .reporting-desc p { font-size: 1rem; color: #2e3347; line-height: 1.7; margin-top: 16px; }
     .report-contents { margin-top: 24px; list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .report-contents li { font-size: 14px; color: rgba(248,244,217,.82); padding-left: 22px; position: relative; }
-    .report-contents li::before { content: '→'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
-    .reporting-visual__placeholder { width: 100%; aspect-ratio: 4/3; border-radius: var(--r16); background: rgba(248,244,217,.05); border: 1px solid rgba(248,244,217,.12); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
-    .reporting-visual__label { font-size: 13px; color: rgba(248,244,217,.4); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+    .report-contents li { font-size: 14px; color: #2e3347; padding-left: 22px; position: relative; }
+    .report-contents li::before { content: '→'; position: absolute; left: 0; color: var(--accent-dark); font-weight: 700; }
+    .reporting-visual__placeholder { width: 100%; aspect-ratio: 4/3; border-radius: var(--r16); background: rgba(31,36,48,.06); border: 1px solid rgba(31,36,48,.1); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+    .reporting-visual__label { font-size: 13px; color: rgba(31,36,48,.4); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
 
     /* STANDARDS */
     .standards-section { background: var(--bg); padding: 72px 0; }
@@ -144,19 +146,43 @@
 </head>
 <body>
 
-<header class="sys-nav">
-  <a href="index.html" class="sys-nav__logo" aria-label="Rivara Flow home">
+<header class="site-nav">
+  <a href="index.html" class="site-nav__logo" aria-label="Rivara Flow home">
     <img src="assets/images/logo.png" alt="Rivara Flow" width="200" height="70" />
   </a>
-  <ul class="sys-nav__links" role="list">
-    <li><a href="index.html">Home</a></li>
+  <ul class="site-nav__desktop" role="list">
     <li><a href="system.html">System</a></li>
     <li><a href="platform.html">Platform</a></li>
     <li><a href="industries.html">Industries</a></li>
     <li><a href="about.html">About</a></li>
   </ul>
-  <a href="contact.html" class="sys-nav__cta">Book a Demo</a>
+  <div class="site-nav__right">
+    <a href="contact.html" class="site-nav__cta">Book a Demo</a>
+    <button class="site-nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </header>
+<div class="nav-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="nav-drawer__head">
+    <a href="index.html"><img src="assets/images/logo.png" alt="Rivara Flow" height="48" /></a>
+    <button class="nav-drawer__close" id="nav-close" aria-label="Close menu">&#x2715;</button>
+  </div>
+  <nav class="nav-drawer__links">
+    <a href="index.html">Home</a>
+    <a href="system.html">System</a>
+    <a href="platform.html">Platform</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="industries.html">Industries</a>
+    <a href="compliance.html" class="active">Compliance &amp; ESG</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Blog</a>
+    <a href="partners.html">Partners</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="drawer-cta">Book a Demo</a>
+  </nav>
+</div>
 
 <!-- HERO -->
 <section class="hero-section" aria-labelledby="compliance-h1">
@@ -370,7 +396,13 @@
     <p class="footer__copy">&copy; <span id="year"></span> Rivara Flow. All rights reserved.</p>
   </div>
 </footer>
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();  const burger = document.getElementById('nav-burger');
+  const drawer = document.getElementById('nav-drawer');
+  const navClose = document.getElementById('nav-close');
+  burger.addEventListener('click', () => { drawer.classList.add('open'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; });
+  navClose.addEventListener('click', () => { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; });
+  drawer.addEventListener('click', e => { if (e.target === drawer) { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; } });
+</script>
 
 </body>
 </html>
