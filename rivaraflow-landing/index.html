@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rivara Flow — Stop Paying for Waste You've Never Seen</title>
-  <meta name="description" content="Rivara Flow helps restaurants, hotels and agritourism businesses stop paying for food waste. Smart bins, staff training, data compliance, and circular composting — one closed loop." />
+  <title>Rivara Flow — Automatically Reduce Food Waste in Your Kitchen</title>
+  <meta name="description" content="Rivara Flow installs in minutes, logs every scrape, and gives you a clear picture of what's being wasted — and how to stop it. EU-compliant food waste management for restaurants, hotels, and agritourism." />
   <link rel="canonical" href="https://rivaraflow.com/" />
-  <meta property="og:title" content="Rivara Flow — One Platform. Four Components. One Closed Loop." />
-  <meta property="og:description" content="Stop paying for food waste you've never seen. EU-compliant food waste management for restaurants, hotels, and agritourism." />
+  <meta property="og:title" content="Rivara Flow — Automatically Reduce Food Waste" />
+  <meta property="og:description" content="Smart bins. Real-time data. Circular composting. One closed loop for your kitchen." />
   <meta property="og:type" content="website" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,1642 +16,1722 @@
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles/tokens.css" />
 
-<style>
-/* ============================================================
-   DESIGN TOKENS & RESETS
-   ============================================================ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <style>
+    /* ── Reset ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      background: #fff;
+      color: var(--text);
+      font-family: var(--satoshi);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
 
-:root {
-  --bg:        #F8F4ED;
-  --bg-dark:   #13151F;
-  --purple:    #9C7BE3;
-  --lime:      #C4D054;
-  --text:      #1A1C2E;
-  --text-inv:  #F8F4ED;
-  --text-muted:#6B6E85;
-  --border:    rgba(255,255,255,0.10);
-  --border-light: rgba(26,28,46,0.10);
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0;
+      margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border: 0;
+    }
 
-  --museo:   'MuseoModerno', sans-serif;
-  --satoshi: 'Satoshi', sans-serif;
+    .container {
+      width: 100%;
+      max-width: 1160px;
+      margin-inline: auto;
+      padding-inline: 20px;
+    }
+    @media (min-width: 640px)  { .container { padding-inline: 32px; } }
+    @media (min-width: 1024px) { .container { padding-inline: 48px; } }
 
-  --r8:   8px;
-  --r12:  12px;
-  --r16:  16px;
-  --r20:  20px;
-  --r24:  24px;
-  --r32:  32px;
-  --r999: 999px;
+    /* ── Announce bar ───────────────────────────── */
+    .announce {
+      background: var(--bg-dark);
+      text-align: center;
+      padding: 10px 16px;
+      font-family: var(--satoshi);
+      font-size: 13px;
+      color: rgba(248,244,237,.72);
+      letter-spacing: .01em;
+    }
+    .announce a {
+      color: var(--primary);
+      font-weight: 700;
+      margin-left: 6px;
+    }
+    .announce a:hover { text-decoration: underline; }
 
-  --section-pad: clamp(80px, 10vw, 140px);
-  --container:   1200px;
-}
+    /* ══════════════════════════════════════════════
+       NAV
+    ══════════════════════════════════════════════ */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26,28,46,.07);
+      transition: box-shadow .25s;
+    }
+    .site-nav.scrolled {
+      box-shadow: 0 2px 16px rgba(26,28,46,.08);
+    }
 
-html { scroll-behavior: smooth; }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 16px;
+    }
 
-body {
-  font-family: var(--satoshi);
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-  overflow-x: hidden;
-}
+    /* Logo — SVG wordmark since no file */
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .nav__logo-icon {
+      width: 36px; height: 36px;
+      background: var(--bg-dark);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .nav__logo-icon svg { width: 20px; height: 20px; }
+    .nav__logo-text {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 19px;
+      color: var(--bg-dark);
+      letter-spacing: -.01em;
+    }
+    .nav__logo-text span { color: var(--primary); }
 
-img { display: block; max-width: 100%; }
-a { text-decoration: none; color: inherit; }
-ul { list-style: none; }
-button { cursor: pointer; border: none; background: none; font: inherit; }
+    .nav__links {
+      display: none;
+      gap: 4px;
+      align-items: center;
+    }
+    @media (min-width: 900px) { .nav__links { display: flex; } }
 
-.container {
-  width: min(var(--container), 100% - 2rem);
-  margin-inline: auto;
-}
+    .nav__links a {
+      font-family: var(--satoshi);
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--text);
+      padding: 8px 14px;
+      border-radius: var(--r8);
+      transition: background .15s, color .15s;
+    }
+    .nav__links a:hover { background: rgba(26,28,46,.05); }
 
-.sr-only {
-  position: absolute; width: 1px; height: 1px;
-  padding: 0; margin: -1px; overflow: hidden;
-  clip: rect(0,0,0,0); border: 0;
-}
+    .nav__right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
 
-/* ============================================================
-   SCROLL REVEAL
-   ============================================================ */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.65s ease, transform 0.65s ease;
-}
-.reveal.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
+    .nav__demo {
+      display: none;
+      background: var(--bg-dark);
+      color: var(--primary);
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: var(--r999);
+      transition: opacity .2s, transform .2s;
+    }
+    @media (min-width: 640px) { .nav__demo { display: inline-flex; align-items: center; } }
+    .nav__demo:hover { opacity: .85; transform: translateY(-1px); }
 
-/* ============================================================
-   ANNOUNCEMENT BAR
-   ============================================================ */
-.announce {
-  background: var(--bg-dark);
-  color: var(--text-inv);
-  text-align: center;
-  font-family: var(--satoshi);
-  font-size: 0.82rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  padding: 10px 1rem;
-  position: relative;
-  z-index: 100;
-}
-.announce strong {
-  color: var(--lime);
-  font-weight: 700;
-  margin-left: 6px;
-}
-.announce a { color: var(--lime); text-decoration: underline; text-underline-offset: 2px; }
+    .nav__hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .nav__hamburger span {
+      display: block;
+      width: 22px; height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transform-origin: center;
+      transition: transform .28s, opacity .28s;
+    }
+    .nav__hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav__hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    @media (min-width: 900px) { .nav__hamburger { display: none; } }
 
-/* ============================================================
-   STICKY NAV
-   ============================================================ */
-.site-nav {
-  position: sticky;
-  top: 0;
-  z-index: 90;
-  background: var(--bg-dark);
-  border-bottom: 1px solid var(--border);
-  transition: backdrop-filter 0.3s, background 0.3s;
-}
-.site-nav.scrolled {
-  backdrop-filter: blur(20px);
-  background: rgba(19,21,31,0.92);
-}
-.site-nav__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  padding: 0 1rem;
-  height: 64px;
-  max-width: var(--container);
-  margin-inline: auto;
-}
-.site-nav__logo img { height: 38px; width: auto; }
-.site-nav__links {
-  display: none;
-  align-items: center;
-  gap: 2rem;
-}
-@media (min-width: 1024px) {
-  .site-nav__links { display: flex; }
-}
-.site-nav__links a {
-  color: rgba(248,244,237,0.75);
-  font-size: 0.875rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  transition: color 0.2s;
-}
-.site-nav__links a:hover { color: var(--text-inv); }
+    /* Mobile menu */
+    .nav__mobile {
+      position: fixed;
+      inset: 0;
+      z-index: 190;
+      background: var(--bg-dark);
+      display: flex;
+      flex-direction: column;
+      padding: 80px 24px 32px;
+      gap: 4px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s;
+      overflow-y: auto;
+    }
+    .nav__mobile.open { opacity: 1; pointer-events: all; }
+    @media (min-width: 900px) { .nav__mobile { display: none !important; } }
 
-.nav-lang-desktop {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-left: 1rem;
-}
-.lang-sep { color: rgba(248,244,237,0.3); font-size: 0.8rem; }
-.lang-sm {
-  color: rgba(248,244,237,0.5);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  padding: 2px 6px;
-  border-radius: var(--r8);
-  transition: color 0.2s, background 0.2s;
-}
-.lang-sm.active { color: var(--lime); background: rgba(196,208,84,0.12); }
-.lang-sm:hover { color: var(--text-inv); }
+    .nav__mobile a {
+      font-family: var(--museo);
+      font-size: 22px;
+      color: var(--text-inv);
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      transition: color .2s;
+    }
+    .nav__mobile a:hover { color: var(--primary); }
 
-.site-nav__cta {
-  display: none;
-  background: var(--purple);
-  color: #fff;
-  font-family: var(--satoshi);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  padding: 10px 22px;
-  border-radius: var(--r999);
-  transition: background 0.2s, transform 0.2s;
-  white-space: nowrap;
-}
-.site-nav__cta:hover { background: #8a68d4; transform: translateY(-1px); }
-@media (min-width: 768px) { .site-nav__cta { display: block; } }
+    .nav__mobile-demo {
+      margin-top: 24px;
+      background: var(--primary);
+      color: var(--bg-dark) !important;
+      border: none !important;
+      border-radius: var(--r999);
+      font-weight: 700;
+      text-align: center;
+      padding: 14px 24px !important;
+      font-size: 17px !important;
+    }
 
-.site-nav__hamburger {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  padding: 8px;
-  margin-right: -8px;
-}
-@media (min-width: 1024px) { .site-nav__hamburger { display: none; } }
-.site-nav__hamburger span {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--text-inv);
-  border-radius: 2px;
-  transition: transform 0.3s, opacity 0.3s;
-}
+    .nav__mobile-langs {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .nav__mobile-langs button {
+      background: none;
+      border: 1.5px solid rgba(196,208,84,.3);
+      border-radius: var(--r999);
+      color: rgba(248,244,237,.6);
+      font-family: var(--satoshi);
+      font-size: 14px;
+      padding: 7px 16px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .nav__mobile-langs button.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--bg-dark);
+      font-weight: 700;
+    }
 
-/* ============================================================
-   MOBILE MENU
-   ============================================================ */
-.hero-nav__mobile {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  background: var(--bg-dark);
-  display: flex;
-  flex-direction: column;
-  transform: translateX(100%);
-  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-  overflow-y: auto;
-}
-.hero-nav__mobile.open { transform: translateX(0); }
+    /* ══════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════ */
+    .hero {
+      background: var(--bg-dark);
+      position: relative;
+      overflow: hidden;
+      padding: 80px 0 0;
+      min-height: 680px;
+      display: flex;
+      flex-direction: column;
+    }
+    @media (min-width: 900px) {
+      .hero { min-height: 760px; padding: 100px 0 0; }
+    }
 
-.mmenu__header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid var(--border);
-}
-.mmenu__logo img { height: 32px; width: auto; }
-.mmenu__cta {
-  margin-left: auto;
-  background: var(--purple);
-  color: #fff;
-  font-size: 0.8rem;
-  font-weight: 700;
-  padding: 8px 18px;
-  border-radius: var(--r999);
-}
-.mmenu__close {
-  color: rgba(248,244,237,0.6);
-  font-size: 1.2rem;
-  padding: 6px;
-  line-height: 1;
-  transition: color 0.2s;
-}
-.mmenu__close:hover { color: var(--text-inv); }
+    /* Subtle background gradient blobs */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(196,208,84,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 80px; left: -60px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(156,123,227,.10) 0%, transparent 65%);
+      pointer-events: none;
+    }
 
-.mmenu__links {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem 0;
-  flex: 1;
-}
-.mmenu__item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: rgba(248,244,237,0.8);
-  font-size: 1rem;
-  font-weight: 500;
-  padding: 14px 1.25rem;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  transition: color 0.2s, background 0.2s;
-  text-align: left;
-  width: 100%;
-}
-.mmenu__item:hover { color: var(--text-inv); background: rgba(255,255,255,0.04); }
-.mmenu__acc-btn { background: none; border: none; font: inherit; width: 100%; }
-.mmenu__chevron { transition: transform 0.25s; flex-shrink: 0; color: rgba(248,244,237,0.4); }
-.mmenu__acc-btn[aria-expanded="true"] .mmenu__chevron { transform: rotate(180deg); }
+    .hero__inner {
+      position: relative;
+      z-index: 5;
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      padding-bottom: 64px;
+    }
+    @media (min-width: 900px) {
+      .hero__inner {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 64px;
+      }
+    }
 
-.mmenu__sub {
-  background: rgba(255,255,255,0.03);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-.mmenu__sub[hidden] { display: none; }
-.mmenu__sub-item {
-  display: block;
-  color: rgba(248,244,237,0.6);
-  font-size: 0.9rem;
-  padding: 11px 2rem;
-  transition: color 0.2s;
-}
-.mmenu__sub-item:hover { color: var(--text-inv); }
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(196,208,84,.12);
+      border: 1px solid rgba(196,208,84,.25);
+      border-radius: var(--r999);
+      padding: 6px 14px;
+      font-family: var(--satoshi);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+    .hero__eyebrow svg { width: 14px; height: 14px; }
 
-.mmenu__lang {
-  display: flex;
-  gap: 0.75rem;
-  padding: 1.25rem;
-  border-top: 1px solid var(--border);
-}
-.lang-btn {
-  flex: 1;
-  padding: 10px;
-  border-radius: var(--r12);
-  border: 1px solid var(--border);
-  color: rgba(248,244,237,0.6);
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: all 0.2s;
-  text-align: center;
-}
-.lang-btn.active {
-  background: rgba(196,208,84,0.15);
-  border-color: var(--lime);
-  color: var(--lime);
-}
-.lang-btn:hover { color: var(--text-inv); border-color: rgba(255,255,255,0.3); }
+    .hero__h1 {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(36px, 6vw, 68px);
+      line-height: 1.06;
+      color: var(--text-inv);
+      margin-bottom: 20px;
+      letter-spacing: -.02em;
+    }
+    .hero__h1 em {
+      font-style: normal;
+      color: var(--primary);
+    }
 
-/* ============================================================
-   HERO SECTION
-   ============================================================ */
-.hero {
-  background: var(--bg-dark);
-  min-height: calc(100svh - 64px - 40px);
-  display: flex;
-  align-items: center;
-  padding: clamp(60px, 8vw, 120px) 0;
-  position: relative;
-  overflow: hidden;
-}
+    .hero__sub {
+      font-family: var(--satoshi);
+      font-weight: 400;
+      font-size: clamp(15px, 2vw, 18px);
+      color: rgba(248,244,237,.68);
+      line-height: 1.7;
+      max-width: 460px;
+      margin-bottom: 36px;
+    }
 
-/* subtle radial glow behind phone */
-.hero::before {
-  content: '';
-  position: absolute;
-  right: 5%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(156,123,227,0.18) 0%, transparent 70%);
-  pointer-events: none;
-}
+    .hero__ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
 
-.hero__inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-  align-items: center;
-}
-@media (min-width: 768px) {
-  .hero__inner {
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-  }
-}
-@media (min-width: 1024px) {
-  .hero__inner {
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 5rem;
-  }
-}
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: var(--bg-dark);
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: var(--r999);
+      border: none;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(196,208,84,.35); }
+    .btn-primary svg { width: 16px; height: 16px; }
 
-.hero__kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(156,123,227,0.15);
-  border: 1px solid rgba(156,123,227,0.3);
-  color: var(--purple);
-  font-family: var(--satoshi);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  border-radius: var(--r999);
-  margin-bottom: 1.5rem;
-}
-.hero__kicker::before {
-  content: '';
-  width: 6px; height: 6px;
-  background: var(--lime);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.8); }
-}
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: rgba(248,244,237,.75);
+      font-family: var(--satoshi);
+      font-weight: 500;
+      font-size: 15px;
+      padding: 14px 20px;
+      border-radius: var(--r999);
+      border: 1.5px solid rgba(255,255,255,.15);
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+      white-space: nowrap;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.4); color: var(--text-inv); }
+    .btn-ghost svg { width: 16px; height: 16px; }
 
-.hero__headline {
-  font-family: var(--museo);
-  font-size: clamp(2.6rem, 6vw, 5rem);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  color: var(--text-inv);
-  text-transform: uppercase;
-  margin-bottom: 2rem;
-}
-.hero__headline .hi {
-  color: var(--lime);
-  display: inline-block;
-}
+    /* Hero visual — CSS bento card stack */
+    .hero__visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    @media (max-width: 899px) { .hero__visual { order: -1; } }
 
-.hero__sub {
-  color: rgba(248,244,237,0.55);
-  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
-  max-width: 42ch;
-}
+    .hero-card-stack {
+      position: relative;
+      width: 340px;
+      height: 380px;
+    }
+    @media (min-width: 900px) {
+      .hero-card-stack { width: 420px; height: 460px; }
+    }
 
-.btn-demo {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--lime);
-  color: var(--text);
-  font-family: var(--satoshi);
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  padding: 15px 32px;
-  border-radius: var(--r999);
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 24px rgba(196,208,84,0.25);
-}
-.btn-demo:hover {
-  background: #d4e15a;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(196,208,84,0.35);
-}
-.btn-demo::after { content: '→'; font-size: 1.1em; }
+    .hc {
+      position: absolute;
+      border-radius: var(--r20);
+      padding: 22px 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45), 0 4px 16px rgba(0,0,0,.25);
+    }
 
-/* Compost hero image */
-.hero__compost-img {
-  margin-top: 2.5rem;
-  width: clamp(160px, 30vw, 260px);
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 24px 48px rgba(0,0,0,0.45));
-}
+    .hc-bin {
+      width: 70%;
+      bottom: 0; left: 0;
+      background: linear-gradient(135deg, #1e2235 0%, #252840 100%);
+      border: 1px solid rgba(255,255,255,.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 28px 20px;
+      gap: 12px;
+      z-index: 1;
+    }
+    .hc-bin__icon {
+      width: 64px; height: 64px;
+      background: rgba(196,208,84,.12);
+      border-radius: var(--r16);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hc-bin__icon svg { width: 34px; height: 34px; }
+    .hc-bin__label {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-inv);
+      text-align: center;
+    }
+    .hc-bin__sub {
+      font-size: 11px;
+      color: rgba(248,244,237,.5);
+      text-align: center;
+    }
 
-/* ============================================================
-   PHONE MOCKUP SYSTEM
-   ============================================================ */
-.phone-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
+    .hc-scan {
+      width: 60%;
+      top: 0; right: 0;
+      background: var(--primary);
+      border: none;
+      z-index: 3;
+    }
+    .hc-scan__num {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 36px;
+      color: var(--bg-dark);
+      line-height: 1;
+    }
+    .hc-scan__label {
+      font-family: var(--satoshi);
+      font-size: 12px;
+      color: rgba(26,28,46,.65);
+      margin-top: 4px;
+    }
+    .hc-scan__bar {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .hc-scan__bar-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hc-scan__bar-label {
+      font-size: 10px;
+      color: rgba(26,28,46,.6);
+      width: 52px;
+      flex-shrink: 0;
+    }
+    .hc-scan__bar-track {
+      flex: 1;
+      height: 5px;
+      background: rgba(26,28,46,.12);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .hc-scan__bar-fill {
+      height: 100%;
+      background: var(--bg-dark);
+      border-radius: 99px;
+    }
 
-.phone-frame {
-  position: relative;
-  width: 240px;
-  flex-shrink: 0;
-}
-@media (min-width: 480px) { .phone-frame { width: 270px; } }
-@media (min-width: 768px) { .phone-frame { width: 300px; } }
+    .hc-accuracy {
+      width: 52%;
+      top: 38%;
+      right: 0;
+      background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+      z-index: 2;
+    }
+    .hc-accuracy__num {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 42px;
+      color: #fff;
+      line-height: 1;
+    }
+    .hc-accuracy__label {
+      font-size: 12px;
+      color: rgba(255,255,255,.72);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
 
-.phone-frame--hero {
-  transform: perspective(1000px) rotateY(-12deg) rotateX(4deg);
-  animation: phone-float 5s ease-in-out infinite;
-}
-.phone-frame--platform {
-  transform: perspective(1000px) rotateY(12deg) rotateX(4deg);
-  animation: phone-float 5s ease-in-out infinite;
-  animation-delay: 0.5s;
-}
-.phone-frame--esg {
-  transform: perspective(1000px) rotateY(-10deg) rotateX(3deg);
-  animation: phone-float 5s ease-in-out infinite;
-  animation-delay: 1s;
-}
+    /* Bottom wave shape */
+    .hero__wave {
+      width: 100%;
+      display: block;
+      margin-top: auto;
+      line-height: 0;
+    }
+    .hero__wave svg { width: 100%; display: block; }
 
-@keyframes phone-float {
-  0%, 100% { transform: perspective(1000px) rotateY(-12deg) rotateX(4deg) translateY(0px); }
-  50% { transform: perspective(1000px) rotateY(-12deg) rotateX(4deg) translateY(-10px); }
-}
-.phone-frame--platform { animation-name: phone-float-right; }
-@keyframes phone-float-right {
-  0%, 100% { transform: perspective(1000px) rotateY(12deg) rotateX(4deg) translateY(0px); }
-  50% { transform: perspective(1000px) rotateY(12deg) rotateX(4deg) translateY(-10px); }
-}
-.phone-frame--esg { animation-name: phone-float-esg; }
-@keyframes phone-float-esg {
-  0%, 100% { transform: perspective(1000px) rotateY(-10deg) rotateX(3deg) translateY(0px); }
-  50% { transform: perspective(1000px) rotateY(-10deg) rotateX(3deg) translateY(-10px); }
-}
+    /* ══════════════════════════════════════════════
+       TRUSTED BY
+    ══════════════════════════════════════════════ */
+    .trusted {
+      background: var(--bg);
+      padding: 36px 0;
+      border-bottom: 1px solid rgba(26,28,46,.07);
+    }
 
-.phone-shell {
-  background: #0a0b14;
-  border-radius: 40px;
-  border: 2px solid rgba(255,255,255,0.12);
-  box-shadow:
-    0 0 0 1px rgba(0,0,0,0.8),
-    0 30px 80px rgba(0,0,0,0.6),
-    0 60px 120px rgba(0,0,0,0.3),
-    inset 0 1px 0 rgba(255,255,255,0.08);
-  padding: 14px 12px;
-  position: relative;
-}
+    .trusted__inner {
+      display: flex;
+      align-items: center;
+      gap: 24px 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
-/* dynamic island */
-.phone-island {
-  width: 90px;
-  height: 26px;
-  background: #000;
-  border-radius: 20px;
-  margin: 0 auto 10px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.phone-island::after {
-  content: '';
-  width: 8px; height: 8px;
-  background: #1a1a2e;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.1);
-}
+    .trusted__label {
+      font-family: var(--satoshi);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(26,28,46,.4);
+      flex-shrink: 0;
+    }
 
-.phone-screen {
-  background: #0D0F1A;
-  border-radius: 28px;
-  overflow: hidden;
-  aspect-ratio: 9/19;
-}
+    .trusted__logos {
+      display: flex;
+      align-items: center;
+      gap: 28px 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
 
-/* ============================================================
-   STATS STRIP
-   ============================================================ */
-.stats-strip {
-  background: var(--bg);
-  padding: 56px 0;
-  border-top: 1px solid var(--border-light);
-  border-bottom: 1px solid var(--border-light);
-}
-.stats-strip__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  text-align: center;
-}
-@media (max-width: 640px) {
-  .stats-strip__grid { grid-template-columns: 1fr; gap: 2rem; }
-}
-.stat-item__num {
-  font-family: var(--museo);
-  font-size: clamp(2.4rem, 5vw, 3.8rem);
-  font-weight: 800;
-  color: var(--text);
-  line-height: 1;
-  margin-bottom: 8px;
-  letter-spacing: -0.03em;
-}
-.stat-item__num span { color: var(--purple); }
-.stat-item__label {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  font-weight: 500;
-  max-width: 22ch;
-  margin-inline: auto;
-  line-height: 1.5;
-}
+    .trusted__logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: .55;
+      transition: opacity .2s;
+    }
+    .trusted__logo:hover { opacity: 1; }
+    .trusted__logo-mark {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--text);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .trusted__logo-mark svg { width: 18px; height: 18px; }
+    .trusted__logo-name {
+      font-family: var(--satoshi);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text);
+    }
 
-/* ============================================================
-   PRODUCTS / SYSTEM
-   ============================================================ */
-.products {
-  background: var(--bg);
-  padding: var(--section-pad) 0;
-}
-.section-eyebrow {
-  font-family: var(--satoshi);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--purple);
-  margin-bottom: 1rem;
-}
-.section-title {
-  font-family: var(--museo);
-  font-size: clamp(1.9rem, 4vw, 3rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--text);
-  text-transform: uppercase;
-  margin-bottom: 3rem;
-  max-width: 28ch;
-}
-.section-title--inv { color: var(--text-inv); }
+    /* ══════════════════════════════════════════════
+       HOW IT WORKS
+    ══════════════════════════════════════════════ */
+    .how {
+      background: #fff;
+      padding: clamp(64px, 9vw, 120px) 0;
+    }
 
-.carousel-wrap { position: relative; }
-.carousel__track {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
-}
-@media (max-width: 1023px) {
-  .carousel__track {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 1rem;
-    padding-bottom: 1rem;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .carousel__track::-webkit-scrollbar { display: none; }
-}
+    .section-eyebrow {
+      font-family: var(--satoshi);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
 
-.p-card {
-  background: #fff;
-  border: 1px solid rgba(26,28,46,0.08);
-  border-radius: var(--r24);
-  padding: 2rem 1.75rem;
-  transition: transform 0.25s, box-shadow 0.25s;
-  position: relative;
-  overflow: hidden;
-}
-@media (max-width: 1023px) {
-  .p-card {
-    min-width: 280px;
-    scroll-snap-align: start;
-  }
-}
-.p-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--purple), var(--lime));
-  opacity: 0;
-  transition: opacity 0.25s;
-}
-.p-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(26,28,46,0.1); }
-.p-card:hover::before { opacity: 1; }
+    .section-h2 {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(28px, 4.5vw, 52px);
+      color: var(--text);
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      margin-bottom: 16px;
+    }
+    .section-h2 em { font-style: normal; color: var(--accent); }
 
-.p-card__num {
-  font-family: var(--museo);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--purple);
-  margin-bottom: 1.25rem;
-  display: block;
-}
-.p-card__icon {
-  width: 44px; height: 44px;
-  border-radius: var(--r12);
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-}
-.p-card__icon--1 { background: rgba(156,123,227,0.12); }
-.p-card__icon--2 { background: rgba(196,208,84,0.15); }
-.p-card__icon--3 { background: rgba(156,123,227,0.12); }
-.p-card__icon--4 { background: rgba(196,208,84,0.15); }
-.p-card__name {
-  font-family: var(--satoshi);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 0.6rem;
-  line-height: 1.3;
-}
-.p-card__desc {
-  color: var(--text-muted);
-  font-size: 0.875rem;
-  line-height: 1.6;
-}
+    .section-sub {
+      font-family: var(--satoshi);
+      font-size: clamp(15px, 2vw, 18px);
+      color: rgba(26,28,46,.6);
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 52px;
+    }
 
-.carousel__dots {
-  display: none;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 1.25rem;
-}
-@media (max-width: 1023px) { .carousel__dots { display: flex; } }
-.carousel__dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: rgba(26,28,46,0.2);
-  transition: background 0.2s, transform 0.2s;
-}
-.carousel__dot.active {
-  background: var(--purple);
-  transform: scale(1.3);
-}
+    .how__steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 640px) {
+      .how__steps { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    }
 
-/* ============================================================
-   PLATFORM SECTION
-   ============================================================ */
-.platform-section {
-  background: var(--bg-dark);
-  padding: var(--section-pad) 0;
-  position: relative;
-  overflow: hidden;
-}
-.platform-section::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 50%;
-  transform: translateY(-50%);
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(156,123,227,0.15) 0%, transparent 70%);
-  pointer-events: none;
-}
+    .step-card {
+      background: var(--bg);
+      border-radius: var(--r20);
+      padding: 32px 28px;
+      position: relative;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
 
-.platform-section__inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 4rem;
-  align-items: center;
-}
-@media (min-width: 768px) {
-  .platform-section__inner {
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-  }
-}
+    .step-card__num {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--accent);
+      letter-spacing: .06em;
+      margin-bottom: 16px;
+    }
 
-.platform-features {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-.platform-feature {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-}
-.platform-feature__icon {
-  width: 40px; height: 40px;
-  background: rgba(156,123,227,0.15);
-  border: 1px solid rgba(156,123,227,0.25);
-  border-radius: var(--r12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 1rem;
-}
-.platform-feature__title {
-  font-weight: 700;
-  color: var(--text-inv);
-  font-size: 0.95rem;
-  margin-bottom: 4px;
-}
-.platform-feature__desc {
-  color: rgba(248,244,237,0.5);
-  font-size: 0.85rem;
-  line-height: 1.6;
-}
+    .step-card__icon {
+      width: 52px; height: 52px;
+      background: var(--bg-dark);
+      border-radius: var(--r12);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .step-card__icon svg { width: 26px; height: 26px; }
 
-/* ============================================================
-   METRICS BENTO
-   ============================================================ */
-.metrics {
-  background: var(--bg);
-  padding: var(--section-pad) 0;
-}
-.metrics__grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-@media (min-width: 768px) {
-  .metrics__grid {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
+    .step-card__h3 {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
 
-.m-card {
-  background: var(--bg-dark);
-  border-radius: var(--r24);
-  padding: 2rem 1.75rem;
-  position: relative;
-  overflow: hidden;
-}
-.m-card--img {
-  background: #c5c0b8;
-  padding: 0;
-}
-.m-card--img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  min-height: 180px;
-}
-.m-card--light {
-  background: #fff;
-  border: 1px solid rgba(26,28,46,0.08);
-}
+    .step-card__p {
+      font-size: 14px;
+      color: rgba(26,28,46,.6);
+      line-height: 1.6;
+    }
 
-.m-card__num {
-  font-family: var(--museo);
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
-  font-weight: 800;
-  color: var(--lime);
-  line-height: 1;
-  display: block;
-  margin-bottom: 8px;
-  letter-spacing: -0.03em;
-}
-.m-card__label {
-  color: rgba(248,244,237,0.55);
-  font-size: 0.82rem;
-  line-height: 1.5;
-  max-width: 22ch;
-}
+    .step-card__connector {
+      display: none;
+    }
+    @media (min-width: 640px) {
+      .step-card__connector {
+        display: block;
+        position: absolute;
+        top: 52px;
+        right: -26px;
+        width: 40px;
+        height: 2px;
+        background: linear-gradient(90deg, rgba(196,208,84,.6), rgba(196,208,84,.1));
+        z-index: 2;
+      }
+      .step-card:last-child .step-card__connector { display: none; }
+    }
 
-/* Bento grid placement */
-.m-90  { grid-column: span 1; }
-.m-70  { grid-column: span 1; }
-.m-ph  { grid-column: span 2; grid-row: span 1; }
-.m-50k { grid-column: 1 / -1; }
-.m-i2  { grid-column: span 2; }
-.m-650 { grid-column: span 1; }
-.m-5   { grid-column: span 1; }
+    /* ══════════════════════════════════════════════
+       PLATFORM SECTION
+    ══════════════════════════════════════════════ */
+    .platform {
+      background: var(--bg-dark);
+      padding: clamp(64px, 9vw, 120px) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .platform::after {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(156,123,227,.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
 
-@media (min-width: 768px) {
-  .metrics__grid { grid-template-columns: 1fr 1fr 1fr; }
-  .m-ph  { grid-column: 3; grid-row: 1 / 3; }
-  .m-i2  { grid-column: 1; grid-row: 3 / 5; }
-  .m-90  { grid-column: 1; grid-row: 1; }
-  .m-70  { grid-column: 2; grid-row: 1; }
-  .m-50k { grid-column: 1 / 3; grid-row: 2; }
-  .m-650 { grid-column: 2 / 4; grid-row: 3; }
-  .m-5   { grid-column: 2 / 4; grid-row: 4; }
-  .m-card--img img { min-height: unset; height: 100%; }
-}
+    .platform__inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 52px;
+    }
+    @media (min-width: 900px) {
+      .platform__inner {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 72px;
+      }
+    }
 
-/* ============================================================
-   ESG STRIP
-   ============================================================ */
-.esg-section {
-  background: #0f1020;
-  padding: var(--section-pad) 0;
-  position: relative;
-  overflow: hidden;
-}
-.esg-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(156,123,227,0.12) 0%, transparent 60%);
-  pointer-events: none;
-}
-.esg-section__inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 4rem;
-  align-items: center;
-}
-@media (min-width: 768px) {
-  .esg-section__inner {
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-  }
-}
-.esg-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(196,208,84,0.12);
-  border: 1px solid rgba(196,208,84,0.25);
-  color: var(--lime);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  border-radius: var(--r999);
-  margin-bottom: 1.5rem;
-}
-.esg-badge::before { content: '✓'; }
+    .platform__text .section-eyebrow { color: var(--accent-soft); }
+    .platform__text .section-h2 { color: var(--text-inv); }
+    .platform__text .section-sub {
+      color: rgba(248,244,237,.58);
+      margin-bottom: 36px;
+    }
 
-/* ============================================================
-   FORM SECTION
-   ============================================================ */
-.form-section {
-  background: var(--bg);
-  padding: var(--section-pad) 0;
-}
-.form-section__inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 4rem;
-}
-@media (min-width: 1024px) {
-  .form-section__inner {
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: start;
-  }
-}
+    .platform__features {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
 
-.form-section__heading {
-  font-family: var(--museo);
-  font-size: clamp(2rem, 4.5vw, 3.5rem);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  color: var(--text);
-  margin-bottom: 1.25rem;
-}
-.form-section__sub {
-  color: var(--text-muted);
-  font-size: 1rem;
-  line-height: 1.7;
-  max-width: 38ch;
-}
+    .pf-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
 
-.lead-form {
-  background: #fff;
-  border: 1px solid rgba(26,28,46,0.08);
-  border-radius: var(--r32);
-  padding: clamp(1.75rem, 4vw, 2.75rem);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-  box-shadow: 0 8px 40px rgba(26,28,46,0.07);
-}
-@media (max-width: 640px) {
-  .lead-form { grid-template-columns: 1fr; }
-}
+    .pf-item__icon {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      background: rgba(196,208,84,.1);
+      border-radius: var(--r8);
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+    .pf-item__icon svg { width: 18px; height: 18px; }
 
-.f-group { display: flex; flex-direction: column; gap: 6px; }
-.f-group--full { grid-column: 1 / -1; }
-.f-label {
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text);
-  display: flex;
-  gap: 6px;
-  align-items: baseline;
-}
-.f-label span[data-i18n="form.optional"] {
-  font-size: 0.72rem;
-  font-weight: 400;
-  text-transform: none;
-  letter-spacing: 0;
-  color: var(--text-muted);
-}
+    .pf-item__text h4 {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-inv);
+      margin-bottom: 4px;
+    }
+    .pf-item__text p {
+      font-size: 13px;
+      color: rgba(248,244,237,.5);
+      line-height: 1.55;
+    }
 
-.f-input, .f-select, .f-textarea {
-  background: #f6f4f0;
-  border: 1.5px solid transparent;
-  border-radius: var(--r12);
-  padding: 12px 14px;
-  font-family: var(--satoshi);
-  font-size: 0.9rem;
-  color: var(--text);
-  transition: border-color 0.2s, background 0.2s;
-  outline: none;
-  width: 100%;
-  -webkit-appearance: none;
-}
-.f-input:focus, .f-select:focus, .f-textarea:focus {
-  border-color: var(--purple);
-  background: #fff;
-}
-.f-textarea { resize: vertical; min-height: 120px; }
+    /* Dashboard mockup */
+    .dash-mockup {
+      background: #1a1d2e;
+      border-radius: var(--r20);
+      border: 1px solid rgba(255,255,255,.07);
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0,0,0,.5), 0 8px 24px rgba(0,0,0,.3);
+    }
 
-.f-consent {
-  grid-column: 1 / -1;
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-}
-.f-consent input[type="checkbox"] {
-  width: 18px; height: 18px;
-  border-radius: 5px;
-  border: 1.5px solid rgba(26,28,46,0.2);
-  flex-shrink: 0;
-  margin-top: 2px;
-  accent-color: var(--purple);
-}
-.f-consent label {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
+    .dash__topbar {
+      background: #0e1020;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
 
-.f-submit { grid-column: 1 / -1; }
-.btn-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--text);
-  color: var(--text-inv);
-  font-family: var(--satoshi);
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  padding: 15px 36px;
-  border-radius: var(--r999);
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
-  width: 100%;
-  justify-content: center;
-}
-.btn-cta:hover { background: var(--purple); transform: translateY(-1px); }
-.btn-cta:disabled {
-  background: #4CAF50;
-  cursor: default;
-  transform: none;
-}
+    .dash__dots {
+      display: flex; gap: 6px;
+    }
+    .dash__dots span {
+      width: 11px; height: 11px;
+      border-radius: 50%;
+    }
+    .dash__dots span:nth-child(1) { background: #ff5f56; }
+    .dash__dots span:nth-child(2) { background: #febc2e; }
+    .dash__dots span:nth-child(3) { background: #28c840; }
 
-/* ============================================================
-   SUPPORTED BY
-   ============================================================ */
-.supported {
-  background: var(--bg-dark);
-  padding: 56px 0;
-  border-top: 1px solid var(--border);
-}
-.supported__label {
-  text-align: center;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(248,244,237,0.35);
-  margin-bottom: 2rem;
-}
-.supported__logos {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 2.5rem 3.5rem;
-}
-.supported__logos img {
-  height: 32px;
-  width: auto;
-  opacity: 0.45;
-  filter: brightness(0) invert(1);
-  transition: opacity 0.2s;
-}
-.supported__logos img:hover { opacity: 0.75; }
+    .dash__url {
+      flex: 1;
+      background: rgba(255,255,255,.06);
+      border-radius: 6px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 6px;
+      font-size: 10px;
+      color: rgba(255,255,255,.3);
+    }
+    .dash__url svg { width: 10px; height: 10px; }
 
-/* ============================================================
-   FOOTER
-   ============================================================ */
-.footer {
-  background: #0a0b14;
-  padding: 64px 0 32px;
-  border-top: 1px solid var(--border);
-}
-.footer__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2.5rem;
-  margin-bottom: 3rem;
-}
-@media (min-width: 768px) {
-  .footer__grid { grid-template-columns: repeat(4, 1fr); }
-}
-.footer__col-title {
-  font-family: var(--satoshi);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(248,244,237,0.35);
-  margin-bottom: 1.25rem;
-}
-.footer__col ul { display: flex; flex-direction: column; gap: 10px; }
-.footer__col a {
-  color: rgba(248,244,237,0.55);
-  font-size: 0.875rem;
-  transition: color 0.2s;
-}
-.footer__col a:hover { color: var(--text-inv); }
-.footer__copy {
-  border-top: 1px solid var(--border);
-  padding-top: 2rem;
-  text-align: center;
-  font-size: 0.8rem;
-  color: rgba(248,244,237,0.25);
-}
+    .dash__body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
 
-/* ============================================================
-   UTILITY — body section heading helpers
-   ============================================================ */
-.body-headline {
-  font-family: var(--museo);
-  font-size: clamp(1.7rem, 3.5vw, 2.6rem);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
-  color: var(--text-inv);
-  margin-bottom: 1rem;
-}
-.body-sub {
-  color: rgba(248,244,237,0.5);
-  font-size: 0.95rem;
-  line-height: 1.7;
-  max-width: 40ch;
-  margin-bottom: 2rem;
-}
+    .dash__row1 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
 
-</style>
+    .dash-stat {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: var(--r12);
+      padding: 14px 12px;
+    }
+    .dash-stat__n {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .dash-stat__l {
+      font-size: 10px;
+      color: rgba(255,255,255,.4);
+      margin-top: 4px;
+    }
+
+    .dash__chart {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: var(--r12);
+      padding: 16px;
+    }
+    .dash__chart-title {
+      font-family: var(--satoshi);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      margin-bottom: 14px;
+    }
+    .dash__bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 70px;
+    }
+    .dash__bar {
+      flex: 1;
+      border-radius: 4px 4px 0 0;
+      background: var(--primary);
+      opacity: .65;
+    }
+    .dash__bar.hi { opacity: 1; }
+
+    .dash__row2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .dash-mini {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: var(--r12);
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .dash-mini__dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dash-mini__text {
+      font-size: 11px;
+      color: rgba(255,255,255,.45);
+      line-height: 1.4;
+    }
+    .dash-mini__val {
+      margin-left: auto;
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-inv);
+      flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════════════════════
+       STATS / BENTO
+    ══════════════════════════════════════════════ */
+    .stats-section {
+      background: var(--bg);
+      padding: clamp(64px, 9vw, 120px) 0;
+    }
+
+    .stats-section .section-sub { margin-bottom: 48px; }
+
+    .bento {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (min-width: 768px) {
+      .bento {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto auto auto;
+        gap: 12px;
+      }
+    }
+
+    .bento-card {
+      border-radius: var(--r20);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 6px;
+      min-height: 140px;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .bento-card:hover { transform: translateY(-3px); }
+
+    .bento-card--lime {
+      background: var(--primary);
+    }
+    .bento-card--dark {
+      background: var(--bg-dark);
+    }
+    .bento-card--purple {
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+    }
+    .bento-card--white {
+      background: #fff;
+      border: 1.5px solid rgba(26,28,46,.08);
+    }
+
+    .bento-card__num {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(36px, 7vw, 58px);
+      line-height: 1;
+    }
+    .bento-card--lime  .bento-card__num { color: var(--bg-dark); }
+    .bento-card--dark  .bento-card__num { color: var(--primary); }
+    .bento-card--purple .bento-card__num { color: #fff; }
+    .bento-card--white .bento-card__num { color: var(--accent); }
+
+    .bento-card__label {
+      font-size: clamp(11px, 1.8vw, 14px);
+      line-height: 1.45;
+    }
+    .bento-card--lime   .bento-card__label { color: rgba(26,28,46,.65); }
+    .bento-card--dark   .bento-card__label { color: rgba(248,244,237,.55); }
+    .bento-card--purple .bento-card__label { color: rgba(255,255,255,.7); }
+    .bento-card--white  .bento-card__label { color: rgba(26,28,46,.55); }
+
+    /* Desktop layout assignments */
+    @media (min-width: 768px) {
+      .bento .b1 { grid-column: 1; grid-row: 1; }
+      .bento .b2 { grid-column: 2; grid-row: 1; }
+      .bento .b3 { grid-column: 3; grid-row: 1 / 3; min-height: 300px; justify-content: center; align-items: flex-start; }
+      .bento .b4 { grid-column: 1 / 3; grid-row: 2; }
+      .bento .b5 { grid-column: 1 / 3; grid-row: 3; }
+      .bento .b6 { grid-column: 3; grid-row: 3; }
+    }
+
+    /* ══════════════════════════════════════════════
+       INDUSTRIES
+    ══════════════════════════════════════════════ */
+    .industries {
+      background: #fff;
+      padding: clamp(64px, 9vw, 120px) 0;
+    }
+
+    .industries__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (min-width: 768px) {
+      .industries__grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+    }
+
+    .ind-card {
+      background: var(--bg);
+      border-radius: var(--r20);
+      padding: 28px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: transform .25s, box-shadow .25s, background .25s;
+      cursor: pointer;
+    }
+    .ind-card:hover {
+      background: var(--bg-dark);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .ind-card__icon {
+      width: 48px; height: 48px;
+      border-radius: var(--r12);
+      background: var(--bg-dark);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .25s;
+    }
+    .ind-card:hover .ind-card__icon {
+      background: rgba(196,208,84,.15);
+    }
+    .ind-card__icon svg { width: 24px; height: 24px; }
+
+    .ind-card__name {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--text);
+      transition: color .25s;
+    }
+    .ind-card:hover .ind-card__name { color: var(--text-inv); }
+
+    .ind-card__desc {
+      font-size: 13px;
+      color: rgba(26,28,46,.55);
+      line-height: 1.55;
+      transition: color .25s;
+    }
+    .ind-card:hover .ind-card__desc { color: rgba(248,244,237,.5); }
+
+    .ind-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--satoshi);
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--accent);
+      margin-top: auto;
+      transition: color .25s;
+    }
+    .ind-card:hover .ind-card__link { color: var(--primary); }
+    .ind-card__link svg { width: 14px; height: 14px; }
+
+    /* ══════════════════════════════════════════════
+       TESTIMONIAL
+    ══════════════════════════════════════════════ */
+    .testimonial {
+      background: var(--bg-dark);
+      padding: clamp(64px, 9vw, 120px) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonial::before {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(196,208,84,.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .testimonial__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .testimonial__quote-icon {
+      width: 48px; height: 48px;
+      background: rgba(196,208,84,.12);
+      border-radius: var(--r12);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px;
+    }
+    .testimonial__quote-icon svg { width: 24px; height: 24px; }
+
+    .testimonial__quote {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(22px, 3.5vw, 36px);
+      color: var(--text-inv);
+      line-height: 1.35;
+      letter-spacing: -.01em;
+      margin-bottom: 32px;
+    }
+    .testimonial__quote em {
+      font-style: normal;
+      color: var(--primary);
+    }
+
+    .testimonial__author {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+    .testimonial__avatar {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 16px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .testimonial__name {
+      font-family: var(--satoshi);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-inv);
+    }
+    .testimonial__role {
+      font-size: 13px;
+      color: rgba(248,244,237,.5);
+    }
+
+    /* ══════════════════════════════════════════════
+       DEMO CTA BANNER
+    ══════════════════════════════════════════════ */
+    .cta-banner {
+      background: var(--primary);
+      padding: clamp(64px, 9vw, 100px) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(26,28,46,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-banner__inner {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 680px;
+      margin-inline: auto;
+    }
+
+    .cta-banner__h2 {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(30px, 5vw, 56px);
+      color: var(--bg-dark);
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      margin-bottom: 16px;
+    }
+
+    .cta-banner__sub {
+      font-family: var(--satoshi);
+      font-size: clamp(15px, 2vw, 18px);
+      color: rgba(26,28,46,.65);
+      line-height: 1.6;
+      margin-bottom: 36px;
+    }
+
+    .cta-banner .btn-primary {
+      background: var(--bg-dark);
+      color: var(--primary);
+      font-size: 16px;
+      padding: 16px 36px;
+    }
+    .cta-banner .btn-primary:hover {
+      box-shadow: 0 8px 32px rgba(26,28,46,.3);
+    }
+
+    .cta-banner__note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: rgba(26,28,46,.5);
+    }
+
+    /* ══════════════════════════════════════════════
+       SUPPORTED BY
+    ══════════════════════════════════════════════ */
+    .supported {
+      background: var(--bg);
+      padding: 40px 0;
+      border-top: 1px solid rgba(26,28,46,.07);
+    }
+
+    .supported__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .supported__label {
+      font-family: var(--satoshi);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: rgba(26,28,46,.35);
+    }
+
+    .supported__logos {
+      display: flex;
+      align-items: center;
+      gap: 24px 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .sup-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: .5;
+      transition: opacity .2s;
+    }
+    .sup-logo:hover { opacity: .9; }
+    .sup-logo__badge {
+      width: 30px; height: 30px;
+      border-radius: 7px;
+      background: var(--text);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .sup-logo__badge svg { width: 16px; height: 16px; }
+    .sup-logo__name {
+      font-family: var(--satoshi);
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    /* ══════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════ */
+    .footer {
+      background: var(--bg-dark);
+      padding: 56px 0 32px;
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px 24px;
+      margin-bottom: 48px;
+    }
+    @media (min-width: 768px) {
+      .footer__grid {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 24px 48px;
+      }
+    }
+
+    .footer__brand .nav__logo-text { color: var(--text-inv); font-size: 20px; }
+
+    .footer__tagline {
+      margin-top: 12px;
+      font-size: 13px;
+      color: rgba(248,244,237,.45);
+      line-height: 1.6;
+      max-width: 220px;
+    }
+
+    .footer__social {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .footer__soc-link {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,.07);
+      border-radius: var(--r8);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .footer__soc-link:hover { background: rgba(196,208,84,.2); }
+    .footer__soc-link svg { width: 16px; height: 16px; }
+
+    .footer__col-title {
+      font-family: var(--satoshi);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: rgba(248,244,237,.4);
+      margin-bottom: 14px;
+    }
+
+    .footer__col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer__col a {
+      font-size: 13px;
+      color: rgba(248,244,237,.6);
+      transition: color .2s;
+    }
+    .footer__col a:hover { color: var(--primary); }
+
+    .footer__bottom {
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,.07);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .footer__copy {
+      font-size: 12px;
+      color: rgba(248,244,237,.3);
+    }
+
+    .footer__bottom-links {
+      display: flex;
+      gap: 20px;
+    }
+    .footer__bottom-links a {
+      font-size: 12px;
+      color: rgba(248,244,237,.3);
+      transition: color .2s;
+    }
+    .footer__bottom-links a:hover { color: var(--primary); }
+
+    /* ══════════════════════════════════════════════
+       SCROLL REVEAL
+    ══════════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .reveal.in-view { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+  </style>
 </head>
 <body>
 
-<!-- ============================================================
-     ANNOUNCEMENT BAR
-     ============================================================ -->
-<p class="announce">
-  <span data-i18n="announce">First Demo is Free.</span>
-  <strong><a href="#contact" data-i18n="announce.cta">Book Now!</a></strong>
-</p>
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce">
+  First Demo is Free — no commitment, no pressure.
+  <a href="#contact">Book Now →</a>
+</div>
 
-<!-- ============================================================
-     STICKY NAV
-     ============================================================ -->
-<header class="site-nav" id="site-nav">
-  <div class="site-nav__inner">
-    <a href="#" class="site-nav__logo" aria-label="Rivara Flow home">
-      <img src="assets/images/logo.png" alt="Rivara Flow" width="160" height="54" />
-    </a>
+<!-- STICKY NAV -->
+<nav class="site-nav" id="site-nav" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav__inner">
 
-    <ul class="site-nav__links" role="list">
-      <li><a href="#" data-i18n="nav.home">Home</a></li>
-      <li><a href="system.html" data-i18n="nav.system">System</a></li>
-      <li><a href="platform.html" data-i18n="nav.platform">Platform</a></li>
-      <li><a href="how-it-works.html">How It Works</a></li>
-      <li><a href="industries.html">Industries</a></li>
-      <li><a href="about.html">About</a></li>
-      <li class="nav-lang-desktop">
-        <button class="lang-sm active" data-lang="en">EN</button>
-        <span class="lang-sep">/</span>
-        <button class="lang-sm" data-lang="al">AL</button>
-      </li>
-    </ul>
-
-    <a href="#contact" class="site-nav__cta" data-i18n="nav.book">Book a Demo</a>
-
-    <button class="site-nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-
-    <!-- Full-screen mobile menu -->
-    <nav class="hero-nav__mobile" id="mobile-menu" aria-label="Mobile navigation">
-      <div class="mmenu__header">
-        <a href="#" class="mmenu__logo">
-          <img src="assets/images/logo.png" alt="Rivara Flow" />
-        </a>
-        <a href="#contact" class="mmenu__cta" data-i18n="nav.book">Book a Demo</a>
-        <button class="mmenu__close" id="mmenu-close" aria-label="Close menu">&#x2715;</button>
-      </div>
-
-      <div class="mmenu__links">
-        <a href="#" class="mmenu__item" data-i18n="nav.home">Home</a>
-        <a href="system.html" class="mmenu__item" data-i18n="nav.system">System</a>
-        <a href="platform.html" class="mmenu__item" data-i18n="nav.platform">Platform</a>
-        <a href="how-it-works.html" class="mmenu__item">How It Works</a>
-
-        <button class="mmenu__item mmenu__acc-btn" aria-expanded="false">
-          <span data-i18n="nav.industries">Industries</span>
-          <svg class="mmenu__chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        </button>
-        <div class="mmenu__sub" hidden>
-          <a href="industries.html#restaurants" class="mmenu__sub-item" data-i18n="nav.restaurants">Restaurants</a>
-          <a href="industries.html#hotels" class="mmenu__sub-item" data-i18n="nav.hotels">Hotels</a>
-          <a href="industries.html#agritourism" class="mmenu__sub-item" data-i18n="nav.agritourism">Agritourism</a>
-          <a href="industries.html#catering" class="mmenu__sub-item" data-i18n="nav.catering">Catering</a>
-          <a href="industries.html#cafeterias" class="mmenu__sub-item">Cafeterias</a>
-          <a href="industries.html#institutional" class="mmenu__sub-item">Institutional Kitchens</a>
+      <a href="index.html" class="nav__logo" aria-label="Rivara Flow home">
+        <div class="nav__logo-icon">
+          <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 2C10 2 4 5.5 4 11C4 14.314 6.686 17 10 17C13.314 17 16 14.314 16 11C16 5.5 10 2 10 2Z" fill="#C4D054"/>
+            <path d="M10 8C10 8 7 9.75 7 12C7 13.657 8.343 15 10 15C11.657 15 13 13.657 13 12C13 9.75 10 8 10 8Z" fill="#1A1C2E"/>
+          </svg>
         </div>
+        <span class="nav__logo-text">Rivara<span> Flow</span></span>
+      </a>
 
-        <button class="mmenu__item mmenu__acc-btn" aria-expanded="false">
-          <span data-i18n="nav.about">About Us</span>
-          <svg class="mmenu__chevron" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <ul class="nav__links" role="list">
+        <li><a href="system.html">System</a></li>
+        <li><a href="platform.html">Platform</a></li>
+        <li><a href="industries.html">Industries</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+
+      <div class="nav__right">
+        <a href="#contact" class="nav__demo">Book a Demo</a>
+        <button class="nav__hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
         </button>
-        <div class="mmenu__sub" hidden>
-          <a href="about.html" class="mmenu__sub-item">About Rivara Flow</a>
-          <a href="partners.html" class="mmenu__sub-item">Partners</a>
-          <a href="blog.html" class="mmenu__sub-item">Blog</a>
-        </div>
-
-        <a href="compliance.html" class="mmenu__item">Compliance &amp; ESG</a>
-        <a href="case-studies.html" class="mmenu__item">Case Studies</a>
-        <a href="faq.html" class="mmenu__item">FAQ</a>
       </div>
 
-      <div class="mmenu__lang">
-        <button class="lang-btn active" data-lang="en">&#127468;&#127463; English</button>
-        <button class="lang-btn" data-lang="al">&#127462;&#127473; Shqip</button>
-      </div>
-    </nav>
+    </div>
   </div>
-</header>
 
-<!-- ============================================================
-     HERO
-     ============================================================ -->
+  <!-- Mobile menu -->
+  <nav class="nav__mobile" id="nav-mobile" aria-label="Mobile navigation">
+    <a href="system.html">System</a>
+    <a href="platform.html">Platform</a>
+    <a href="industries.html">Industries</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Blog</a>
+    <a href="#contact" class="nav__mobile-demo">Book a Free Demo</a>
+    <div class="nav__mobile-langs">
+      <button class="active" data-lang="en">🇬🇧 English</button>
+      <button data-lang="al">🇦🇱 Shqip</button>
+    </div>
+  </nav>
+</nav>
+
+<!-- HERO -->
 <section class="hero" id="hero" aria-labelledby="hero-h1">
   <div class="container">
     <div class="hero__inner">
 
-      <!-- LEFT: Copy -->
-      <div class="hero__content">
-        <div class="hero__kicker">Climate Tech · EU Compliant</div>
-        <h1 class="hero__headline reveal" id="hero-h1" data-i18n-html="hero.headline">
-          You're losing <span class="hi">15%</span><br>
-          of your food<br>budget.
+      <div class="hero__copy">
+        <div class="hero__eyebrow">
+          <svg viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="3" fill="#C4D054"/><circle cx="7" cy="7" r="6" stroke="#C4D054" stroke-width="1.5" stroke-dasharray="3 2"/></svg>
+          Smart Food Waste Management
+        </div>
+        <h1 class="hero__h1" id="hero-h1">
+          Automatically<br>
+          reduce food waste<br>
+          <em>in your kitchen.</em>
         </h1>
-        <p class="hero__sub reveal">
-          Rivara Flow turns kitchen waste into data, compliance, and fertilizer — one closed loop for restaurants, hotels, and agritourism.
+        <p class="hero__sub">
+          Rivara Flow installs in minutes, logs every scrape,
+          and gives you a clear picture of what's being wasted —
+          and how to stop it. EU-compliant, circular, and built
+          for Albanian hospitality.
         </p>
-        <a href="#contact" class="btn-demo reveal" data-i18n="hero.cta">Book a Demo</a>
-        <img src="assets/images/compost.png" alt="Food waste going into a smart bin" class="hero__compost-img reveal" />
+        <div class="hero__ctas">
+          <a href="#contact" class="btn-primary">
+            Book a Free Demo
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="system.html" class="btn-ghost">
+            See how it works
+            <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
       </div>
 
-      <!-- RIGHT: Phone mockup -->
-      <div class="phone-wrap" aria-hidden="true">
-        <div class="phone-frame phone-frame--hero">
-          <div class="phone-shell">
-            <div class="phone-island"></div>
-            <div class="phone-screen">
-              <!-- Hero SVG: Waste Overview -->
-              <svg viewBox="0 0 270 580" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
-                <rect width="270" height="580" fill="#0D0F1A"/>
-                <!-- Status bar -->
-                <text x="16" y="22" font-family="sans-serif" font-size="10" fill="rgba(248,244,237,0.4)">9:41</text>
-                <text x="230" y="22" font-family="sans-serif" font-size="10" fill="rgba(248,244,237,0.4)">●●●</text>
+      <div class="hero__visual">
+        <div class="hero-card-stack">
 
-                <!-- Header -->
-                <text x="16" y="52" font-family="sans-serif" font-size="15" font-weight="700" fill="#F8F4ED">Waste Overview</text>
-                <text x="16" y="68" font-family="sans-serif" font-size="10" fill="rgba(248,244,237,0.4)">Today · May 21, 2026</text>
-
-                <!-- Big metric card -->
-                <rect x="12" y="80" width="246" height="110" rx="16" fill="#1A1D2E"/>
-                <text x="28" y="108" font-family="sans-serif" font-size="10" fill="rgba(248,244,237,0.5)">TOTAL WASTE TODAY</text>
-                <text x="28" y="142" font-family="sans-serif" font-size="36" font-weight="800" fill="#F8F4ED">2.4 kg</text>
-                <rect x="28" y="158" width="60" height="20" rx="10" fill="rgba(196,208,84,0.18)"/>
-                <text x="38" y="172" font-family="sans-serif" font-size="10" font-weight="700" fill="#C4D054">↓ 18%</text>
-                <text x="100" y="172" font-family="sans-serif" font-size="9" fill="rgba(248,244,237,0.4)">vs yesterday</text>
-
-                <!-- Chart label -->
-                <text x="16" y="218" font-family="sans-serif" font-size="11" font-weight="600" fill="rgba(248,244,237,0.7)">This Week</text>
-
-                <!-- 7-bar chart -->
-                <!-- bars: heights proportional, bottom baseline at y=310 -->
-                <g>
-                  <!-- Mon -->
-                  <rect x="20" y="266" width="22" height="44" rx="5" fill="rgba(156,123,227,0.3)"/>
-                  <text x="23" y="322" font-family="sans-serif" font-size="8" fill="rgba(248,244,237,0.35)">M</text>
-                  <!-- Tue -->
-                  <rect x="52" y="248" width="22" height="62" rx="5" fill="rgba(156,123,227,0.4)"/>
-                  <text x="55" y="322" font-family="sans-serif" font-size="8" fill="rgba(248,244,237,0.35)">T</text>
-                  <!-- Wed -->
-                  <rect x="84" y="258" width="22" height="52" rx="5" fill="rgba(156,123,227,0.4)"/>
-                  <text x="87" y="322" font-family="sans-serif" font-size="8" fill="rgba(248,244,237,0.35)">W</text>
-                  <!-- Thu -->
-                  <rect x="116" y="242" width="22" height="68" rx="5" fill="rgba(156,123,227,0.5)"/>
-                  <text x="119" y="322" font-family="sans-serif" font-size="8" fill="rgba(248,244,237,0.35)">T</text>
-                  <!-- Fri -->
-                  <rect x="148" y="252" width="22" height="58" rx="5" fill="rgba(156,123,227,0.4)"/>
-                  <text x="151" y="322" font-family="sans-serif" font-size="8" fill="rgba(248,244,237,0.35)">F</text>
-                  <!-- Sat -->
-                  <rect x="180" y="270" width="22" height="40" rx="5" fill="rgba(196,208,84,0.5)"/>
-                  <text x="183" y="322" font-family="sans-serif" font-size="8" fill="rgba(248,244,237,0.35)">S</text>
-                  <!-- Sun (today) -->
-                  <rect x="212" y="278" width="22" height="32" rx="5" fill="#C4D054"/>
-                  <text x="214" y="322" font-family="sans-serif" font-size="8" fill="rgba(248,244,237,0.35)">S</text>
-                </g>
-
-                <!-- Category pills -->
-                <text x="16" y="354" font-family="sans-serif" font-size="11" font-weight="600" fill="rgba(248,244,237,0.7)">By Category</text>
-                <!-- Prep pill -->
-                <rect x="16" y="364" width="64" height="26" rx="13" fill="rgba(156,123,227,0.18)"/>
-                <text x="29" y="381" font-family="sans-serif" font-size="10" font-weight="600" fill="#9C7BE3">Prep</text>
-                <!-- Plate pill -->
-                <rect x="88" y="364" width="64" height="26" rx="13" fill="rgba(196,208,84,0.15)"/>
-                <text x="99" y="381" font-family="sans-serif" font-size="10" font-weight="600" fill="#C4D054">Plate</text>
-                <!-- Spoilage pill -->
-                <rect x="160" y="364" width="80" height="26" rx="13" fill="rgba(248,244,237,0.06)"/>
-                <text x="168" y="381" font-family="sans-serif" font-size="10" font-weight="600" fill="rgba(248,244,237,0.5)">Spoilage</text>
-
-                <!-- Row items -->
-                <rect x="12" y="406" width="246" height="46" rx="12" fill="#1A1D2E"/>
-                <rect x="24" y="418" width="6" height="22" rx="3" fill="#9C7BE3"/>
-                <text x="40" y="429" font-family="sans-serif" font-size="10" font-weight="600" fill="#F8F4ED">Prep waste</text>
-                <text x="40" y="443" font-family="sans-serif" font-size="9" fill="rgba(248,244,237,0.4)">1.1 kg · 46%</text>
-                <text x="220" y="436" font-family="sans-serif" font-size="11" font-weight="700" fill="#C4D054">−€2.4</text>
-
-                <rect x="12" y="460" width="246" height="46" rx="12" fill="#1A1D2E"/>
-                <rect x="24" y="472" width="6" height="22" rx="3" fill="#C4D054"/>
-                <text x="40" y="483" font-family="sans-serif" font-size="10" font-weight="600" fill="#F8F4ED">Plate returns</text>
-                <text x="40" y="497" font-family="sans-serif" font-size="9" fill="rgba(248,244,237,0.4)">0.8 kg · 33%</text>
-                <text x="220" y="490" font-family="sans-serif" font-size="11" font-weight="700" fill="#C4D054">−€1.8</text>
-
-                <!-- Bottom bar -->
-                <rect x="80" y="564" width="110" height="4" rx="2" fill="rgba(248,244,237,0.15)"/>
+          <!-- Smart bin card -->
+          <div class="hc hc-bin">
+            <div class="hc-bin__icon">
+              <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="9" y="13" width="16" height="16" rx="3" stroke="#C4D054" stroke-width="1.8"/>
+                <path d="M12 13V10C12 8.343 13.343 7 15 7H19C20.657 7 22 8.343 22 10V13" stroke="#C4D054" stroke-width="1.8" stroke-linecap="round"/>
+                <circle cx="17" cy="21" r="3" fill="#C4D054" opacity=".4"/>
+                <path d="M6 13h22" stroke="#C4D054" stroke-width="1.8" stroke-linecap="round"/>
+                <circle cx="26" cy="10" r="4" fill="#C4D054"/>
+                <path d="M24 10l1.5 1.5L28 8.5" stroke="#1A1C2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
+            <div class="hc-bin__label">Smart Bin</div>
+            <div class="hc-bin__sub">AI scanning active</div>
           </div>
+
+          <!-- Accuracy card -->
+          <div class="hc hc-accuracy">
+            <div class="hc-accuracy__num">90%</div>
+            <div class="hc-accuracy__label">Waste identification<br>accuracy</div>
+          </div>
+
+          <!-- Analytics card -->
+          <div class="hc hc-scan">
+            <div class="hc-scan__num">–15%</div>
+            <div class="hc-scan__label">waste this month</div>
+            <div class="hc-scan__bar">
+              <div class="hc-scan__bar-row">
+                <span class="hc-scan__bar-label">Vegetables</span>
+                <div class="hc-scan__bar-track">
+                  <div class="hc-scan__bar-fill" style="width:72%"></div>
+                </div>
+              </div>
+              <div class="hc-scan__bar-row">
+                <span class="hc-scan__bar-label">Bread</span>
+                <div class="hc-scan__bar-track">
+                  <div class="hc-scan__bar-fill" style="width:45%"></div>
+                </div>
+              </div>
+              <div class="hc-scan__bar-row">
+                <span class="hc-scan__bar-label">Meat</span>
+                <div class="hc-scan__bar-track">
+                  <div class="hc-scan__bar-fill" style="width:30%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
     </div>
   </div>
+
+  <div class="hero__wave">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C200,60 400,0 600,35 C800,70 1050,10 1240,40 C1320,52 1390,28 1440,20 L1440,60 L0,60 Z" fill="#F8F4ED"/>
+    </svg>
+  </div>
 </section>
 
-<main>
-
-<!-- ============================================================
-     STATS STRIP
-     ============================================================ -->
-<section class="stats-strip" aria-label="Key metrics">
+<!-- TRUSTED BY -->
+<section class="trusted" aria-label="Supported by">
   <div class="container">
-    <div class="stats-strip__grid">
-      <div class="stat-item reveal">
-        <div class="stat-item__num">90<span>%</span></div>
-        <p class="stat-item__label">Waste identification accuracy in live pilot</p>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-item__num">50<span>k</span></div>
-        <p class="stat-item__label">kg CO₂e projected avoided across first agreements</p>
-      </div>
-      <div class="stat-item reveal">
-        <div class="stat-item__num">5</div>
-        <p class="stat-item__label">Restaurant pilots signed in Tirana</p>
+    <div class="trusted__inner">
+      <span class="trusted__label">Supported by</span>
+      <div class="trusted__logos">
+
+        <div class="trusted__logo">
+          <div class="trusted__logo-mark">
+            <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="white" stroke-width="1.8"/><path d="M6 9l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="trusted__logo-name">beVisioneers</span>
+        </div>
+
+        <div class="trusted__logo">
+          <div class="trusted__logo-mark">
+            <svg viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="3" stroke="white" stroke-width="1.8"/><path d="M6 9h6M9 6v6" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <span class="trusted__logo-name">EU4Innovation</span>
+        </div>
+
+        <div class="trusted__logo">
+          <div class="trusted__logo-mark">
+            <svg viewBox="0 0 18 18" fill="none"><path d="M9 2l2 5h5l-4 3 1.5 5L9 12l-4.5 3L6 10 2 7h5z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="trusted__logo-name">Grace</span>
+        </div>
+
+        <div class="trusted__logo">
+          <div class="trusted__logo-mark">
+            <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="4" fill="white" opacity=".8"/><circle cx="9" cy="9" r="7" stroke="white" stroke-width="1.5" opacity=".4"/></svg>
+          </div>
+          <span class="trusted__logo-name">ignore gravity</span>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     PRODUCTS / SYSTEM
-     ============================================================ -->
-<section class="products" id="system" aria-labelledby="prod-title">
+<!-- HOW IT WORKS -->
+<section class="how" id="how-it-works" aria-labelledby="how-h2">
   <div class="container">
-    <p class="section-eyebrow reveal">The System</p>
-    <h2 class="section-title reveal" id="prod-title" data-i18n="products.title">
-      One platform.<br>Four components.<br>One closed loop.
+    <p class="section-eyebrow reveal">How it works</p>
+    <h2 class="section-h2 reveal" id="how-h2">
+      Three steps.<br><em>One closed loop.</em>
     </h2>
-    <div class="carousel-wrap">
-      <div class="carousel__track">
-        <article class="p-card reveal">
-          <span class="p-card__num" data-i18n="card1.num">01</span>
-          <div class="p-card__icon p-card__icon--1">🗑️</div>
-          <h3 class="p-card__name" data-i18n="card1.name">Smart Bin System</h3>
-          <p class="p-card__desc" data-i18n="card1.desc">Camera and weight sensor installed in existing bins.</p>
-        </article>
-        <article class="p-card reveal">
-          <span class="p-card__num" data-i18n="card2.num">02</span>
-          <div class="p-card__icon p-card__icon--2">👥</div>
-          <h3 class="p-card__name" data-i18n="card2.name">Staff Workshops</h3>
-          <p class="p-card__desc" data-i18n="card2.desc">Estimated 20 workshops and 50 employees trained in phase one.</p>
-        </article>
-        <article class="p-card reveal">
-          <span class="p-card__num" data-i18n="card3.num">03</span>
-          <div class="p-card__icon p-card__icon--3">📊</div>
-          <h3 class="p-card__name" data-i18n="card3.name">Data &amp; Compliance Platform</h3>
-          <p class="p-card__desc" data-i18n="card3.desc">Waste data becomes cost projection.</p>
-        </article>
-        <article class="p-card reveal">
-          <span class="p-card__num" data-i18n="card4.num">04</span>
-          <div class="p-card__icon p-card__icon--4">🌱</div>
-          <h3 class="p-card__name" data-i18n="card4.name">Composting &amp; Fertilizer</h3>
-          <p class="p-card__desc" data-i18n="card4.desc">70% yield achieved in household pilot.</p>
-        </article>
-      </div>
-      <div class="carousel__dots" aria-hidden="true">
-        <button class="carousel__dot active"></button>
-        <button class="carousel__dot"></button>
-        <button class="carousel__dot"></button>
-        <button class="carousel__dot"></button>
-      </div>
+    <p class="section-sub reveal">
+      No manual logging. No new habits for your staff.
+      The system works silently in the background while you
+      get the data you need to cut costs and comply with EU regulations.
+    </p>
+
+    <div class="how__steps">
+
+      <article class="step-card reveal reveal-delay-1">
+        <div class="step-card__connector"></div>
+        <div class="step-card__num">01</div>
+        <div class="step-card__icon">
+          <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="7" width="18" height="14" rx="3" stroke="#C4D054" stroke-width="1.8"/>
+            <circle cx="13" cy="14" r="3.5" stroke="#C4D054" stroke-width="1.8"/>
+            <path d="M10 7V5.5C10 4.672 10.672 4 11.5 4H14.5C15.328 4 16 4.672 16 5.5V7" stroke="#C4D054" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3 class="step-card__h3">Hold food over the sensor</h3>
+        <p class="step-card__p">
+          Our camera-and-scale unit mounts inside your existing bin in minutes. No wiring, no construction.
+        </p>
+      </article>
+
+      <article class="step-card reveal reveal-delay-2">
+        <div class="step-card__connector"></div>
+        <div class="step-card__num">02</div>
+        <div class="step-card__icon">
+          <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 4C8.029 4 4 8.029 4 13C4 17.971 8.029 22 13 22C17.971 22 22 17.971 22 13" stroke="#C4D054" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M17 4l2 2-6 6" stroke="#C4D054" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="19" cy="6" r="3" fill="#C4D054" opacity=".25"/>
+            <path d="M9 13l3 3 5-5" stroke="#C4D054" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3 class="step-card__h3">Drop it in as usual</h3>
+        <p class="step-card__p">
+          The AI snaps a photo and logs the weight automatically — no buttons, no waiting, no extra steps for your team.
+        </p>
+      </article>
+
+      <article class="step-card reveal reveal-delay-3">
+        <div class="step-card__num">03</div>
+        <div class="step-card__icon">
+          <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="5" width="20" height="16" rx="3" stroke="#C4D054" stroke-width="1.8"/>
+            <path d="M8 17L10 13L13 15L16 10L19 12" stroke="#C4D054" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="10" cy="13" r="1.5" fill="#C4D054"/>
+            <circle cx="13" cy="15" r="1.5" fill="#C4D054"/>
+            <circle cx="16" cy="10" r="1.5" fill="#C4D054"/>
+          </svg>
+        </div>
+        <h3 class="step-card__h3">See what's wasted — and why</h3>
+        <p class="step-card__p">
+          Open the dashboard to find cost projections, waste patterns, EU compliance reports, and tailored reduction tips.
+        </p>
+      </article>
+
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     PLATFORM SECTION
-     ============================================================ -->
-<section class="platform-section" id="platform" aria-labelledby="platform-h">
+<!-- PLATFORM -->
+<section class="platform" id="platform" aria-labelledby="platform-h2">
   <div class="container">
-    <div class="platform-section__inner">
+    <div class="platform__inner">
 
-      <!-- LEFT: Phone mockup -->
-      <div class="phone-wrap" aria-hidden="true">
-        <div class="phone-frame phone-frame--platform">
-          <div class="phone-shell">
-            <div class="phone-island"></div>
-            <div class="phone-screen">
-              <!-- Platform SVG: Analytics screen -->
-              <svg viewBox="0 0 270 580" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
-                <rect width="270" height="580" fill="#0D0F1A"/>
-                <text x="16" y="22" font-family="sans-serif" font-size="10" fill="rgba(248,244,237,0.4)">9:41</text>
-
-                <text x="16" y="52" font-family="sans-serif" font-size="15" font-weight="700" fill="#F8F4ED">Analytics</text>
-                <text x="16" y="68" font-family="sans-serif" font-size="10" fill="rgba(248,244,237,0.4)">Last 30 days</text>
-
-                <!-- Week savings highlight -->
-                <rect x="12" y="80" width="246" height="70" rx="16" fill="rgba(196,208,84,0.12)" stroke="rgba(196,208,84,0.25)" stroke-width="1"/>
-                <text x="28" y="105" font-family="sans-serif" font-size="10" fill="rgba(248,244,237,0.5)">WEEK SAVINGS</text>
-                <text x="28" y="135" font-family="sans-serif" font-size="30" font-weight="800" fill="#C4D054">€156</text>
-                <text x="130" y="135" font-family="sans-serif" font-size="10" fill="rgba(248,244,237,0.4)">↑ 12% vs prev. week</text>
-
-                <!-- Line chart area -->
-                <text x="16" y="178" font-family="sans-serif" font-size="11" font-weight="600" fill="rgba(248,244,237,0.7)">Waste Trend</text>
-                <rect x="12" y="186" width="246" height="140" rx="16" fill="#131520"/>
-                <!-- Grid lines -->
-                <line x1="28" y1="210" x2="242" y2="210" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-                <line x1="28" y1="232" x2="242" y2="232" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-                <line x1="28" y1="254" x2="242" y2="254" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-                <line x1="28" y1="276" x2="242" y2="276" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-                <!-- Line path (trending down = good) -->
-                <polyline points="28,270 62,258 96,265 130,248 164,252 198,238 232,228" fill="none" stroke="#9C7BE3" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <!-- Area fill -->
-                <polygon points="28,270 62,258 96,265 130,248 164,252 198,238 232,228 232,300 28,300" fill="rgba(156,123,227,0.08)"/>
-                <!-- Dot highlight -->
-                <circle cx="232" cy="228" r="5" fill="#9C7BE3"/>
-                <circle cx="232" cy="228" r="9" fill="rgba(156,123,227,0.2)"/>
-                <!-- X labels -->
-                <text x="24" y="316" font-family="sans-serif" font-size="8" fill="rgba(248,244,237,0.3)">Apr 21</text>
-                <text x="118" y="316" font-family="sans-serif" font-size="8" fill="rgba(248,244,237,0.3)">May 5</text>
-                <text x="218" y="316" font-family="sans-serif" font-size="8" fill="rgba(248,244,237,0.3)">Today</text>
-
-                <!-- Category breakdown -->
-                <text x="16" y="350" font-family="sans-serif" font-size="11" font-weight="600" fill="rgba(248,244,237,0.7)">Breakdown</text>
-
-                <rect x="12" y="358" width="246" height="42" rx="12" fill="#1A1D2E"/>
-                <text x="24" y="376" font-family="sans-serif" font-size="10" fill="#F8F4ED">Prep Waste</text>
-                <rect x="24" y="382" width="100" height="6" rx="3" fill="#9C7BE3"/>
-                <rect x="124" y="382" width="60" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-                <text x="210" y="388" font-family="sans-serif" font-size="9" fill="rgba(248,244,237,0.4)">62%</text>
-
-                <rect x="12" y="408" width="246" height="42" rx="12" fill="#1A1D2E"/>
-                <text x="24" y="426" font-family="sans-serif" font-size="10" fill="#F8F4ED">Plate Returns</text>
-                <rect x="24" y="432" width="68" height="6" rx="3" fill="#C4D054"/>
-                <rect x="92" y="432" width="92" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-                <text x="210" y="438" font-family="sans-serif" font-size="9" fill="rgba(248,244,237,0.4)">42%</text>
-
-                <rect x="12" y="458" width="246" height="42" rx="12" fill="#1A1D2E"/>
-                <text x="24" y="476" font-family="sans-serif" font-size="10" fill="#F8F4ED">Spoilage</text>
-                <rect x="24" y="482" width="40" height="6" rx="3" fill="rgba(156,123,227,0.5)"/>
-                <rect x="64" y="482" width="120" height="6" rx="3" fill="rgba(255,255,255,0.06)"/>
-                <text x="210" y="488" font-family="sans-serif" font-size="9" fill="rgba(248,244,237,0.4)">25%</text>
-
-                <rect x="80" y="564" width="110" height="4" rx="2" fill="rgba(248,244,237,0.15)"/>
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT: Text -->
-      <div>
-        <p class="section-eyebrow reveal" style="color:rgba(196,208,84,0.8)">The Platform</p>
-        <h2 class="body-headline reveal" id="platform-h" data-i18n="mockup.title">
-          See your kitchen's waste in real time.
+      <div class="platform__text">
+        <p class="section-eyebrow reveal">The Platform</p>
+        <h2 class="section-h2 reveal" id="platform-h2">
+          One dashboard.<br>Every piece of data.
         </h2>
-        <p class="body-sub reveal">
-          Every gram tracked. Every trend visible. Every saving quantified — so your team knows exactly where to act.
+        <p class="section-sub reveal">
+          From raw weights to cost projections, EU compliance exports
+          to circular composting logistics — all in one place,
+          updated in real time.
         </p>
 
-        <div class="platform-features">
-          <div class="platform-feature reveal">
-            <div class="platform-feature__icon">📡</div>
-            <div>
-              <div class="platform-feature__title">Live sensor data</div>
-              <div class="platform-feature__desc">Smart bins transmit weight and category data continuously throughout service.</div>
+        <div class="platform__features reveal">
+
+          <div class="pf-item">
+            <div class="pf-item__icon">
+              <svg viewBox="0 0 18 18" fill="none"><path d="M3 14l4-5 3 2 4-6" stroke="#C4D054" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="pf-item__text">
+              <h4>Real-time waste logging</h4>
+              <p>Every item logged automatically, with weight, category, and timestamp.</p>
             </div>
           </div>
-          <div class="platform-feature reveal">
-            <div class="platform-feature__icon">💶</div>
-            <div>
-              <div class="platform-feature__title">Cost projections</div>
-              <div class="platform-feature__desc">Waste data is automatically converted into weekly and monthly cost impact reports.</div>
+
+          <div class="pf-item">
+            <div class="pf-item__icon">
+              <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6.5" stroke="#C4D054" stroke-width="1.5"/><path d="M9 5.5V9.5L11.5 11" stroke="#C4D054" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="pf-item__text">
+              <h4>Cost projection engine</h4>
+              <p>Translate waste data into projected annual savings and ROI estimates.</p>
             </div>
           </div>
-          <div class="platform-feature reveal">
-            <div class="platform-feature__icon">📋</div>
-            <div>
-              <div class="platform-feature__title">EU compliance reporting</div>
-              <div class="platform-feature__desc">One-click export of audit-ready reports aligned with EU food waste directives.</div>
+
+          <div class="pf-item">
+            <div class="pf-item__icon">
+              <svg viewBox="0 0 18 18" fill="none"><rect x="3" y="2" width="12" height="14" rx="2" stroke="#C4D054" stroke-width="1.5"/><path d="M6 6h6M6 9h6M6 12h4" stroke="#C4D054" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="pf-item__text">
+              <h4>EU compliance reports</h4>
+              <p>One-click exports meeting CSRD and Albanian waste-reporting requirements.</p>
             </div>
           </div>
-          <div class="platform-feature reveal">
-            <div class="platform-feature__icon">🔔</div>
-            <div>
-              <div class="platform-feature__title">Smart alerts</div>
-              <div class="platform-feature__desc">Automatic notifications when waste thresholds are exceeded during service.</div>
+
+          <div class="pf-item">
+            <div class="pf-item__icon">
+              <svg viewBox="0 0 18 18" fill="none"><path d="M9 2C9 2 4 5 4 10C4 12.76 6.24 15 9 15C11.76 15 14 12.76 14 10C14 5 9 2 9 2Z" stroke="#C4D054" stroke-width="1.5" stroke-linejoin="round"/><path d="M7 10C7 10 8 11.5 9 10C10 8.5 11 10 11 10" stroke="#C4D054" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="pf-item__text">
+              <h4>Circular composting loop</h4>
+              <p>We collect organic waste and return it as fertiliser — closing the loop entirely.</p>
             </div>
           </div>
+
         </div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     METRICS BENTO
-     ============================================================ -->
-<section class="metrics" aria-labelledby="metrics-h">
-  <div class="container">
-    <h2 class="sr-only" id="metrics-h">Impact metrics</h2>
-    <div class="metrics__grid">
-
-      <article class="m-card m-90 reveal">
-        <span class="m-card__num">90%</span>
-        <p class="m-card__label">Waste identification accuracy in live pilot</p>
-      </article>
-
-      <article class="m-card m-70 reveal">
-        <span class="m-card__num">70%</span>
-        <p class="m-card__label">Fertilizer yield achieved from household pilot</p>
-      </article>
-
-      <div class="m-card m-card--img m-ph">
-        <img src="assets/images/waste-heap.jpg" alt="Food waste being composted" loading="lazy" />
-      </div>
-
-      <article class="m-card m-50k reveal">
-        <span class="m-card__num">50k</span>
-        <p class="m-card__label">kg CO₂e projected avoided across first agreements</p>
-      </article>
-
-      <div class="m-card m-card--img m-i2">
-        <img src="assets/images/market.jpg" alt="Fresh market produce" loading="lazy" />
-      </div>
-
-      <article class="m-card m-650 reveal">
-        <span class="m-card__num">650kg</span>
-        <p class="m-card__label">Organic waste diverted annually in pilot</p>
-      </article>
-
-      <article class="m-card m-5 reveal">
-        <span class="m-card__num">5</span>
-        <p class="m-card__label">Signed restaurant agreements in Tirana</p>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     ESG / COMPLIANCE STRIP
-     ============================================================ -->
-<section class="esg-section" aria-labelledby="esg-h">
-  <div class="container">
-    <div class="esg-section__inner">
-
-      <!-- LEFT: Text -->
-      <div>
-        <div class="esg-badge reveal">EU Compliant</div>
-        <h2 class="body-headline reveal" id="esg-h">
-          Audit-ready compliance.<br>Zero extra paperwork.
-        </h2>
-        <p class="body-sub reveal">
-          Rivara Flow automatically generates reports aligned with EU food waste directives. Stay compliant without lifting a finger.
-        </p>
-        <ul style="display:flex;flex-direction:column;gap:12px;margin-top:0.5rem;">
-          <li class="platform-feature reveal">
-            <div class="platform-feature__icon" style="background:rgba(196,208,84,0.12);border-color:rgba(196,208,84,0.2)">✓</div>
-            <div>
-              <div class="platform-feature__title">EU Food Waste Directive aligned</div>
-              <div class="platform-feature__desc">Fully structured reports ready for regulatory submission.</div>
+      <!-- Dashboard mockup -->
+      <div class="dash-mockup reveal">
+        <div class="dash__topbar">
+          <div class="dash__dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="dash__url">
+            <svg viewBox="0 0 10 10" fill="none"><rect x="1.5" y="1.5" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1"/></svg>
+            app.rivaraflow.com
+          </div>
+        </div>
+        <div class="dash__body">
+          <div class="dash__row1">
+            <div class="dash-stat">
+              <div class="dash-stat__n">650kg</div>
+              <div class="dash-stat__l">Waste diverted</div>
             </div>
-          </li>
-          <li class="platform-feature reveal">
-            <div class="platform-feature__icon" style="background:rgba(196,208,84,0.12);border-color:rgba(196,208,84,0.2)">✓</div>
-            <div>
-              <div class="platform-feature__title">ESG reporting support</div>
-              <div class="platform-feature__desc">Carbon impact data you can include in sustainability disclosures.</div>
+            <div class="dash-stat">
+              <div class="dash-stat__n">–15%</div>
+              <div class="dash-stat__l">vs. last month</div>
             </div>
-          </li>
-          <li class="platform-feature reveal">
-            <div class="platform-feature__icon" style="background:rgba(196,208,84,0.12);border-color:rgba(196,208,84,0.2)">✓</div>
-            <div>
-              <div class="platform-feature__title">One-click PDF export</div>
-              <div class="platform-feature__desc">Download and share compliance documents instantly from the dashboard.</div>
+            <div class="dash-stat">
+              <div class="dash-stat__n">€2.4k</div>
+              <div class="dash-stat__l">Projected savings</div>
             </div>
-          </li>
-        </ul>
-      </div>
-
-      <!-- RIGHT: Phone mockup -->
-      <div class="phone-wrap" aria-hidden="true">
-        <div class="phone-frame phone-frame--esg">
-          <div class="phone-shell">
-            <div class="phone-island"></div>
-            <div class="phone-screen">
-              <!-- ESG SVG: Compliance screen -->
-              <svg viewBox="0 0 270 580" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
-                <rect width="270" height="580" fill="#0D0F1A"/>
-                <text x="16" y="22" font-family="sans-serif" font-size="10" fill="rgba(248,244,237,0.4)">9:41</text>
-
-                <text x="16" y="52" font-family="sans-serif" font-size="15" font-weight="700" fill="#F8F4ED">EU Compliance</text>
-                <text x="16" y="68" font-family="sans-serif" font-size="10" fill="rgba(248,244,237,0.4)">Q2 2026 · Reporting Period</text>
-
-                <!-- Status badge -->
-                <rect x="12" y="80" width="246" height="68" rx="16" fill="rgba(196,208,84,0.1)" stroke="rgba(196,208,84,0.3)" stroke-width="1"/>
-                <text x="28" y="108" font-family="sans-serif" font-size="11" fill="rgba(248,244,237,0.6)">Overall Status</text>
-                <rect x="28" y="116" width="90" height="24" rx="12" fill="rgba(196,208,84,0.2)"/>
-                <text x="38" y="132" font-family="sans-serif" font-size="11" font-weight="700" fill="#C4D054">✓ Compliant</text>
-                <text x="168" y="132" font-family="sans-serif" font-size="10" fill="rgba(248,244,237,0.35)">Score: 94/100</text>
-
-                <!-- Progress bars -->
-                <text x="16" y="174" font-family="sans-serif" font-size="11" font-weight="600" fill="rgba(248,244,237,0.7)">Compliance Metrics</text>
-
-                <!-- Metric 1 -->
-                <rect x="12" y="182" width="246" height="60" rx="12" fill="#131520"/>
-                <text x="24" y="200" font-family="sans-serif" font-size="10" fill="#F8F4ED">Waste Measurement</text>
-                <text x="224" y="200" font-family="sans-serif" font-size="10" font-weight="700" fill="#C4D054">98%</text>
-                <rect x="24" y="208" width="222" height="8" rx="4" fill="rgba(255,255,255,0.07)"/>
-                <rect x="24" y="208" width="217" height="8" rx="4" fill="#C4D054"/>
-                <text x="24" y="234" font-family="sans-serif" font-size="9" fill="rgba(248,244,237,0.35)">All bins reporting correctly</text>
-
-                <!-- Metric 2 -->
-                <rect x="12" y="250" width="246" height="60" rx="12" fill="#131520"/>
-                <text x="24" y="268" font-family="sans-serif" font-size="10" fill="#F8F4ED">Diversion Rate</text>
-                <text x="224" y="268" font-family="sans-serif" font-size="10" font-weight="700" fill="#C4D054">87%</text>
-                <rect x="24" y="276" width="222" height="8" rx="4" fill="rgba(255,255,255,0.07)"/>
-                <rect x="24" y="276" width="193" height="8" rx="4" fill="#9C7BE3"/>
-                <text x="24" y="302" font-family="sans-serif" font-size="9" fill="rgba(248,244,237,0.35)">Target: 85% · Exceeded</text>
-
-                <!-- Metric 3 -->
-                <rect x="12" y="318" width="246" height="60" rx="12" fill="#131520"/>
-                <text x="24" y="336" font-family="sans-serif" font-size="10" fill="#F8F4ED">Staff Training</text>
-                <text x="224" y="336" font-family="sans-serif" font-size="10" font-weight="700" fill="#C4D054">100%</text>
-                <rect x="24" y="344" width="222" height="8" rx="4" fill="rgba(255,255,255,0.07)"/>
-                <rect x="24" y="344" width="222" height="8" rx="4" fill="#C4D054"/>
-                <text x="24" y="370" font-family="sans-serif" font-size="9" fill="rgba(248,244,237,0.35)">All 14 staff members certified</text>
-
-                <!-- Metric 4 -->
-                <rect x="12" y="386" width="246" height="60" rx="12" fill="#131520"/>
-                <text x="24" y="404" font-family="sans-serif" font-size="10" fill="#F8F4ED">CO₂e Reporting</text>
-                <text x="224" y="404" font-family="sans-serif" font-size="10" font-weight="700" fill="#9C7BE3">91%</text>
-                <rect x="24" y="412" width="222" height="8" rx="4" fill="rgba(255,255,255,0.07)"/>
-                <rect x="24" y="412" width="202" height="8" rx="4" fill="#9C7BE3"/>
-                <text x="24" y="438" font-family="sans-serif" font-size="9" fill="rgba(248,244,237,0.35)">50k kg CO₂e documented</text>
-
-                <!-- Export CTA -->
-                <rect x="12" y="460" width="246" height="52" rx="16" fill="#C4D054"/>
-                <text x="75" y="490" font-family="sans-serif" font-size="12" font-weight="700" fill="#1A1C2E">↓  Export Full Report</text>
-
-                <rect x="80" y="564" width="110" height="4" rx="2" fill="rgba(248,244,237,0.15)"/>
-              </svg>
+          </div>
+          <div class="dash__chart">
+            <div class="dash__chart-title">Waste by week (kg)</div>
+            <div class="dash__bars">
+              <div class="dash__bar" style="height:45%"></div>
+              <div class="dash__bar" style="height:62%"></div>
+              <div class="dash__bar" style="height:38%"></div>
+              <div class="dash__bar" style="height:72%"></div>
+              <div class="dash__bar" style="height:55%"></div>
+              <div class="dash__bar hi" style="height:82%"></div>
+              <div class="dash__bar" style="height:48%"></div>
+              <div class="dash__bar" style="height:35%"></div>
+            </div>
+          </div>
+          <div class="dash__row2">
+            <div class="dash-mini">
+              <div class="dash-mini__dot" style="background:#C4D054"></div>
+              <div class="dash-mini__text">Vegetables</div>
+              <div class="dash-mini__val">38%</div>
+            </div>
+            <div class="dash-mini">
+              <div class="dash-mini__dot" style="background:#9C7BE3"></div>
+              <div class="dash-mini__text">Bread</div>
+              <div class="dash-mini__val">24%</div>
+            </div>
+            <div class="dash-mini">
+              <div class="dash-mini__dot" style="background:#5B43A7"></div>
+              <div class="dash-mini__text">Prepared food</div>
+              <div class="dash-mini__val">21%</div>
+            </div>
+            <div class="dash-mini">
+              <div class="dash-mini__dot" style="background:#BAAADE"></div>
+              <div class="dash-mini__text">Other</div>
+              <div class="dash-mini__val">17%</div>
             </div>
           </div>
         </div>
@@ -1661,322 +1741,409 @@ button { cursor: pointer; border: none; background: none; font: inherit; }
   </div>
 </section>
 
-<!-- ============================================================
-     CONTACT FORM
-     ============================================================ -->
-<section class="form-section" id="contact" aria-labelledby="form-h">
+<!-- STATS / BENTO -->
+<section class="stats-section" id="impact" aria-labelledby="stats-h2">
   <div class="container">
-    <div class="form-section__inner">
+    <p class="section-eyebrow reveal">Our impact</p>
+    <h2 class="section-h2 reveal" id="stats-h2">
+      Real results.<br><em>From real kitchens.</em>
+    </h2>
+    <p class="section-sub reveal">
+      Early pilot data from Tirana restaurants — measured, verified,
+      and already growing.
+    </p>
 
-      <div>
-        <p class="section-eyebrow reveal">Get Started</p>
-        <h2 class="form-section__heading reveal" id="form-h" data-i18n-html="form.heading">
-          Build a circular<br>system<br>for your kitchen.
-        </h2>
-        <p class="form-section__sub reveal" data-i18n="form.sub">
-          Book a free demo and receive your personalised estimation report.
-        </p>
+    <div class="bento">
+
+      <div class="bento-card bento-card--lime b1 reveal">
+        <div class="bento-card__num">90%</div>
+        <div class="bento-card__label">Waste identification accuracy in live pilot</div>
       </div>
 
-      <form class="lead-form" id="lead-form" novalidate aria-label="Book a free demo">
+      <div class="bento-card bento-card--dark b2 reveal reveal-delay-1">
+        <div class="bento-card__num">70%</div>
+        <div class="bento-card__label">Fertilizer yield achieved from household composting pilot</div>
+      </div>
 
-        <div class="f-group">
-          <label class="f-label" for="full-name" data-i18n="form.name">Full Name</label>
-          <input class="f-input" type="text" id="full-name" name="full_name"
-            autocomplete="name" required aria-required="true" />
+      <div class="bento-card bento-card--purple b3 reveal reveal-delay-2">
+        <div class="bento-card__num">50k</div>
+        <div class="bento-card__label">kg CO₂e projected avoided across first restaurant agreements</div>
+      </div>
+
+      <div class="bento-card bento-card--white b4 reveal">
+        <div class="bento-card__num">650kg</div>
+        <div class="bento-card__label">Organic waste diverted from landfill annually in pilot restaurants</div>
+      </div>
+
+      <div class="bento-card bento-card--dark b5 reveal reveal-delay-1">
+        <div class="bento-card__num">15%</div>
+        <div class="bento-card__label">Average share of food budget lost to waste in hospitality — the problem we solve</div>
+      </div>
+
+      <div class="bento-card bento-card--lime b6 reveal reveal-delay-2">
+        <div class="bento-card__num">5</div>
+        <div class="bento-card__label">Signed restaurant agreements in Tirana to date</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="industries" id="industries" aria-labelledby="ind-h2">
+  <div class="container">
+    <p class="section-eyebrow reveal">Industries we serve</p>
+    <h2 class="section-h2 reveal" id="ind-h2">
+      Built for <em>every</em> kitchen.
+    </h2>
+    <p class="section-sub reveal">
+      Whether you run a boutique trattoria or a 200-bed hotel,
+      the system adapts to your kitchen's rhythms.
+    </p>
+
+    <div class="industries__grid">
+
+      <article class="ind-card reveal">
+        <div class="ind-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 19h18M5 19V9l7-5 7 5v10" stroke="#C4D054" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="9" y="13" width="6" height="6" rx="1" stroke="#C4D054" stroke-width="1.5"/>
+          </svg>
         </div>
+        <div class="ind-card__name">Restaurants</div>
+        <div class="ind-card__desc">Track prep and plate waste by shift. Reduce over-ordering with forward-looking waste data.</div>
+        <span class="ind-card__link">
+          Learn more
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </article>
 
-        <div class="f-group">
-          <label class="f-label" for="phone">
-            <span data-i18n="form.phone">Phone</span>
-            <span data-i18n="form.optional">(optional)</span>
-          </label>
-          <input class="f-input" type="tel" id="phone" name="phone" autocomplete="tel" />
+      <article class="ind-card reveal reveal-delay-1">
+        <div class="ind-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="6" width="18" height="15" rx="2" stroke="#C4D054" stroke-width="1.8"/>
+            <path d="M3 10h18" stroke="#C4D054" stroke-width="1.5"/>
+            <path d="M8 6V4M16 6V4" stroke="#C4D054" stroke-width="1.5" stroke-linecap="round"/>
+            <rect x="7" y="14" width="4" height="4" rx="1" fill="#C4D054" opacity=".4"/>
+            <rect x="13" y="14" width="4" height="4" rx="1" fill="#C4D054" opacity=".4"/>
+          </svg>
         </div>
+        <div class="ind-card__name">Hotels</div>
+        <div class="ind-card__desc">Monitor buffet and banquet waste across multiple service points. Report ESG data with one click.</div>
+        <span class="ind-card__link">
+          Learn more
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </article>
 
-        <div class="f-group">
-          <label class="f-label" for="biz" data-i18n="form.biz">Business Name</label>
-          <input class="f-input" type="text" id="biz" name="business_name" required aria-required="true" />
+      <article class="ind-card reveal reveal-delay-2">
+        <div class="ind-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3C12 3 5 7.5 5 13C5 16.866 8.134 20 12 20C15.866 20 19 16.866 19 13C19 7.5 12 3 12 3Z" stroke="#C4D054" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M9 13C9 13 10 15 12 13C14 11 15 13 15 13" stroke="#C4D054" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
         </div>
+        <div class="ind-card__name">Agritourism</div>
+        <div class="ind-card__desc">Close the loop fully: compostable kitchen waste returns to your farm as nutrient-rich fertiliser.</div>
+        <span class="ind-card__link">
+          Learn more
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </article>
 
-        <div class="f-group">
-          <label class="f-label" for="op-type" data-i18n="form.op">Operation Type</label>
-          <select class="f-select f-input" id="op-type" name="operation_type" required aria-required="true">
-            <option value="" disabled selected data-i18n="form.op.select">Select your Operation</option>
-            <option value="restaurant">Restaurant</option>
-            <option value="hotel">Hotel</option>
-            <option value="agritourism">Agritourism</option>
-            <option value="catering">Catering</option>
-            <option value="other">Other</option>
-          </select>
+      <article class="ind-card reveal reveal-delay-3">
+        <div class="ind-card__icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 8h16M4 12h10M4 16h12" stroke="#C4D054" stroke-width="1.8" stroke-linecap="round"/>
+            <rect x="14" y="11" width="7" height="7" rx="2" stroke="#C4D054" stroke-width="1.5"/>
+            <path d="M16 14.5l1.5 1.5L20 13" stroke="#C4D054" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
+        <div class="ind-card__name">Catering</div>
+        <div class="ind-card__desc">Log waste event-by-event. Improve portioning accuracy and reduce leftovers across all catering jobs.</div>
+        <span class="ind-card__link">
+          Learn more
+          <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </article>
 
-        <div class="f-group">
-          <label class="f-label" for="email" data-i18n="form.email">Email</label>
-          <input class="f-input" type="email" id="email" name="email"
-            autocomplete="email" required aria-required="true" />
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial" aria-label="Customer testimonial">
+  <div class="container">
+    <div class="testimonial__inner">
+      <div class="testimonial__quote-icon">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M10 8H6C5.448 8 5 8.448 5 9V13C5 13.552 5.448 14 6 14H9L7 18H10L12 14V9C12 8.448 11.552 8 11 8H10ZM19 8H15C14.448 8 14 8.448 14 9V13C14 13.552 14.448 14 15 14H18L16 18H19L21 14V9C21 8.448 20.552 8 20 8H19Z" fill="#C4D054"/></svg>
+      </div>
+      <blockquote class="testimonial__quote">
+        "We had no idea how much we were losing until Rivara Flow showed us.
+        <em>Within three weeks</em> we'd adjusted our orders and cut our
+        vegetable waste by a third."
+      </blockquote>
+      <div class="testimonial__author">
+        <div class="testimonial__avatar">R</div>
+        <div>
+          <div class="testimonial__name">Restorant Pilot, Tirana</div>
+          <div class="testimonial__role">Early partner — Pilot cohort 2024</div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <div class="f-group">
-          <label class="f-label" for="demo-date" data-i18n="form.date">Preferred Demo Date</label>
-          <input class="f-input" type="date" id="demo-date" name="demo_date" />
-        </div>
+<!-- CTA BANNER -->
+<section class="cta-banner" id="contact" aria-labelledby="cta-h2">
+  <div class="container">
+    <div class="cta-banner__inner">
+      <h2 class="cta-banner__h2 reveal" id="cta-h2">
+        Ready to stop paying<br>for waste you've never seen?
+      </h2>
+      <p class="cta-banner__sub reveal">
+        Book a free, no-obligation demo and receive your personalised
+        waste estimation report — delivered within 48 hours.
+      </p>
 
-        <div class="f-group f-group--full">
-          <label class="f-label" for="notes">
-            <span data-i18n="form.notes">Anything we should know</span>
-            <span data-i18n="form.optional">(optional)</span>
-          </label>
-          <textarea class="f-textarea" id="notes" name="notes" rows="5"
-            placeholder="Waste Volume, Team Size, Current Setup..."></textarea>
-        </div>
-
-        <div class="f-consent f-group--full">
-          <input type="checkbox" id="consent" name="consent" required aria-required="true" />
-          <label for="consent" data-i18n="form.consent">I agree to Rivara Flow processing my data to schedule this demo.</label>
-        </div>
-
-        <div class="f-submit f-group--full">
-          <button type="submit" class="btn-cta" data-i18n="form.submit">Book Free Demo</button>
-        </div>
-
+      <form class="cta-inline-form reveal" id="cta-form" novalidate>
+        <style>
+          .cta-inline-form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            max-width: 640px;
+            margin-inline: auto;
+          }
+          @media (min-width: 560px) {
+            .cta-inline-form { grid-template-columns: 1fr 1fr; }
+            .cta-inline-form .cta-f-full { grid-column: 1 / -1; }
+          }
+          .cta-f-input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(26,28,46,.08);
+            border: 1.5px solid rgba(26,28,46,.2);
+            border-radius: var(--r999);
+            font-family: var(--satoshi);
+            font-size: 15px;
+            color: var(--bg-dark);
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+            -webkit-appearance: none;
+          }
+          .cta-f-input::placeholder { color: rgba(26,28,46,.45); }
+          .cta-f-input:focus {
+            border-color: var(--bg-dark);
+            box-shadow: 0 0 0 3px rgba(26,28,46,.12);
+          }
+          .cta-f-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231F2430' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            cursor: pointer;
+          }
+          .cta-f-submit {
+            grid-column: 1 / -1;
+            background: var(--bg-dark);
+            color: var(--primary);
+            font-family: var(--museo);
+            font-weight: 700;
+            font-size: 16px;
+            padding: 15px;
+            border: none;
+            border-radius: var(--r999);
+            cursor: pointer;
+            width: 100%;
+            transition: opacity .2s, transform .2s;
+          }
+          .cta-f-submit:hover { opacity: .88; transform: translateY(-1px); }
+        </style>
+        <input class="cta-f-input" type="text" name="full_name" placeholder="Full name" required />
+        <input class="cta-f-input" type="email" name="email" placeholder="Business email" required />
+        <input class="cta-f-input" type="text" name="business" placeholder="Restaurant / Hotel name" required />
+        <select class="cta-f-input cta-f-select" name="type" required>
+          <option value="" disabled selected>Operation type</option>
+          <option>Restaurant</option>
+          <option>Hotel</option>
+          <option>Agritourism</option>
+          <option>Catering</option>
+          <option>Other</option>
+        </select>
+        <button type="submit" class="cta-f-submit cta-f-full">Book My Free Demo →</button>
       </form>
+
+      <p class="cta-banner__note">No credit card. No commitment. First demo is free.</p>
     </div>
   </div>
 </section>
 
-</main>
-
-<!-- ============================================================
-     SUPPORTED BY
-     ============================================================ -->
+<!-- SUPPORTED BY -->
 <aside class="supported" aria-label="Supported by">
   <div class="container">
-    <p class="supported__label" data-i18n="supported">Supported by:</p>
-    <div class="supported__logos">
-      <img src="assets/images/sponsor-bv.png"              alt="beVisioneers"    height="36" loading="lazy" />
-      <img src="assets/images/sponsor-eu4innovation.png"   alt="EU4Innovation"   height="36" loading="lazy" />
-      <img src="assets/images/sponsor-grace.png"           alt="Grace"           height="36" loading="lazy" />
-      <img src="assets/images/sponsor-ignore_gravity.png"  alt="ignore gravity"  height="36" loading="lazy" />
+    <div class="supported__inner">
+      <p class="supported__label">Supported by</p>
+      <div class="supported__logos">
+
+        <div class="sup-logo">
+          <div class="sup-logo__badge">
+            <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="white" stroke-width="1.5"/><path d="M5.5 8l2 2 3-3" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="sup-logo__name">beVisioneers</span>
+        </div>
+
+        <div class="sup-logo">
+          <div class="sup-logo__badge">
+            <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2.5" stroke="white" stroke-width="1.5"/><path d="M5 8h6M8 5v6" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <span class="sup-logo__name">EU4Innovation</span>
+        </div>
+
+        <div class="sup-logo">
+          <div class="sup-logo__badge">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M8 2l1.8 4h4.2l-3.4 2.5 1.3 4L8 10.3 4.1 12.5l1.3-4L2 6h4.2z" stroke="white" stroke-width="1.3" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="sup-logo__name">Grace</span>
+        </div>
+
+        <div class="sup-logo">
+          <div class="sup-logo__badge">
+            <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3.5" fill="white" opacity=".7"/><circle cx="8" cy="8" r="6" stroke="white" stroke-width="1.3" opacity=".35"/></svg>
+          </div>
+          <span class="sup-logo__name">ignore gravity</span>
+        </div>
+
+      </div>
     </div>
   </div>
 </aside>
 
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
+<!-- FOOTER -->
 <footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer__grid">
-      <div class="footer__col">
-        <p class="footer__col-title">Get in touch</p>
-        <ul role="list">
-          <li><a href="mailto:contact@rivaraflow.com">contact@rivaraflow.com</a></li>
-          <li><a href="tel:+355677398906">+355 (0) 67 73 98 906</a></li>
-          <li><a href="https://linkedin.com/company/rivaraflow" target="_blank" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener">Instagram</a></li>
-        </ul>
+
+      <!-- Brand col -->
+      <div class="footer__brand">
+        <a href="index.html" class="nav__logo" style="margin-bottom:0" aria-label="Rivara Flow home">
+          <div class="nav__logo-icon">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M10 2C10 2 4 5.5 4 11C4 14.314 6.686 17 10 17C13.314 17 16 14.314 16 11C16 5.5 10 2 10 2Z" fill="#C4D054"/><path d="M10 8C10 8 7 9.75 7 12C7 13.657 8.343 15 10 15C11.657 15 13 13.657 13 12C13 9.75 10 8 10 8Z" fill="#1A1C2E"/></svg>
+          </div>
+          <span class="nav__logo-text">Rivara<span> Flow</span></span>
+        </a>
+        <p class="footer__tagline">
+          Smart food waste management for restaurants, hotels, and agritourism in Albania.
+        </p>
+        <div class="footer__social">
+          <a href="https://linkedin.com/company/rivaraflow" target="_blank" rel="noopener" class="footer__soc-link" aria-label="LinkedIn">
+            <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="white" stroke-width="1.4"/><path d="M5 7v4M5 5.5v.01M8 11V9c0-1.1.9-2 2-2s2 .9 2 2v2M8 7v4" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </a>
+          <a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener" class="footer__soc-link" aria-label="Instagram">
+            <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="3" stroke="white" stroke-width="1.4"/><circle cx="8" cy="8" r="2.5" stroke="white" stroke-width="1.4"/><circle cx="11.5" cy="4.5" r=".75" fill="white"/></svg>
+          </a>
+        </div>
       </div>
-      <div class="footer__col">
-        <p class="footer__col-title">Company</p>
-        <ul role="list">
-          <li><a href="about.html">About</a></li>
-          <li><a href="about.html">Team</a></li>
-          <li><a href="blog.html">News &amp; Press</a></li>
-        </ul>
-      </div>
+
+      <!-- Product -->
       <div class="footer__col">
         <p class="footer__col-title">Product</p>
         <ul role="list">
-          <li><a href="system.html">System</a></li>
-          <li><a href="platform.html">Platform</a></li>
-          <li><a href="compliance.html">Impact &amp; ESG</a></li>
+          <li><a href="system.html">Smart Bin System</a></li>
+          <li><a href="platform.html">Data Platform</a></li>
+          <li><a href="how-it-works.html">How it Works</a></li>
           <li><a href="#contact">Book a Demo</a></li>
         </ul>
       </div>
+
+      <!-- Industries -->
       <div class="footer__col">
         <p class="footer__col-title">Industries</p>
         <ul role="list">
-          <li><a href="industries.html#restaurants">Restaurants</a></li>
-          <li><a href="industries.html#hotels">Hotels</a></li>
-          <li><a href="industries.html#agritourism">Agritourism</a></li>
+          <li><a href="industries.html">Restaurants</a></li>
+          <li><a href="industries.html">Hotels</a></li>
+          <li><a href="industries.html">Agritourism</a></li>
+          <li><a href="industries.html">Catering</a></li>
         </ul>
       </div>
+
+      <!-- Company -->
+      <div class="footer__col">
+        <p class="footer__col-title">Company</p>
+        <ul role="list">
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="about.html">Team</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="compliance.html">Compliance</a></li>
+          <li><a href="mailto:contact@rivaraflow.com">contact@rivaraflow.com</a></li>
+          <li><a href="tel:+355677398906">+355 (0) 67 73 98 906</a></li>
+        </ul>
+      </div>
+
     </div>
-    <p class="footer__copy">&copy; <span id="year"></span> Rivara Flow. All rights reserved.</p>
+
+    <div class="footer__bottom">
+      <p class="footer__copy">© 2025 Rivara Flow. All rights reserved.</p>
+      <div class="footer__bottom-links">
+        <a href="compliance.html">Privacy Policy</a>
+        <a href="compliance.html">Terms of Service</a>
+      </div>
+    </div>
+
   </div>
 </footer>
 
 <script>
-/* ── Translations ─────────────────────────────── */
-const translations = {
-  en: {
-    'announce': 'First Demo is Free.', 'announce.cta': 'Book Now!',
-    'nav.home': 'Home', 'nav.system': 'System', 'nav.platform': 'Platform',
-    'nav.contact': 'Contact', 'nav.book': 'Book a Demo',
-    'nav.industries': 'Industries', 'nav.restaurants': 'Restaurants',
-    'nav.hotels': 'Hotels', 'nav.agritourism': 'Agritourism', 'nav.catering': 'Catering',
-    'nav.about': 'About Us', 'nav.about.rivara': 'About Rivara Flow',
-    'nav.team': 'Team', 'nav.impact': 'Impact',
-    'hero.headline': "You're losing <span class='hi'>15%</span><br>of your food<br>budget.",
-    'hero.cta': 'Book a Demo',
-    'deco.1': 'Save Money', 'deco.2': 'EU Standards', 'deco.3': 'Waste Nothing',
-    'products.title': 'One platform. Four components. One closed loop.',
-    'card1.num': '01', 'card1.name': 'Smart Bin System',
-    'card1.desc': 'Camera and weight sensor installed in existing bins.',
-    'card2.num': '02', 'card2.name': 'Staff Workshops',
-    'card2.desc': 'Estimated 20 workshops and 50 employees trained in phase one.',
-    'card3.num': '03', 'card3.name': 'Data & Compliance Platform',
-    'card3.desc': 'Waste data becomes cost projection.',
-    'card4.num': '04', 'card4.name': 'Composting & Fertilizer',
-    'card4.desc': '70% yield achieved in household pilot.',
-    'mockup.title': "See your kitchen's waste in real time.",
-    'form.heading': 'Build a circular<br>system<br>for your kitchen.',
-    'form.sub': 'Book a free demo and receive your personalised estimation report.',
-    'form.name': 'Full Name', 'form.phone': 'Phone', 'form.optional': '(optional)',
-    'form.biz': 'Business Name', 'form.op': 'Operation Type',
-    'form.op.select': 'Select your Operation', 'form.email': 'Email',
-    'form.date': 'Preferred Demo Date', 'form.notes': 'Anything we should know',
-    'form.consent': 'I agree to Rivara Flow processing my data to schedule this demo.',
-    'form.submit': 'Book Free Demo',
-    'supported': 'Supported by:',
-  },
-  al: {
-    'announce': 'Demo i parë është falas.', 'announce.cta': 'Rezervo Tani!',
-    'nav.home': 'Kryefaqja', 'nav.system': 'Sistemi', 'nav.platform': 'Platforma',
-    'nav.contact': 'Kontakt', 'nav.book': 'Rezervo Demo',
-    'nav.industries': 'Industritë', 'nav.restaurants': 'Restorante',
-    'nav.hotels': 'Hotele', 'nav.agritourism': 'Agroturizëm', 'nav.catering': 'Katering',
-    'nav.about': 'Rreth Nesh', 'nav.about.rivara': 'Rreth Rivara Flow',
-    'nav.team': 'Ekipi', 'nav.impact': 'Ndikimi',
-    'hero.headline': "Po humbni <span class='hi'>15%</span><br>të buxhetit tuaj<br>ushqimor.",
-    'hero.cta': 'Rezervo Demo',
-    'deco.1': 'Kurseni Para', 'deco.2': 'Standarde BE', 'deco.3': 'Zero Mbetje',
-    'products.title': 'Një platformë. Katër komponentë. Një cikël i mbyllur.',
-    'card1.num': '01', 'card1.name': 'Sistemi i Koshit Inteligjent',
-    'card1.desc': 'Kamerë dhe sensor peshe në koshat ekzistues.',
-    'card2.num': '02', 'card2.name': 'Trajnime për Stafin',
-    'card2.desc': 'Rreth 20 trajnime dhe 50 punonjës të trajnuar në fazën e parë.',
-    'card3.num': '03', 'card3.name': 'Platforma e të Dhënave',
-    'card3.desc': 'Të dhënat e mbetjeve kthehen në projeksion kostoje.',
-    'card4.num': '04', 'card4.name': 'Kompostim dhe Pleh',
-    'card4.desc': '70% rendiment i arritur në pilotimin shtëpiak.',
-    'mockup.title': 'Shikoni mbetjet e kuzhinës suaj në kohë reale.',
-    'form.heading': 'Ndërtoni një sistem<br>ciklik<br>për kuzhinën tuaj.',
-    'form.sub': 'Rezervoni një demo falas dhe merrni raportin tuaj të personalizuar.',
-    'form.name': 'Emri i Plotë', 'form.phone': 'Telefon', 'form.optional': '(opsionale)',
-    'form.biz': 'Emri i Biznesit', 'form.op': 'Lloji i Operacionit',
-    'form.op.select': 'Zgjidhni Operacionin', 'form.email': 'Email',
-    'form.date': 'Data e Preferuar e Demos', 'form.notes': 'Çfarë duhet të dimë',
-    'form.consent': 'Bie dakord që Rivara Flow të përpunojë të dhënat e mia për këtë demo.',
-    'form.submit': 'Rezervo Demo Falas',
-    'supported': 'Mbështetur nga:',
-  }
-};
+  /* Nav scroll shadow */
+  const nav = document.getElementById('site-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
 
-let currentLang = localStorage.getItem('lang') || 'en';
-
-function applyLang(lang) {
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const v = translations[lang][el.dataset.i18n];
-    if (v !== undefined) el.textContent = v;
+  /* Hamburger */
+  const hamburger = document.getElementById('nav-hamburger');
+  const mobileMenu = document.getElementById('nav-mobile');
+  hamburger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
-  document.querySelectorAll('[data-i18n-html]').forEach(el => {
-    const v = translations[lang][el.dataset.i18nHtml];
-    if (v !== undefined) el.innerHTML = v;
+
+  /* Close mobile menu on link click */
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
   });
-  document.querySelectorAll('.lang-btn, .lang-sm').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.lang === lang);
+
+  /* Scroll reveal */
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  /* Form submit */
+  ['cta-form'].forEach(id => {
+    const form = document.getElementById(id);
+    if (!form) return;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type=submit]');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      await new Promise(r => setTimeout(r, 1200));
+      btn.textContent = '✓ We\'ll be in touch within 24 hours!';
+      btn.style.background = '#1A1C2E';
+    });
   });
-  localStorage.setItem('lang', lang);
-  currentLang = lang;
-}
-
-document.querySelectorAll('.lang-btn, .lang-sm').forEach(btn => {
-  btn.addEventListener('click', () => applyLang(btn.dataset.lang));
-});
-
-applyLang(currentLang);
-
-/* ── Nav scroll effect ────────────────────────── */
-const siteNav = document.getElementById('site-nav');
-window.addEventListener('scroll', () => {
-  siteNav.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
-
-/* ── Mobile menu ──────────────────────────────── */
-const hbtn  = document.getElementById('hamburger');
-const hmenu = document.getElementById('mobile-menu');
-
-function openMenu() {
-  hmenu.classList.add('open');
-  hbtn.setAttribute('aria-expanded', 'true');
-  document.body.style.overflow = 'hidden';
-}
-function closeMenu() {
-  hmenu.classList.remove('open');
-  hbtn.setAttribute('aria-expanded', 'false');
-  document.body.style.overflow = '';
-}
-
-hbtn.addEventListener('click', () => hmenu.classList.contains('open') ? closeMenu() : openMenu());
-document.getElementById('mmenu-close').addEventListener('click', closeMenu);
-hmenu.querySelectorAll('.mmenu__item:not(.mmenu__acc-btn)').forEach(a => {
-  a.addEventListener('click', closeMenu);
-});
-hmenu.querySelectorAll('.mmenu__sub-item').forEach(a => a.addEventListener('click', closeMenu));
-hmenu.querySelectorAll('.mmenu__cta').forEach(a => a.addEventListener('click', closeMenu));
-
-/* ── Accordion sub-menus ──────────────────────── */
-document.querySelectorAll('.mmenu__acc-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const sub = btn.nextElementSibling;
-    const open = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!open));
-    sub.hidden = open;
-  });
-});
-
-/* ── Carousel ─────────────────────────────────── */
-const track = document.querySelector('.carousel__track');
-const dots  = document.querySelectorAll('.carousel__dot');
-if (track && dots.length) {
-  const updateDots = () => {
-    const idx = Math.round(track.scrollLeft / track.offsetWidth);
-    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-  };
-  track.addEventListener('scroll', updateDots, { passive: true });
-  dots.forEach((dot, i) => {
-    dot.addEventListener('click', () =>
-      track.scrollTo({ left: i * track.offsetWidth, behavior: 'smooth' })
-    );
-  });
-}
-
-/* ── Scroll reveal ────────────────────────────── */
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
-  });
-}, { threshold: 0.08 });
-
-document.querySelectorAll('.reveal').forEach((el, i) => {
-  el.style.transitionDelay = (i % 5) * 0.07 + 's';
-  io.observe(el);
-});
-
-/* ── Year + Form submit ───────────────────────── */
-document.getElementById('year').textContent = new Date().getFullYear();
-
-document.getElementById('lead-form').addEventListener('submit', e => {
-  e.preventDefault();
-  const btn = e.target.querySelector('[type=submit]');
-  btn.textContent = currentLang === 'al'
-    ? "U dërgua — do t'ju kontaktojmë!"
-    : "Submitted — we'll be in touch!";
-  btn.disabled = true;
-  btn.style.background = '#4CAF50';
-});
 </script>
 
 </body>
