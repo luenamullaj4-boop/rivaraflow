@@ -10,362 +10,788 @@
   <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles/tokens.css" />
-  <link rel="stylesheet" href="styles/globals.css" />
   <style>
-    /* ── Reset & base ── */
+    /* ── Base ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: 'Satoshi', sans-serif; }
-    .container { max-width: 1100px; margin-inline: auto; padding-inline: 20px; }
-    @media (min-width: 768px) { .container { padding-inline: 48px; } }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--satoshi);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
 
-    /* ── Nav ── */
-    .site-nav { background: var(--bg-dark); display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
-    @media (min-width: 768px) { .site-nav { padding: 18px 48px; } }
-    .site-nav__logo img { height: 48px; width: auto; }
-    @media (min-width: 768px) { .site-nav__logo img { height: 60px; } }
-    .site-nav__desktop { display: none; list-style: none; gap: 28px; font-size: 14px; }
-    @media (min-width: 960px) { .site-nav__desktop { display: flex; align-items: center; } }
-    .site-nav__desktop a { color: rgba(248,244,217,.85); text-decoration: none; font-weight: 500; transition: color .2s; }
-    .site-nav__desktop a:hover, .site-nav__desktop a.active { color: var(--text-inv); }
-    .site-nav__right { display: flex; align-items: center; gap: 14px; }
-    .site-nav__cta { display: none; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
-    @media (min-width: 768px) { .site-nav__cta { display: inline-flex; align-items: center; } }
-    .site-nav__cta:hover { background: #d4e060; }
-    .site-nav__burger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 6px; }
-    .site-nav__burger span { display: block; width: 24px; height: 2px; background: var(--text-inv); border-radius: 2px; transition: transform .22s, opacity .22s; }
-    /* Drawer */
-    .nav-drawer { position: fixed; inset: 0; z-index: 200; background: var(--bg-dark); display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity .22s; }
-    .nav-drawer.open { opacity: 1; pointer-events: all; }
-    .nav-drawer__head { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid rgba(248,244,217,.1); }
-    .nav-drawer__head img { height: 48px; width: auto; }
-    .nav-drawer__close { background: none; border: none; cursor: pointer; color: var(--text-inv); font-size: 24px; line-height: 1; padding: 8px; }
-    .nav-drawer__links { flex: 1; overflow-y: auto; display: flex; flex-direction: column; padding: 24px; gap: 2px; }
-    .nav-drawer__links a { font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-size: clamp(18px, 3.5vw, 26px); text-transform: uppercase; color: rgba(248,244,217,.72); text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(248,244,217,.08); transition: color .2s, padding-left .15s; }
-    .nav-drawer__links a:hover, .nav-drawer__links a.active { color: var(--text-inv); padding-left: 8px; }
-    .nav-drawer__links a.drawer-cta { margin-top: 20px; color: var(--bg-dark); background: var(--primary); padding: 14px 24px; border-radius: var(--r999); text-align: center; border: none; }
-    .nav-drawer__links a.drawer-cta:hover { background: #d4e060; padding-left: 24px; }
+    .container {
+      width: 100%;
+      max-width: 1160px;
+      margin-inline: auto;
+      padding-inline: 20px;
+    }
+    @media (min-width: 640px)  { .container { padding-inline: 32px; } }
+    @media (min-width: 1024px) { .container { padding-inline: 48px; } }
 
-    /* ── Shared section tokens ── */
-    .section-tag { font-family: 'Satoshi', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; display: block; }
-    .section-tag--light { color: var(--accent); }
-    .section-tag--dark  { color: var(--primary); }
-    .section-h2 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; text-transform: uppercase; line-height: 1.08; font-size: clamp(28px, 5vw, 52px); }
-    .section-h2--light { color: var(--bg-dark); }
-    .section-h2--dark  { color: var(--text-inv); }
+    /* ══════════════════════════════════════════════
+       NAV  — beige background, purple links
+    ══════════════════════════════════════════════ */
+    .site-nav {
+      background: var(--bg);
+      border-bottom: 1px solid rgba(26,28,46,.07);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
 
-    /* ── 1. HERO ── */
-    .hero { background: var(--bg-dark); padding: 96px 0 80px; text-align: center; }
-    .hero .section-tag { margin-bottom: 20px; }
-    .hero__h1 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(36px, 8vw, 78px); color: var(--text-inv); line-height: 1.0; margin-bottom: 24px; }
-    .hero__h1 span { display: block; }
-    .hero__sub { font-size: clamp(16px, 2.2vw, 20px); color: rgba(248,244,217,.82); max-width: 640px; margin-inline: auto; line-height: 1.6; }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 12px;
+    }
 
-    /* ── 2. MISSION ── */
-    .mission { background: var(--bg); padding: 88px 0; }
-    .mission__inner { display: grid; gap: 48px; }
-    @media (min-width: 768px) { .mission__inner { grid-template-columns: 1fr 1fr; align-items: start; } }
-    .mission__pull { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(22px, 3.5vw, 40px); color: var(--bg-dark); line-height: 1.15; text-transform: uppercase; }
-    .mission__body { font-size: 16px; line-height: 1.75; color: #2e3347; }
-    .mission__body p + p { margin-top: 16px; }
+    /* Logo: leaf SVG + wordmark in purple */
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .nav__logo-icon {
+      width: 34px; height: 34px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav__logo-text {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--accent);
+      letter-spacing: -.01em;
+    }
 
-    /* ── 3. THE PROBLEM ── */
-    .problem { background: var(--bg-dark); padding: 88px 0; }
-    .problem__header { text-align: center; margin-bottom: 56px; }
-    .problem__cards { display: grid; gap: 24px; grid-template-columns: 1fr; }
-    @media (min-width: 600px) { .problem__cards { grid-template-columns: repeat(3, 1fr); } }
-    .stat-card { background: rgba(255,255,255,.04); border: 1px solid var(--primary); border-radius: var(--r16); padding: 36px 28px; text-align: center; }
-    .stat-card__number { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(36px, 5vw, 56px); color: var(--primary); line-height: 1; margin-bottom: 12px; }
-    .stat-card__label { font-size: 15px; color: rgba(248,244,217,.82); line-height: 1.5; }
-    .problem__body { margin-top: 48px; display: grid; gap: 20px; }
-    @media (min-width: 768px) { .problem__body { grid-template-columns: 1fr 1fr; } }
-    .problem__body p { font-size: 16px; color: rgba(248,244,217,.82); line-height: 1.75; }
+    .nav__links {
+      display: none;
+      gap: 4px;
+    }
+    @media (min-width: 820px) { .nav__links { display: flex; align-items: center; } }
 
-    /* ── 4. WHY CURRENT SOLUTIONS FAIL ── */
-    .gap { background: var(--bg); padding: 88px 0; }
-    .gap__header { margin-bottom: 52px; }
-    .gap__grid { display: grid; gap: 24px; }
-    @media (min-width: 600px) { .gap__grid { grid-template-columns: repeat(2, 1fr); } }
-    .fail-card { background: #fff; border-left: 4px solid var(--primary); border-radius: var(--r12); padding: 28px 24px; }
-    .fail-card__title { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: 18px; color: var(--bg-dark); text-transform: uppercase; margin-bottom: 10px; }
-    .fail-card__body { font-size: 15px; color: #2e3347; line-height: 1.65; }
+    .nav__links a {
+      font-family: var(--satoshi);
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--accent-dark);
+      padding: 8px 16px;
+      border-radius: var(--r8);
+      transition: background .15s;
+    }
+    .nav__links a:hover,
+    .nav__links a.active { background: rgba(91,67,167,.07); }
 
-    /* ── 5. FOUNDER / TEAM ── */
-    .team { background: var(--bg); padding: 88px 0; }
-    .team__header { margin-bottom: 52px; }
-    .founder-card { display: grid; gap: 36px; align-items: start; }
-    @media (min-width: 768px) { .founder-card { grid-template-columns: 240px 1fr; } }
-    .founder-card__img { background: #e8e4cc; border-radius: var(--r16); aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; }
-    .founder-card__img span { font-size: 13px; color: #6b6652; font-style: italic; }
-    .founder-card__name { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: 26px; color: var(--bg-dark); text-transform: uppercase; margin-bottom: 4px; }
-    .founder-card__title { font-size: 14px; font-weight: 700; color: var(--accent-dark); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 16px; }
-    .founder-card__bio { font-size: 16px; color: #2e3347; line-height: 1.75; }
-    .advisors { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 40px; }
-    .advisor-card { display: flex; align-items: center; gap: 14px; background: #f0eccc; border-radius: var(--r12); padding: 16px 18px; }
-    .advisor-card__avatar { width: 40px; height: 40px; border-radius: 50%; background: #d9d4b8; flex-shrink: 0; }
-    .advisor-card__name { font-weight: 700; font-size: 14px; color: var(--bg-dark); margin-bottom: 2px; }
-    .advisor-card__role { font-size: 12px; color: #4e4b38; }
-    .team__note { margin-top: 20px; font-size: 13px; color: #6b6652; font-style: italic; }
+    .nav__right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
 
-    /* ── 6. VISION / ROADMAP ── */
-    .vision { background: var(--bg-dark); padding: 88px 0; }
-    .vision__header { margin-bottom: 56px; }
-    .timeline { display: grid; gap: 0; }
-    @media (min-width: 768px) { .timeline { grid-template-columns: repeat(4, 1fr); } }
-    .timeline__item { position: relative; padding: 28px 24px; border-top: 3px solid rgba(196,208,84,.3); }
-    @media (min-width: 768px) { .timeline__item { border-top: none; border-left: 3px solid rgba(196,208,84,.3); } }
-    .timeline__item:first-child { border-top-color: var(--primary); }
-    @media (min-width: 768px) { .timeline__item:first-child { border-left-color: var(--primary); border-top: none; } }
-    .timeline__year { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: 22px; color: var(--primary); margin-bottom: 10px; }
-    .timeline__body { font-size: 14px; color: rgba(248,244,217,.82); line-height: 1.65; }
+    .nav__demo {
+      display: none;
+      background: var(--accent-dark);
+      color: #fff;
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: var(--r999);
+      transition: opacity .2s;
+    }
+    @media (min-width: 640px) { .nav__demo { display: inline-flex; align-items: center; } }
+    .nav__demo:hover { opacity: .82; }
 
-    /* ── 7. VALUES ── */
-    .values { background: var(--bg); padding: 88px 0; }
-    .values__header { text-align: center; margin-bottom: 52px; }
-    .values__grid { display: grid; gap: 24px; }
-    @media (min-width: 600px) { .values__grid { grid-template-columns: repeat(3, 1fr); } }
-    .value-card { background: var(--bg); border: 1.5px solid #c8c4a8; border-radius: var(--r16); padding: 32px 26px; }
-    .value-card__title { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: 20px; color: var(--bg-dark); text-transform: uppercase; margin-bottom: 12px; }
-    .value-card__body { font-size: 15px; color: #2e3347; line-height: 1.65; }
+    .nav__burger {
+      background: none; border: none; cursor: pointer;
+      display: flex; flex-direction: column; gap: 5px; padding: 6px;
+    }
+    .nav__burger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--accent-dark); border-radius: 2px;
+      transition: transform .26s, opacity .26s;
+    }
+    .nav__burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav__burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    @media (min-width: 820px) { .nav__burger { display: none; } }
 
-    /* ── 8. CTA STRIP ── */
-    .cta-strip { background: var(--primary); padding: 72px 0; text-align: center; }
-    .cta-strip__h2 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(24px, 4vw, 44px); color: var(--bg-dark); text-transform: uppercase; margin-bottom: 28px; }
-    .cta-strip__btn { display: inline-flex; align-items: center; justify-content: center; background: var(--bg-dark); color: var(--text-inv); font-weight: 700; font-size: 16px; text-decoration: none; padding: 14px 36px; border-radius: var(--r999); transition: background .2s; }
-    .cta-strip__btn:hover { background: #2e3347; }
+    /* Mobile drawer */
+    .nav__drawer {
+      position: fixed; inset: 0; z-index: 190;
+      background: var(--bg-dark);
+      display: flex; flex-direction: column;
+      padding: 80px 28px 32px;
+      gap: 2px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .22s;
+      overflow-y: auto;
+    }
+    .nav__drawer.open { opacity: 1; pointer-events: all; }
+    @media (min-width: 820px) { .nav__drawer { display: none !important; } }
 
-    /* ── Footer ── */
-    .footer { background: var(--bg-dark); padding: 56px 0 32px; }
-    .footer .container { max-width: 1100px; }
-    .footer__grid { display: grid; gap: 32px; grid-template-columns: repeat(2, 1fr); }
-    @media (min-width: 768px) { .footer__grid { grid-template-columns: repeat(4, 1fr); } }
-    .footer__col-title { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(248,244,217,.65); margin-bottom: 12px; }
-    .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer__col a { font-size: 14px; color: rgba(248,244,217,.88); text-decoration: none; transition: color .2s; }
-    .footer__col a:hover { color: var(--text-inv); }
-    .footer__copy { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(248,244,217,.15); font-size: 13px; color: rgba(248,244,217,.55); text-align: center; }
+    .nav__drawer a {
+      font-family: var(--museo);
+      font-size: 22px;
+      color: rgba(248,244,237,.8);
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      transition: color .2s;
+    }
+    .nav__drawer a:hover { color: var(--primary); }
+    .nav__drawer .drawer-cta {
+      margin-top: 20px;
+      background: var(--primary);
+      color: var(--bg-dark) !important;
+      border: none !important;
+      border-radius: var(--r999);
+      font-weight: 700;
+      text-align: center;
+      padding: 14px 24px !important;
+    }
+
+    /* ══════════════════════════════════════════════
+       HERO  — dark rounded card, photo background
+    ══════════════════════════════════════════════ */
+    .hero-wrap {
+      padding: 28px 20px 0;
+    }
+    @media (min-width: 640px)  { .hero-wrap { padding: 36px 32px 0; } }
+    @media (min-width: 1024px) { .hero-wrap { padding: 44px 48px 0; } }
+
+    .hero {
+      position: relative;
+      border-radius: var(--r24);
+      overflow: hidden;
+      min-height: 380px;
+      display: flex;
+      align-items: flex-end;
+      padding: 40px 32px;
+    }
+    @media (min-width: 640px)  { .hero { min-height: 420px; padding: 52px 48px; } }
+    @media (min-width: 1024px) { .hero { min-height: 480px; padding: 64px 64px; } }
+
+    /* Photo background */
+    .hero__bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    /* Dark overlay */
+    .hero__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(13,15,28,.88) 0%,
+        rgba(13,15,28,.55) 55%,
+        rgba(13,15,28,.25) 100%
+      );
+    }
+
+    /* Fallback gradient when no image */
+    .hero__overlay--fallback {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #1a1c2e 0%, #2a1f4e 50%, #1f2b1a 100%);
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+    }
+
+    .hero__h1 {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(32px, 6vw, 66px);
+      color: #fff;
+      line-height: 1.08;
+      letter-spacing: -.02em;
+      margin-bottom: 16px;
+    }
+    .hero__h1 em {
+      font-style: normal;
+      color: var(--primary);
+    }
+
+    .hero__sub {
+      font-family: var(--satoshi);
+      font-size: clamp(14px, 2vw, 17px);
+      color: rgba(255,255,255,.72);
+      line-height: 1.65;
+      max-width: 580px;
+    }
+
+    /* ══════════════════════════════════════════════
+       THE PROBLEM  — lime bg, text left / title right
+    ══════════════════════════════════════════════ */
+    .problem {
+      background: var(--primary);
+      padding: clamp(40px, 6vw, 72px) 0;
+    }
+
+    .problem__inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .problem__inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+      }
+    }
+
+    .problem__body {
+      font-family: var(--satoshi);
+      font-size: clamp(13px, 1.8vw, 15px);
+      color: rgba(26,28,46,.75);
+      line-height: 1.75;
+    }
+    .problem__body p + p { margin-top: 12px; }
+
+    .problem__heading {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(36px, 5.5vw, 64px);
+      color: var(--accent-dark);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      text-align: right;
+    }
+    @media (max-width: 767px) {
+      .problem__heading { text-align: left; font-size: clamp(30px, 8vw, 48px); }
+    }
+
+    /* ══════════════════════════════════════════════
+       OUR MISSION  — dark purple bg, title left / text right
+    ══════════════════════════════════════════════ */
+    .mission {
+      background: var(--accent);
+      padding: clamp(44px, 7vw, 80px) 0;
+    }
+
+    .mission__inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .mission__inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 56px;
+      }
+    }
+
+    .mission__heading {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(36px, 5.5vw, 64px);
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+
+    .mission__body {
+      font-family: var(--satoshi);
+      font-size: clamp(13px, 1.8vw, 15px);
+      color: rgba(255,255,255,.8);
+      line-height: 1.8;
+      text-align: right;
+    }
+    .mission__body p + p { margin-top: 12px; }
+    @media (max-width: 767px) {
+      .mission__body { text-align: left; }
+    }
+
+    /* ══════════════════════════════════════════════
+       WHAT WE STAND FOR  — beige bg, bordered cards
+    ══════════════════════════════════════════════ */
+    .values {
+      background: var(--bg);
+      padding: clamp(56px, 8vw, 100px) 0;
+    }
+
+    .values__heading {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(28px, 5vw, 52px);
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: clamp(32px, 5vw, 52px);
+      letter-spacing: -.01em;
+    }
+
+    .values__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 600px) {
+      .values__grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    }
+
+    .value-card {
+      border: 2px solid var(--primary);
+      border-radius: var(--r20);
+      padding: 32px 26px;
+      background: var(--bg);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .value-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(196,208,84,.2);
+    }
+
+    .value-card__title {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(17px, 2.2vw, 21px);
+      color: var(--accent-dark);
+      margin-bottom: 12px;
+    }
+
+    .value-card__body {
+      font-family: var(--satoshi);
+      font-size: 14px;
+      color: rgba(26,28,46,.68);
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════════════
+       CTA SECTION  — lime bg, illustrated characters
+    ══════════════════════════════════════════════ */
+    .cta-section {
+      background: var(--primary);
+      position: relative;
+      overflow: hidden;
+      padding: clamp(48px, 8vw, 88px) 0;
+    }
+
+    .cta-section__inner {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Characters — absolute positioned on desktop, hidden on mobile */
+    .cta-char {
+      display: none;
+      position: absolute;
+      bottom: 0;
+      width: 160px;
+    }
+    @media (min-width: 760px) { .cta-char { display: block; } }
+    @media (min-width: 1100px) { .cta-char { width: 200px; } }
+
+    .cta-char--left  { left: clamp(16px, 4vw, 80px); }
+    .cta-char--right { right: clamp(16px, 4vw, 80px); }
+
+    /* Fallback SVG illustrations if no images */
+    .cta-char__svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .cta-section__sub {
+      font-family: var(--satoshi);
+      font-size: clamp(14px, 2vw, 17px);
+      color: rgba(26,28,46,.65);
+      margin-bottom: 4px;
+    }
+
+    .cta-section__h2 {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(22px, 4vw, 40px);
+      color: var(--accent-dark);
+      line-height: 1.2;
+      letter-spacing: -.01em;
+    }
+
+    .cta-section__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-dark);
+      color: #fff;
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(18px, 2.5vw, 26px);
+      padding: 16px 48px;
+      border-radius: var(--r999);
+      border: none;
+      cursor: pointer;
+      transition: opacity .2s, transform .2s;
+      margin-top: 4px;
+    }
+    .cta-section__btn:hover { opacity: .88; transform: translateY(-2px); }
+
+    /* ══════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════ */
+    .footer {
+      background: var(--bg);
+      padding: 48px 0 28px;
+      border-top: 1px solid rgba(26,28,46,.08);
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 24px;
+      margin-bottom: 36px;
+    }
+    @media (min-width: 768px) {
+      .footer__grid { grid-template-columns: repeat(4, 1fr); gap: 24px 40px; }
+    }
+
+    .footer__col-title {
+      font-family: var(--satoshi);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .footer__col ul { display: flex; flex-direction: column; gap: 8px; }
+
+    .footer__col a {
+      font-size: 13px;
+      color: rgba(26,28,46,.6);
+      transition: color .2s;
+    }
+    .footer__col a:hover { color: var(--text); }
+
+    .footer__col strong {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .footer__copy {
+      padding-top: 20px;
+      border-top: 1px solid rgba(26,28,46,.08);
+      font-size: 11px;
+      color: rgba(26,28,46,.35);
+      text-align: center;
+    }
+
+    /* ── Scroll reveal ──────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .reveal.in-view { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: .1s; }
+    .reveal-d2 { transition-delay: .2s; }
   </style>
 </head>
 <body>
 
 <!-- NAV -->
-<header class="site-nav">
-  <a href="index.html" class="site-nav__logo" aria-label="Rivara Flow home">
-    <img src="assets/images/logo.png" alt="Rivara Flow" width="200" height="70" />
-  </a>
-  <ul class="site-nav__desktop" role="list">
-    <li><a href="system.html">System</a></li>
-    <li><a href="platform.html">Platform</a></li>
-    <li><a href="industries.html">Industries</a></li>
-    <li><a href="about.html" class="active">About</a></li>
-  </ul>
-  <div class="site-nav__right">
-    <a href="contact.html" class="site-nav__cta">Book a Demo</a>
-    <button class="site-nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+<nav class="site-nav" id="site-nav" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav__inner">
+
+      <a href="index.html" class="nav__logo" aria-label="Rivara Flow home">
+        <div class="nav__logo-icon">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 4C17 4 8 9.5 8 18C8 22.97 12.03 27 17 27C21.97 27 26 22.97 26 18C26 9.5 17 4 17 4Z" fill="#9C7BE3"/>
+            <path d="M17 13C17 13 12.5 16 12.5 20C12.5 22.49 14.51 24.5 17 24.5C19.49 24.5 21.5 22.49 21.5 20C21.5 16 17 13 17 13Z" fill="#5B43A7"/>
+          </svg>
+        </div>
+        <span class="nav__logo-text">Rivara Flow</span>
+      </a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="system.html">System</a></li>
+        <li><a href="platform.html">Platform</a></li>
+        <li><a href="index.html#contact">Contacts</a></li>
+      </ul>
+
+      <div class="nav__right">
+        <a href="index.html#contact" class="nav__demo">Book a Demo</a>
+        <button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
   </div>
-</header>
-<div class="nav-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
-  <div class="nav-drawer__head">
-    <a href="index.html"><img src="assets/images/logo.png" alt="Rivara Flow" height="48" /></a>
-    <button class="nav-drawer__close" id="nav-close" aria-label="Close menu">&#x2715;</button>
-  </div>
-  <nav class="nav-drawer__links">
+
+  <nav class="nav__drawer" id="nav-drawer" aria-label="Mobile navigation">
     <a href="index.html">Home</a>
     <a href="system.html">System</a>
     <a href="platform.html">Platform</a>
-    <a href="how-it-works.html">How It Works</a>
     <a href="industries.html">Industries</a>
-    <a href="compliance.html">Compliance &amp; ESG</a>
-    <a href="case-studies.html">Case Studies</a>
     <a href="about.html" class="active">About</a>
     <a href="blog.html">Blog</a>
-    <a href="partners.html">Partners</a>
-    <a href="faq.html">FAQ</a>
-    <a href="contact.html" class="drawer-cta">Book a Demo</a>
+    <a href="index.html#contact" class="drawer-cta">Book a Demo</a>
   </nav>
+</nav>
+
+<!-- HERO -->
+<div class="hero-wrap">
+  <section class="hero" aria-labelledby="about-h1">
+
+    <!-- Background photo (add assets/images/about-hero-bg.jpg) -->
+    <img
+      class="hero__bg"
+      src="assets/images/about-hero-bg.jpg"
+      alt="Chef preparing food in a kitchen"
+      loading="eager"
+      onerror="this.style.display='none'"
+    />
+
+    <!-- Overlay — always shown; darker when no photo -->
+    <div class="hero__overlay" aria-hidden="true"></div>
+
+    <div class="hero__content">
+      <h1 class="hero__h1" id="about-h1">
+        We're turning<br>
+        waste into<br>
+        <em>savings.</em>
+      </h1>
+      <p class="hero__sub">
+        Built to help the hospitality industry eliminate invisible losses
+        and stay ahead of EU standards.
+      </p>
+    </div>
+
+  </section>
 </div>
 
-<!-- 1. HERO -->
-<section class="hero" aria-labelledby="about-h1">
-  <div class="container">
-    <span class="section-tag section-tag--dark">Our Story</span>
-    <h1 class="hero__h1" id="about-h1">
-      <span>We're turning</span>
-      <span>waste into data.</span>
-    </h1>
-    <p class="hero__sub">Rivara Flow is Albania's first smart food-waste management platform — built to help the hospitality industry eliminate invisible losses and stay ahead of EU standards.</p>
-  </div>
-</section>
+<main>
 
-<!-- 2. MISSION -->
-<section class="mission" aria-labelledby="mission-h2">
-  <div class="container">
-    <span class="section-tag section-tag--light">Mission</span>
-    <h2 class="section-h2 section-h2--light" id="mission-h2" style="margin-bottom: 48px;">A cleaner kitchen.<br>A stronger bottom line.</h2>
-    <div class="mission__inner">
-      <p class="mission__pull">"Food waste isn't a charity issue. It's a profitability issue."</p>
-      <div class="mission__body">
-        <p>Rivara Flow was built because Balkan hospitality businesses lose 15–30% of their food budget to waste that is never measured, never reported, and never reduced. Every week, kitchens across Albania discard hundreds of euros worth of food — and most managers have no idea it's happening.</p>
-        <p>Our mission is to change that — not by asking businesses to care about the environment (though they will), but by showing them the money. When waste becomes visible, it becomes manageable. When it becomes manageable, it becomes a competitive advantage.</p>
-        <p>Rivara Flow gives hospitality operators the data they need to make decisions their competitors can't. That's not altruism — that's good business.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 3. THE PROBLEM -->
+<!-- THE PROBLEM -->
 <section class="problem" aria-labelledby="problem-h2">
   <div class="container">
-    <div class="problem__header">
-      <span class="section-tag section-tag--dark">The Problem</span>
-      <h2 class="section-h2 section-h2--dark" id="problem-h2">The Western Balkans<br>hospitality gap.</h2>
-    </div>
-    <div class="problem__cards">
-      <div class="stat-card">
-        <p class="stat-card__number">€2.4B+</p>
-        <p class="stat-card__label">in food waste across Balkan hospitality annually</p>
+    <div class="problem__inner">
+
+      <div class="problem__body reveal">
+        <p>
+          While EU markets have food waste tracking mechanisms,
+          the Western Balkans has none built for local conditions.
+          But the laws will soon be the same.
+        </p>
+        <p>
+          We give you the right language, the right pricing, the right
+          integrations, and the right regulatory mapping, all in one place.
+        </p>
       </div>
-      <div class="stat-card">
-        <p class="stat-card__number">0</p>
-        <p class="stat-card__label">EU-compliant digital waste tracking tools built for this region</p>
-      </div>
-      <div class="stat-card">
-        <p class="stat-card__number">2027</p>
-        <p class="stat-card__label">Estimated year EU food waste reporting becomes mandatory for Albanian exports</p>
-      </div>
-    </div>
-    <div class="problem__body">
-      <p>While EU markets have dozens of food waste SaaS tools, the Western Balkans has none built for local conditions. The tools that exist were designed for German supermarket chains and Dutch catering conglomerates — not for a 30-seat restaurant in Tirana or a family agritourism property in the Berat hills.</p>
-      <p>Rivara Flow is built from the ground up for this gap: the right language, the right pricing, the right integrations, and the right regulatory mapping for a region that is rapidly approaching EU alignment.</p>
+
+      <h2 class="problem__heading reveal reveal-d1" id="problem-h2">
+        The<br>Problem
+      </h2>
+
     </div>
   </div>
 </section>
 
-<!-- 4. WHY CURRENT SOLUTIONS FAIL -->
-<section class="gap" aria-labelledby="gap-h2">
+<!-- OUR MISSION -->
+<section class="mission" aria-labelledby="mission-h2">
   <div class="container">
-    <div class="gap__header">
-      <span class="section-tag section-tag--light">The Gap</span>
-      <h2 class="section-h2 section-h2--light" id="gap-h2">Why existing tools<br>don't work here.</h2>
-    </div>
-    <div class="gap__grid">
-      <div class="fail-card">
-        <p class="fail-card__title">Too expensive</p>
-        <p class="fail-card__body">Enterprise pricing designed for EU multinationals, not Albanian restaurants and guesthouses. Monthly fees that exceed an entire kitchen's weekly wage bill.</p>
+    <div class="mission__inner">
+
+      <h2 class="mission__heading reveal" id="mission-h2">
+        Our<br>Mission
+      </h2>
+
+      <div class="mission__body reveal reveal-d1">
+        <p>
+          Every week, kitchens across Albania discard hundreds of Euros
+          worth of food and most managers have no idea it's happening.
+        </p>
+        <p>
+          We make waste manageable, and when it becomes manageable, it
+          becomes a competitive advantage.
+        </p>
+        <p>
+          Rivara Flow shows hospitality operators the data they need to
+          make decisions their competitors can't.
+        </p>
       </div>
-      <div class="fail-card">
-        <p class="fail-card__title">Wrong language, wrong culture</p>
-        <p class="fail-card__body">No Albanian-language support. No understanding of the region's hospitality culture, seasonal business patterns, or the informal economy dynamics that shape day-to-day operations.</p>
-      </div>
-      <div class="fail-card">
-        <p class="fail-card__title">Requires IT teams</p>
-        <p class="fail-card__body">Complex setup that assumes dedicated tech staff and reliable enterprise infrastructure. Most Balkan hospitality businesses have neither — and shouldn't need them.</p>
-      </div>
-      <div class="fail-card">
-        <p class="fail-card__title">No local compliance mapping</p>
-        <p class="fail-card__body">Built for German or Dutch regulation. Not mapped to Albania's EU accession timeline, the Western Balkans sustainability roadmap, or the specific reporting formats Albanian exporters will need.</p>
-      </div>
+
     </div>
   </div>
 </section>
 
-<!-- 5. JOIN THE TEAM -->
-<section class="team" id="team" aria-labelledby="team-h2">
-  <div class="container" style="text-align:center; max-width: 680px;">
-    <span class="section-tag section-tag--light">The Team</span>
-    <h2 class="section-h2 section-h2--light" id="team-h2" style="margin-bottom:24px;">Want to join<br>our mission?</h2>
-    <p style="font-size:clamp(16px,2vw,18px); color:#2e3347; line-height:1.75; margin-bottom:36px;">We're building Albania's first food-waste management platform from the ground up. If you care about sustainability, hospitality, or technology in the Western Balkans — we'd love to hear from you.</p>
-    <a href="contact.html" class="cta-strip__btn" style="display:inline-flex;">Get in Touch</a>
-  </div>
-</section>
-
-<!-- 6. VALUES -->
+<!-- WHAT WE STAND FOR -->
 <section class="values" aria-labelledby="values-h2">
   <div class="container">
-    <div class="values__header">
-      <h2 class="section-h2 section-h2--light" id="values-h2">What we stand for.</h2>
-    </div>
+
+    <h2 class="values__heading reveal" id="values-h2">What we stand for</h2>
+
     <div class="values__grid">
-      <div class="value-card">
-        <p class="value-card__title">Transparency</p>
-        <p class="value-card__body">We show you the numbers others hide. Every gram tracked. Every cost visible. No abstractions, no greenwashing — just data you can act on.</p>
-      </div>
-      <div class="value-card">
-        <p class="value-card__title">Simplicity</p>
-        <p class="value-card__body">Built for kitchen staff, not software engineers. If it's hard to use, it won't get used. Every feature earns its place by making someone's job easier.</p>
-      </div>
-      <div class="value-card">
-        <p class="value-card__title">Relevance</p>
-        <p class="value-card__body">Designed for this region, this culture, this regulatory moment. Not copy-pasted from the EU. Built to reflect the real conditions of Western Balkan hospitality.</p>
-      </div>
+
+      <article class="value-card reveal">
+        <h3 class="value-card__title">Transparency</h3>
+        <p class="value-card__body">
+          We show you the numbers. Every gram tracked. Every cost
+          visible. All data you can act on.
+        </p>
+      </article>
+
+      <article class="value-card reveal reveal-d1">
+        <h3 class="value-card__title">Simplicity</h3>
+        <p class="value-card__body">
+          Built for kitchen staff, making their job easier. No added
+          steps, 24/7 support.
+        </p>
+      </article>
+
+      <article class="value-card reveal reveal-d2">
+        <h3 class="value-card__title">Relevance</h3>
+        <p class="value-card__body">
+          Reflecting updated regulations, built for easy use and simple
+          savings.
+        </p>
+      </article>
+
     </div>
   </div>
 </section>
 
-<!-- 8. CTA STRIP -->
-<section class="cta-strip" aria-labelledby="cta-h2">
+<!-- CTA -->
+<section class="cta-section" aria-labelledby="cta-h2">
+
+  <!-- Left character (add assets/images/about-cta-char-left.png) -->
+  <img
+    class="cta-char cta-char--left"
+    src="assets/images/about-cta-char-left.png"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    onerror="this.style.display='none'"
+  />
+
+  <!-- Right character (add assets/images/about-cta-char-right.png) -->
+  <img
+    class="cta-char cta-char--right"
+    src="assets/images/about-cta-char-right.png"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    onerror="this.style.display='none'"
+  />
+
   <div class="container">
-    <h2 class="cta-strip__h2" id="cta-h2">Ready to see it in your kitchen?</h2>
-    <a href="contact.html" class="cta-strip__btn">Book a Free Demo</a>
+    <div class="cta-section__inner">
+      <p class="cta-section__sub">Ready to see it in your kitchen?</p>
+      <h2 class="cta-section__h2 sr-only" id="cta-h2">Book a Demo</h2>
+      <a href="index.html#contact" class="cta-section__btn">Book a Demo</a>
+    </div>
   </div>
 </section>
+
+</main>
 
 <!-- FOOTER -->
 <footer class="footer" role="contentinfo">
   <div class="container">
     <div class="footer__grid">
+
       <div class="footer__col">
         <p class="footer__col-title">Get in touch</p>
         <ul role="list">
           <li><a href="mailto:contact@rivaraflow.com">contact@rivaraflow.com</a></li>
           <li><a href="tel:+355677398906">+355 (0) 67 73 98 906</a></li>
-          <li><a href="https://linkedin.com/company/rivaraflow" target="_blank" rel="noopener">LinkedIn: Rivara Flow</a></li>
-          <li><a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener">Instagram: @rivaraflow</a></li>
+          <li><a href="https://linkedin.com/company/rivaraflow" target="_blank" rel="noopener"><strong>LinkedIn:</strong> Rivara Flow</a></li>
+          <li><a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener"><strong>Instagram:</strong> @rivaraflow</a></li>
         </ul>
       </div>
+
       <div class="footer__col">
         <p class="footer__col-title">Company</p>
         <ul role="list">
           <li><a href="about.html">About</a></li>
           <li><a href="about.html#team">Team</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="partners.html">Partners</a></li>
+          <li><a href="blog.html">News &amp; Press</a></li>
         </ul>
       </div>
+
       <div class="footer__col">
         <p class="footer__col-title">Product</p>
         <ul role="list">
           <li><a href="system.html">System</a></li>
           <li><a href="platform.html">Platform</a></li>
-          <li><a href="how-it-works.html">How It Works</a></li>
-          <li><a href="compliance.html">Compliance &amp; ESG</a></li>
-          <li><a href="case-studies.html">Case Studies</a></li>
-          <li><a href="contact.html">Book a Demo</a></li>
+          <li><a href="about.html#impact">Impact</a></li>
+          <li><a href="index.html#contact">Book a Demo</a></li>
         </ul>
       </div>
+
       <div class="footer__col">
         <p class="footer__col-title">Industries</p>
         <ul role="list">
-          <li><a href="industries.html#restaurants">Restaurants</a></li>
-          <li><a href="industries.html#hotels">Hotels</a></li>
-          <li><a href="industries.html#agritourism">Agritourism</a></li>
-          <li><a href="industries.html#catering">Catering</a></li>
-          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="industries.html">Restaurants</a></li>
+          <li><a href="industries.html">Hotels</a></li>
+          <li><a href="industries.html">Agritourism</a></li>
         </ul>
       </div>
+
     </div>
-    <p class="footer__copy">&copy; <span id="year"></span> Rivara Flow. All rights reserved.</p>
+    <p class="footer__copy">&copy; <span id="yr"></span> Rivara Flow. All rights reserved.</p>
   </div>
 </footer>
+
+<style>
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0;
+    margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+    white-space: nowrap; border: 0;
+  }
+</style>
+
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* Hamburger */
   const burger = document.getElementById('nav-burger');
   const drawer = document.getElementById('nav-drawer');
-  const close  = document.getElementById('nav-close');
-  burger.addEventListener('click', () => { drawer.classList.add('open'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; });
-  close.addEventListener('click',  () => { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; });
-  drawer.addEventListener('click', e => { if (e.target === drawer) { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; } });
+  burger.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  drawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* Scroll reveal */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
