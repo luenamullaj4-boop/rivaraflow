@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Rivara Flow</title>
+  <meta name="description" content="Perspectives on food waste reduction, EU sustainability trends, and what they mean for Balkan hospitality businesses." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <style>
+    /* ── Base ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--satoshi);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0;
+      margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1160px;
+      margin-inline: auto;
+      padding-inline: 20px;
+    }
+    @media (min-width: 640px)  { .container { padding-inline: 32px; } }
+    @media (min-width: 1024px) { .container { padding-inline: 48px; } }
+
+    /* ══════════════════════════════════════════════
+       NAV — beige bg, purple links, logo.png
+    ══════════════════════════════════════════════ */
+    .site-nav {
+      background: var(--bg);
+      border-bottom: 1px solid rgba(26,28,46,.07);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 12px;
+    }
+    .nav__logo { display: flex; align-items: center; flex-shrink: 0; }
+    .nav__logo img { height: 56px; width: auto; object-fit: contain; }
+    @media (min-width: 768px) { .nav__logo img { height: 68px; } }
+
+    .nav__links { display: none; gap: 4px; }
+    @media (min-width: 820px) { .nav__links { display: flex; align-items: center; } }
+    .nav__links a {
+      font-family: var(--satoshi); font-weight: 500; font-size: 15px;
+      color: var(--accent-dark); padding: 8px 16px;
+      border-radius: var(--r8); transition: background .15s;
+    }
+    .nav__links a:hover, .nav__links a.active { background: rgba(91,67,167,.07); }
+
+    .nav__right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav__demo {
+      display: none;
+      background: var(--accent-dark); color: #fff;
+      font-family: var(--museo); font-weight: 700; font-size: 14px;
+      padding: 10px 22px; border-radius: var(--r999); transition: opacity .2s;
+    }
+    @media (min-width: 640px) { .nav__demo { display: inline-flex; align-items: center; } }
+    .nav__demo:hover { opacity: .82; }
+
+    .nav__burger {
+      background: none; border: none; cursor: pointer;
+      display: flex; flex-direction: column; gap: 5px; padding: 6px;
+    }
+    .nav__burger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--accent-dark); border-radius: 2px;
+      transition: transform .26s, opacity .26s;
+    }
+    .nav__burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav__burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    @media (min-width: 820px) { .nav__burger { display: none; } }
+
+    .nav__drawer {
+      position: fixed; inset: 0; z-index: 190;
+      background: var(--bg-dark);
+      display: flex; flex-direction: column;
+      padding: 80px 28px 32px; gap: 2px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .22s; overflow-y: auto;
+    }
+    .nav__drawer.open { opacity: 1; pointer-events: all; }
+    @media (min-width: 820px) { .nav__drawer { display: none !important; } }
+    .nav__drawer a {
+      font-family: var(--museo); font-size: 22px;
+      color: rgba(248,244,237,.8); padding: 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,.07); transition: color .2s;
+    }
+    .nav__drawer a:hover { color: var(--primary); }
+    .nav__drawer .drawer-cta {
+      margin-top: 20px; background: var(--primary);
+      color: var(--bg-dark) !important; border: none !important;
+      border-radius: var(--r999); font-weight: 700;
+      text-align: center; padding: 14px 24px !important;
+    }
+
+    /* ══════════════════════════════════════════════
+       HERO — beige bg, big lime heading, characters
+    ══════════════════════════════════════════════ */
+    .hero {
+      background: var(--bg);
+      position: relative;
+      padding: clamp(40px, 7vw, 88px) 0 clamp(32px, 5vw, 64px);
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .hero__chars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .hero__char {
+      position: absolute;
+      bottom: 0;
+      width: clamp(100px, 14vw, 200px);
+      height: auto;
+    }
+    .hero__char--left  { left:  clamp(0px, 3vw, 48px); }
+    .hero__char--right { right: clamp(0px, 3vw, 48px); }
+
+    .hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+      margin-inline: auto;
+    }
+
+    .hero__h1 {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(36px, 7vw, 80px);
+      color: var(--primary);
+      line-height: 1.0;
+      letter-spacing: -.02em;
+    }
+
+    /* ══════════════════════════════════════════════
+       WELCOME BANNER — full-width purple
+    ══════════════════════════════════════════════ */
+    .welcome-banner {
+      background: var(--accent);
+      padding: 20px 24px;
+      text-align: center;
+    }
+    .welcome-banner__text {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(16px, 2.5vw, 22px);
+      color: #fff;
+      letter-spacing: .05em;
+    }
+
+    /* ══════════════════════════════════════════════
+       BLOG GRID — 2 rows × 3 cards
+    ══════════════════════════════════════════════ */
+    .blog-section {
+      padding: clamp(44px, 7vw, 80px) 0;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    @media (min-width: 600px) {
+      .blog-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    }
+    @media (min-width: 900px) {
+      .blog-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    }
+
+    /* Card */
+    .blog-card {
+      border-radius: var(--r20);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(26,28,46,.12);
+    }
+
+    /* Color variants */
+    .blog-card--lime    { background: var(--primary); }
+    .blog-card--lavender { background: var(--accent-soft); }
+    .blog-card--gray    { background: #d6d3cc; }
+    .blog-card--purple  { background: var(--accent); }
+    .blog-card--dark    { background: var(--bg-dark); }
+    .blog-card--cream   { background: #e8e4d8; border: 1.5px solid rgba(26,28,46,.08); }
+
+    /* Card image */
+    .blog-card__img {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      display: block;
+      flex-shrink: 0;
+    }
+    /* Placeholder when no image */
+    .blog-card__img-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.08);
+      flex-shrink: 0;
+    }
+    .blog-card__img-placeholder svg { width: 40px; height: 40px; opacity: .35; }
+
+    /* Card body */
+    .blog-card__body {
+      padding: 20px 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    /* Category + date row */
+    .blog-card__meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .blog-card__cat {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 12px;
+      border-radius: var(--r999);
+      font-family: var(--satoshi);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    .blog-card__date {
+      font-family: var(--satoshi);
+      font-size: 12px;
+    }
+
+    /* Per-card-color meta styles */
+    .blog-card--lime     .blog-card__cat { background: rgba(26,28,46,.14); color: var(--bg-dark); }
+    .blog-card--lime     .blog-card__date { color: rgba(26,28,46,.55); }
+    .blog-card--lavender .blog-card__cat { background: rgba(91,67,167,.18); color: var(--accent-dark); }
+    .blog-card--lavender .blog-card__date { color: rgba(26,28,46,.5); }
+    .blog-card--gray     .blog-card__cat { background: rgba(26,28,46,.12); color: rgba(26,28,46,.8); }
+    .blog-card--gray     .blog-card__date { color: rgba(26,28,46,.5); }
+    .blog-card--purple   .blog-card__cat { background: rgba(255,255,255,.2); color: #fff; }
+    .blog-card--purple   .blog-card__date { color: rgba(255,255,255,.6); }
+    .blog-card--dark     .blog-card__cat { background: rgba(196,208,84,.15); color: var(--primary); }
+    .blog-card--dark     .blog-card__date { color: rgba(248,244,237,.45); }
+    .blog-card--cream    .blog-card__cat { background: rgba(156,123,227,.18); color: var(--accent-dark); }
+    .blog-card--cream    .blog-card__date { color: rgba(26,28,46,.45); }
+
+    /* Title */
+    .blog-card__title {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(15px, 2vw, 18px);
+      line-height: 1.25;
+      letter-spacing: -.01em;
+      text-transform: uppercase;
+    }
+    .blog-card--lime     .blog-card__title { color: var(--bg-dark); }
+    .blog-card--lavender .blog-card__title { color: var(--accent-dark); }
+    .blog-card--gray     .blog-card__title { color: rgba(26,28,46,.9); }
+    .blog-card--purple   .blog-card__title { color: #fff; }
+    .blog-card--dark     .blog-card__title { color: var(--text-inv); }
+    .blog-card--cream    .blog-card__title { color: var(--bg-dark); }
+
+    /* Excerpt */
+    .blog-card__excerpt {
+      font-family: var(--satoshi);
+      font-size: 13px;
+      line-height: 1.65;
+      flex: 1;
+    }
+    .blog-card--lime     .blog-card__excerpt { color: rgba(26,28,46,.65); }
+    .blog-card--lavender .blog-card__excerpt { color: rgba(26,28,46,.62); }
+    .blog-card--gray     .blog-card__excerpt { color: rgba(26,28,46,.6); }
+    .blog-card--purple   .blog-card__excerpt { color: rgba(255,255,255,.7); }
+    .blog-card--dark     .blog-card__excerpt { color: rgba(248,244,237,.55); }
+    .blog-card--cream    .blog-card__excerpt { color: rgba(26,28,46,.58); }
+
+    /* Read link */
+    .blog-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--satoshi);
+      font-weight: 700;
+      font-size: 13px;
+      margin-top: 4px;
+      transition: gap .2s;
+    }
+    .blog-card__link:hover { gap: 10px; }
+    .blog-card__link svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    .blog-card--lime     .blog-card__link { color: var(--accent-dark); }
+    .blog-card--lavender .blog-card__link { color: var(--accent-dark); }
+    .blog-card--gray     .blog-card__link { color: var(--accent-dark); }
+    .blog-card--purple   .blog-card__link { color: var(--primary); }
+    .blog-card--dark     .blog-card__link { color: var(--primary); }
+    .blog-card--cream    .blog-card__link { color: var(--accent); }
+
+    /* ══════════════════════════════════════════════
+       NEWSLETTER — "Stay informed."
+    ══════════════════════════════════════════════ */
+    .newsletter {
+      background: var(--bg);
+      padding: clamp(52px, 8vw, 100px) 0;
+      text-align: center;
+      border-top: 1px solid rgba(26,28,46,.07);
+    }
+
+    .newsletter__h2 {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(40px, 8vw, 88px);
+      color: var(--primary);
+      line-height: 1.0;
+      letter-spacing: -.03em;
+      margin-bottom: 12px;
+    }
+
+    .newsletter__sub {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(13px, 2.2vw, 18px);
+      color: var(--accent);
+      letter-spacing: .01em;
+      line-height: 1.5;
+      max-width: 520px;
+      margin-inline: auto;
+      margin-bottom: 36px;
+    }
+
+    .newsletter__form {
+      display: flex;
+      gap: 0;
+      max-width: 560px;
+      margin-inline: auto;
+      border-radius: var(--r999);
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(26,28,46,.1);
+    }
+
+    .newsletter__input {
+      flex: 1;
+      padding: 16px 24px;
+      background: var(--accent-soft);
+      border: none;
+      font-family: var(--satoshi);
+      font-size: 15px;
+      color: var(--text);
+      outline: none;
+      min-width: 0;
+    }
+    .newsletter__input::placeholder { color: rgba(91,67,167,.45); }
+    .newsletter__input:focus { background: #c8baee; }
+
+    .newsletter__btn {
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 16px 32px;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .2s;
+      flex-shrink: 0;
+    }
+    .newsletter__btn:hover { background: var(--accent-dark); }
+
+    .newsletter__note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: rgba(26,28,46,.38);
+    }
+
+    /* ══════════════════════════════════════════════
+       FOOTER — beige bg, same as other pages
+    ══════════════════════════════════════════════ */
+    .footer {
+      background: var(--bg);
+      padding: 48px 0 28px;
+      border-top: 1px solid rgba(26,28,46,.08);
+    }
+    .footer__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 24px;
+      margin-bottom: 36px;
+    }
+    @media (min-width: 768px) {
+      .footer__grid { grid-template-columns: repeat(4, 1fr); gap: 24px 40px; }
+    }
+    .footer__col-title {
+      font-family: var(--satoshi); font-weight: 700;
+      font-size: 12px; letter-spacing: .07em;
+      text-transform: uppercase; color: var(--text); margin-bottom: 12px;
+    }
+    .footer__col ul { display: flex; flex-direction: column; gap: 8px; }
+    .footer__col a { font-size: 13px; color: rgba(26,28,46,.6); transition: color .2s; }
+    .footer__col a:hover { color: var(--text); }
+    .footer__col strong { font-weight: 700; color: var(--text); }
+    .footer__copy {
+      padding-top: 20px;
+      border-top: 1px solid rgba(26,28,46,.08);
+      font-size: 11px; color: rgba(26,28,46,.35); text-align: center;
+    }
+
+    /* ── Reveal ───────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .reveal.in-view { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: .1s; }
+    .reveal-d2 { transition-delay: .2s; }
+    .reveal-d3 { transition-delay: .3s; }
+    .reveal-d4 { transition-delay: .4s; }
+    .reveal-d5 { transition-delay: .5s; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav" id="site-nav" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav__inner">
+
+      <a href="index.html" class="nav__logo" aria-label="Rivara Flow home">
+        <img src="assets/images/logo.png" alt="Rivara Flow" width="200" height="68" />
+      </a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="system.html">System</a></li>
+        <li><a href="platform.html">Platform</a></li>
+        <li><a href="index.html#contact">Contacts</a></li>
+      </ul>
+
+      <div class="nav__right">
+        <a href="index.html#contact" class="nav__demo">Book a Demo</a>
+        <button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <nav class="nav__drawer" id="nav-drawer" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="system.html">System</a>
+    <a href="platform.html">Platform</a>
+    <a href="industries.html">Industries</a>
+    <a href="about.html">About</a>
+    <a href="blog.html" class="active">Blog</a>
+    <a href="index.html#contact" class="drawer-cta">Book a Demo</a>
+  </nav>
+</nav>
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="blog-h1">
+
+  <div class="hero__chars" aria-hidden="true">
+    <img class="hero__char hero__char--left"
+      src="assets/images/blog-hero-char-left.png"
+      alt=""
+      loading="eager"
+      onerror="this.style.display='none'" />
+    <img class="hero__char hero__char--right"
+      src="assets/images/blog-hero-char-right.png"
+      alt=""
+      loading="eager"
+      onerror="this.style.display='none'" />
+  </div>
+
+  <div class="hero__inner">
+    <h1 class="hero__h1" id="blog-h1">
+      Want to<br>learn more<br>about food<br>waste?
+    </h1>
+  </div>
+
+</section>
+
+<!-- WELCOME BANNER -->
+<div class="welcome-banner" role="banner">
+  <p class="welcome-banner__text">Welcome to the Rivara Flow Blog!</p>
+</div>
+
+<!-- BLOG GRID -->
+<main>
+<section class="blog-section" aria-labelledby="blog-grid-label">
+  <h2 id="blog-grid-label" class="sr-only">Latest articles</h2>
+  <div class="container">
+    <div class="blog-grid">
+
+      <!-- Card 1 — lime -->
+      <article class="blog-card blog-card--lime reveal">
+        <img
+          class="blog-card__img"
+          src="assets/images/blog-1.jpg"
+          alt="Buffet spread in a hotel restaurant"
+          loading="lazy"
+          onerror="this.outerHTML='<div class=\'blog-card__img-placeholder\'><svg viewBox=\'0 0 40 40\' fill=\'none\'><rect x=\'4\' y=\'8\' width=\'32\' height=\'24\' rx=\'3\' stroke=\'currentColor\' stroke-width=\'2\'/><circle cx=\'14\' cy=\'17\' r=\'3\' stroke=\'currentColor\' stroke-width=\'1.8\'/><path d=\'M4 26l9-7 6 5 5-4 8 6\' stroke=\'currentColor\' stroke-width=\'1.8\' stroke-linecap=\'round\'/></svg></div>'"
+        />
+        <div class="blog-card__body">
+          <div class="blog-card__meta">
+            <span class="blog-card__cat">Hotels</span>
+            <span class="blog-card__date">March 2025</span>
+          </div>
+          <h3 class="blog-card__title">Buffet waste: the silent budget killer that no one tracks</h3>
+          <p class="blog-card__excerpt">Hotels with buffet service are among the highest food-waste generators in hospitality. Here's what data-driven kitchens are doing differently.</p>
+          <a href="#" class="blog-card__link">
+            Read Article
+            <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 2 — lavender -->
+      <article class="blog-card blog-card--lavender reveal reveal-d1">
+        <img
+          class="blog-card__img"
+          src="assets/images/blog-2.jpg"
+          alt="Two people working in an agritourism field"
+          loading="lazy"
+          onerror="this.outerHTML='<div class=\'blog-card__img-placeholder\'><svg viewBox=\'0 0 40 40\' fill=\'none\'><rect x=\'4\' y=\'8\' width=\'32\' height=\'24\' rx=\'3\' stroke=\'currentColor\' stroke-width=\'2\'/><circle cx=\'14\' cy=\'17\' r=\'3\' stroke=\'currentColor\' stroke-width=\'1.8\'/><path d=\'M4 26l9-7 6 5 5-4 8 6\' stroke=\'currentColor\' stroke-width=\'1.8\' stroke-linecap=\'round\'/></svg></div>'"
+        />
+        <div class="blog-card__body">
+          <div class="blog-card__meta">
+            <span class="blog-card__cat">Agritourism</span>
+            <span class="blog-card__date">February 2025</span>
+          </div>
+          <h3 class="blog-card__title">Agritourism and sustainability: turning your values into a booking advantage</h3>
+          <p class="blog-card__excerpt">Eco-conscious travellers are a growing segment in Albanian tourism. Here's how agritourism businesses can use waste data to tell a sustainability story that converts.</p>
+          <a href="#" class="blog-card__link">
+            Read Article
+            <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 3 — gray -->
+      <article class="blog-card blog-card--gray reveal reveal-d2">
+        <img
+          class="blog-card__img"
+          src="assets/images/blog-3.jpg"
+          alt="Food waste and compost"
+          loading="lazy"
+          onerror="this.outerHTML='<div class=\'blog-card__img-placeholder\'><svg viewBox=\'0 0 40 40\' fill=\'none\'><rect x=\'4\' y=\'8\' width=\'32\' height=\'24\' rx=\'3\' stroke=\'currentColor\' stroke-width=\'2\'/><circle cx=\'14\' cy=\'17\' r=\'3\' stroke=\'currentColor\' stroke-width=\'1.8\'/><path d=\'M4 26l9-7 6 5 5-4 8 6\' stroke=\'currentColor\' stroke-width=\'1.8\' stroke-linecap=\'round\'/></svg></div>'"
+        />
+        <div class="blog-card__body">
+          <div class="blog-card__meta">
+            <span class="blog-card__cat">Finance</span>
+            <span class="blog-card__date">January 2025</span>
+          </div>
+          <h3 class="blog-card__title">The 90-day ROI question: when does food waste software pay for itself?</h3>
+          <p class="blog-card__excerpt">We break down the math for restaurants, hotels, and catering companies. The answer depends on your current waste rate, but it's usually faster than you think.</p>
+          <a href="#" class="blog-card__link">
+            Read Article
+            <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 4 — purple -->
+      <article class="blog-card blog-card--purple reveal reveal-d1">
+        <img
+          class="blog-card__img"
+          src="assets/images/blog-4.jpg"
+          alt="Computer screen showing waste classification technology"
+          loading="lazy"
+          onerror="this.outerHTML='<div class=\'blog-card__img-placeholder\'><svg viewBox=\'0 0 40 40\' fill=\'none\'><rect x=\'4\' y=\'8\' width=\'32\' height=\'24\' rx=\'3\' stroke=\'currentColor\' stroke-width=\'2\'/><circle cx=\'14\' cy=\'17\' r=\'3\' stroke=\'currentColor\' stroke-width=\'1.8\'/><path d=\'M4 26l9-7 6 5 5-4 8 6\' stroke=\'currentColor\' stroke-width=\'1.8\' stroke-linecap=\'round\'/></svg></div>'"
+        />
+        <div class="blog-card__body">
+          <div class="blog-card__meta">
+            <span class="blog-card__cat">Technology</span>
+            <span class="blog-card__date">February 2025</span>
+          </div>
+          <h3 class="blog-card__title">How automated waste classification works — and why accuracy matters</h3>
+          <p class="blog-card__excerpt">Not all food waste tracking is equal. We explain how computer vision classification works, what 90% accuracy means in practice, and why small errors compound into big decisions.</p>
+          <a href="#" class="blog-card__link">
+            Read Article
+            <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 5 — dark -->
+      <article class="blog-card blog-card--dark reveal reveal-d2">
+        <img
+          class="blog-card__img"
+          src="assets/images/blog-5.jpg"
+          alt="Chef preparing food in a commercial kitchen"
+          loading="lazy"
+          onerror="this.outerHTML='<div class=\'blog-card__img-placeholder\'><svg viewBox=\'0 0 40 40\' fill=\'none\'><rect x=\'4\' y=\'8\' width=\'32\' height=\'24\' rx=\'3\' stroke=\'currentColor\' stroke-width=\'2\'/><circle cx=\'14\' cy=\'17\' r=\'3\' stroke=\'currentColor\' stroke-width=\'1.8\'/><path d=\'M4 26l9-7 6 5 5-4 8 6\' stroke=\'currentColor\' stroke-width=\'1.8\' stroke-linecap=\'round\'/></svg></div>'"
+        />
+        <div class="blog-card__body">
+          <div class="blog-card__meta">
+            <span class="blog-card__cat">Restaurants</span>
+            <span class="blog-card__date">December 2024</span>
+          </div>
+          <h3 class="blog-card__title">Prep waste vs. plate waste: why knowing the difference changes everything</h3>
+          <p class="blog-card__excerpt">Most kitchens mix prep and plate waste into a single bin. Separating them reveals completely different root causes — and completely different fixes.</p>
+          <a href="#" class="blog-card__link">
+            Read Article
+            <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 6 — cream -->
+      <article class="blog-card blog-card--cream reveal reveal-d3">
+        <img
+          class="blog-card__img"
+          src="assets/images/blog-6.jpg"
+          alt="Green sustainability scene"
+          loading="lazy"
+          onerror="this.outerHTML='<div class=\'blog-card__img-placeholder\'><svg viewBox=\'0 0 40 40\' fill=\'none\'><rect x=\'4\' y=\'8\' width=\'32\' height=\'24\' rx=\'3\' stroke=\'currentColor\' stroke-width=\'2\'/><circle cx=\'14\' cy=\'17\' r=\'3\' stroke=\'currentColor\' stroke-width=\'1.8\'/><path d=\'M4 26l9-7 6 5 5-4 8 6\' stroke=\'currentColor\' stroke-width=\'1.8\' stroke-linecap=\'round\'/></svg></div>'"
+        />
+        <div class="blog-card__body">
+          <div class="blog-card__meta">
+            <span class="blog-card__cat">Compliance</span>
+            <span class="blog-card__date">November 2024</span>
+          </div>
+          <h3 class="blog-card__title">EU food waste regulation and the Western Balkans: what's coming and when</h3>
+          <p class="blog-card__excerpt">Albania's EU accession path means food waste reporting requirements will tighten. Here's a plain-language timeline of what hospitality businesses need to prepare for.</p>
+          <a href="#" class="blog-card__link">
+            Read Article
+            <svg viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" aria-labelledby="newsletter-h2">
+  <div class="container">
+    <h2 class="newsletter__h2 reveal" id="newsletter-h2">Stay informed.</h2>
+    <p class="newsletter__sub reveal">
+      Occasional insights on food waste, EU regulation, and<br>
+      hospitality sustainability. No spam.
+    </p>
+    <form class="newsletter__form reveal" id="newsletter-form" novalidate>
+      <input
+        class="newsletter__input"
+        type="email"
+        name="email"
+        placeholder="yourname@email.com"
+        required
+        aria-label="Email address"
+      />
+      <button type="submit" class="newsletter__btn">Subscribe</button>
+    </form>
+    <p class="newsletter__note reveal" id="newsletter-msg">We respect your privacy. Unsubscribe any time.</p>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+
+      <div class="footer__col">
+        <p class="footer__col-title">Get in touch</p>
+        <ul role="list">
+          <li><a href="mailto:contact@rivaraflow.com">contact@rivaraflow.com</a></li>
+          <li><a href="tel:+355677398906">+355 (0) 67 73 98 906</a></li>
+          <li><a href="https://linkedin.com/company/rivaraflow" target="_blank" rel="noopener"><strong>LinkedIn:</strong> Rivara Flow</a></li>
+          <li><a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener"><strong>Instagram:</strong> @rivaraflow</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <p class="footer__col-title">Company</p>
+        <ul role="list">
+          <li><a href="about.html">About</a></li>
+          <li><a href="about.html#team">Team</a></li>
+          <li><a href="blog.html">News &amp; Press</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <p class="footer__col-title">Product</p>
+        <ul role="list">
+          <li><a href="system.html">System</a></li>
+          <li><a href="platform.html">Platform</a></li>
+          <li><a href="about.html#impact">Impact</a></li>
+          <li><a href="index.html#contact">Book a Demo</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <p class="footer__col-title">Industries</p>
+        <ul role="list">
+          <li><a href="industries.html">Restaurants</a></li>
+          <li><a href="industries.html">Hotels</a></li>
+          <li><a href="industries.html">Agritourism</a></li>
+        </ul>
+      </div>
+
+    </div>
+    <p class="footer__copy">&copy; <span id="yr"></span> Rivara Flow. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* Hamburger */
+  const burger = document.getElementById('nav-burger');
+  const drawer = document.getElementById('nav-drawer');
+  burger.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  drawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* Scroll reveal */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.10 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* Newsletter form */
+  const form = document.getElementById('newsletter-form');
+  const msg  = document.getElementById('newsletter-msg');
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = form.querySelector('button');
+    btn.textContent = 'Subscribing…';
+    btn.disabled = true;
+    await new Promise(r => setTimeout(r, 1000));
+    btn.textContent = '✓ Subscribed!';
+    msg.textContent = "You're on the list. We'll be in touch.";
+    msg.style.color = 'var(--accent)';
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Industries — Rivara Flow</title>
+  <meta name="description" content="Rivara Flow is built for restaurants, hotels, agritourism, catering companies, cafeterias, and institutional kitchens across Albania and the Western Balkans." />
+  <link rel="canonical" href="https://rivaraflow.com/industries.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/globals.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Satoshi', sans-serif; }
+    .container { max-width: 1100px; margin-inline: auto; padding-inline: 20px; }
+    @media (min-width: 768px) { .container { padding-inline: 48px; } }
+
+    /* NAV */
+    .sys-nav { background: var(--bg-dark); display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; position: sticky; top: 0; z-index: 50; }
+    @media (min-width: 768px) { .sys-nav { padding: 20px 48px; } }
+    .sys-nav__logo img { height: 52px; width: auto; }
+    @media (min-width: 768px) { .sys-nav__logo img { height: 64px; } }
+    .sys-nav__links { display: none; list-style: none; gap: 32px; font-size: 15px; }
+    @media (min-width: 768px) { .sys-nav__links { display: flex; align-items: center; } }
+    .sys-nav__links a { color: rgba(248,244,217,.88); text-decoration: none; font-weight: 500; transition: color .2s; }
+    .sys-nav__links a:hover, .sys-nav__links a.active { color: var(--text-inv); }
+    .sys-nav__cta { display: inline-flex; align-items: center; justify-content: center; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
+    .sys-nav__cta:hover { background: #d4e060; }
+
+    /* HERO */
+    .hero-section { background: var(--bg-dark); padding: 80px 0 72px; text-align: center; }
+    .hero-tag { display: inline-block; background: var(--primary); color: var(--bg-dark); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 6px 16px; border-radius: var(--r999); margin-bottom: 24px; }
+    .hero-h1 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(2.4rem, 6vw, 4rem); line-height: 1.08; text-transform: uppercase; color: var(--text-inv); margin-bottom: 20px; }
+    .hero-h1 span { display: block; }
+    .hero-sub { font-size: clamp(1rem, 2vw, 1.125rem); color: rgba(248,244,217,.82); max-width: 560px; margin-inline: auto; line-height: 1.65; }
+
+    /* INDUSTRY NAV */
+    .industry-nav { background: var(--bg); padding: 28px 0; border-bottom: 1px solid rgba(31,36,48,.12); position: sticky; top: 88px; z-index: 40; }
+    .industry-nav__inner { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .industry-nav__link { display: inline-flex; align-items: center; padding: 9px 20px; border-radius: var(--r999); border: 1.5px solid rgba(31,36,48,.22); font-size: 14px; font-weight: 600; color: var(--text); text-decoration: none; transition: background .18s, color .18s, border-color .18s; }
+    .industry-nav__link:hover { background: var(--bg-dark); color: var(--text-inv); border-color: var(--bg-dark); }
+    .industry-nav__link.active { background: var(--bg-dark); color: var(--primary); border-color: var(--bg-dark); }
+
+    /* INDUSTRY SECTIONS */
+    .industry-section { padding: 80px 0; }
+    .industry-section--dark { background: var(--bg-dark); }
+    .industry-section--light { background: var(--bg); }
+    .industry-grid { display: grid; gap: 48px; align-items: center; }
+    @media (min-width: 768px) { .industry-grid { grid-template-columns: 1fr 1fr; gap: 64px; } }
+    .industry-grid--reverse .industry-img { order: 0; }
+    @media (min-width: 768px) { .industry-grid--reverse .industry-img { order: 2; } .industry-grid--reverse .industry-content { order: 1; } }
+
+    .industry-img__placeholder { width: 100%; aspect-ratio: 4/3; border-radius: var(--r16); background: rgba(31,36,48,.12); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .industry-section--dark .industry-img__placeholder { background: rgba(248,244,217,.08); }
+    .industry-img__placeholder svg { opacity: .3; }
+
+    .sec-tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; padding: 5px 14px; border-radius: var(--r999); margin-bottom: 16px; }
+    .sec-tag--light { background: rgba(156,123,227,.18); color: var(--accent-dark); }
+    .sec-tag--dark { background: rgba(196,208,84,.18); color: var(--primary); }
+
+    .industry-h2 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(1.6rem, 3.5vw, 2.4rem); line-height: 1.1; text-transform: uppercase; margin-bottom: 24px; }
+    .industry-section--dark .industry-h2 { color: var(--text-inv); }
+    .industry-section--light .industry-h2 { color: var(--text); }
+
+    .pain-label, .solution-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; margin-top: 20px; }
+    .industry-section--dark .pain-label { color: rgba(248,244,217,.5); }
+    .industry-section--light .pain-label { color: rgba(31,36,48,.45); }
+    .industry-section--dark .solution-label { color: var(--primary); }
+    .industry-section--light .solution-label { color: var(--accent-dark); }
+
+    .pain-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .pain-list li { font-size: 15px; line-height: 1.55; padding-left: 18px; position: relative; }
+    .pain-list li::before { content: '—'; position: absolute; left: 0; opacity: .5; }
+    .industry-section--dark .pain-list li { color: rgba(248,244,217,.82); }
+    .industry-section--light .pain-list li { color: #2e3347; }
+
+    .solution-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .solution-list li { font-size: 15px; line-height: 1.55; padding-left: 22px; position: relative; }
+    .solution-list li::before { content: '✓'; position: absolute; left: 0; font-weight: 700; }
+    .industry-section--dark .solution-list li { color: rgba(248,244,217,.88); }
+    .industry-section--dark .solution-list li::before { color: var(--primary); }
+    .industry-section--light .solution-list li { color: #2e3347; }
+    .industry-section--light .solution-list li::before { color: var(--accent-dark); }
+
+    .roi-card { border-radius: var(--r16); padding: 20px 24px; margin-top: 24px; }
+    .industry-section--dark .roi-card { background: rgba(248,244,217,.07); border: 1px solid rgba(248,244,217,.13); }
+    .industry-section--light .roi-card { background: var(--bg-dark); border: 1px solid transparent; }
+    .roi-card__label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; color: var(--primary); }
+    .roi-card p { font-size: 14px; line-height: 1.6; color: rgba(248,244,217,.82); }
+
+    /* CTA STRIP */
+    .cta-strip { background: var(--primary); padding: 72px 0; text-align: center; }
+    .cta-strip__h2 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(1.6rem, 3.5vw, 2.4rem); text-transform: uppercase; color: var(--bg-dark); margin-bottom: 12px; line-height: 1.1; }
+    .cta-strip__sub { font-size: 1rem; color: rgba(31,36,48,.72); margin-bottom: 28px; }
+    .cta-btn { display: inline-flex; align-items: center; justify-content: center; background: var(--bg-dark); color: var(--text-inv); font-weight: 700; font-size: 15px; text-decoration: none; padding: 14px 32px; border-radius: var(--r999); transition: opacity .2s; }
+    .cta-btn:hover { opacity: .88; }
+
+    /* FOOTER */
+    .footer { background: var(--bg-dark); padding: 56px 0 32px; }
+    .footer .container { max-width: 1100px; }
+    .footer__grid { display: grid; gap: 32px; grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 768px) { .footer__grid { grid-template-columns: repeat(4, 1fr); } }
+    .footer__col-title { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(248,244,217,.65); margin-bottom: 12px; }
+    .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer__col a { font-size: 14px; color: rgba(248,244,217,.88); text-decoration: none; transition: color .2s; }
+    .footer__col a:hover { color: var(--text-inv); }
+    .footer__copy { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(248,244,217,.15); font-size: 13px; color: rgba(248,244,217,.55); text-align: center; }
+      /* ── Nav ── */
+    .site-nav { background: var(--bg-dark); display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
+    @media (min-width: 768px) { .site-nav { padding: 18px 48px; } }
+    .site-nav__logo img { height: 48px; width: auto; }
+    @media (min-width: 768px) { .site-nav__logo img { height: 60px; } }
+    .site-nav__desktop { display: none; list-style: none; gap: 28px; font-size: 14px; }
+    @media (min-width: 960px) { .site-nav__desktop { display: flex; align-items: center; } }
+    .site-nav__desktop a { color: rgba(248,244,217,.85); text-decoration: none; font-weight: 500; transition: color .2s; }
+    .site-nav__desktop a:hover, .site-nav__desktop a.active { color: var(--text-inv); }
+    .site-nav__right { display: flex; align-items: center; gap: 14px; }
+    .site-nav__cta { display: none; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
+    @media (min-width: 768px) { .site-nav__cta { display: inline-flex; align-items: center; } }
+    .site-nav__cta:hover { background: #d4e060; }
+    .site-nav__burger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 6px; }
+    .site-nav__burger span { display: block; width: 24px; height: 2px; background: var(--text-inv); border-radius: 2px; }
+    .nav-drawer { position: fixed; inset: 0; z-index: 200; background: var(--bg-dark); display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity .22s; }
+    .nav-drawer.open { opacity: 1; pointer-events: all; }
+    .nav-drawer__head { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid rgba(248,244,217,.1); }
+    .nav-drawer__head img { height: 48px; width: auto; }
+    .nav-drawer__close { background: none; border: none; cursor: pointer; color: var(--text-inv); font-size: 24px; line-height: 1; padding: 8px; }
+    .nav-drawer__links { flex: 1; overflow-y: auto; display: flex; flex-direction: column; padding: 24px; gap: 2px; }
+    .nav-drawer__links a { font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-size: clamp(18px, 3.5vw, 26px); text-transform: uppercase; color: rgba(248,244,217,.72); text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(248,244,217,.08); transition: color .2s, padding-left .15s; }
+    .nav-drawer__links a:hover, .nav-drawer__links a.active { color: var(--text-inv); padding-left: 8px; }
+    .nav-drawer__links a.drawer-cta { margin-top: 20px; color: var(--bg-dark); background: var(--primary); padding: 14px 24px; border-radius: var(--r999); text-align: center; border: none; }
+    .nav-drawer__links a.drawer-cta:hover { background: #d4e060; padding-left: 24px; }
+  </style>
+</head>
+<body>
+
+<header class="site-nav">
+  <a href="index.html" class="site-nav__logo" aria-label="Rivara Flow home">
+    <img src="assets/images/logo.png" alt="Rivara Flow" width="200" height="70" />
+  </a>
+  <ul class="site-nav__desktop" role="list">
+    <li><a href="system.html">System</a></li>
+    <li><a href="platform.html">Platform</a></li>
+    <li><a href="industries.html" class="active">Industries</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <div class="site-nav__right">
+    <a href="contact.html" class="site-nav__cta">Book a Demo</a>
+    <button class="site-nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="nav-drawer__head">
+    <a href="index.html"><img src="assets/images/logo.png" alt="Rivara Flow" height="48" /></a>
+    <button class="nav-drawer__close" id="nav-close" aria-label="Close menu">&#x2715;</button>
+  </div>
+  <nav class="nav-drawer__links">
+    <a href="index.html">Home</a>
+    <a href="system.html">System</a>
+    <a href="platform.html">Platform</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="industries.html" class="active">Industries</a>
+    <a href="compliance.html">Compliance &amp; ESG</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Blog</a>
+    <a href="partners.html">Partners</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="drawer-cta">Book a Demo</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section class="hero-section" aria-labelledby="industries-h1">
+  <div class="container">
+    <span class="hero-tag">Industry Solutions</span>
+    <h1 class="hero-h1" id="industries-h1">
+      <span>Built for your</span>
+      <span>industry.</span>
+    </h1>
+    <p class="hero-sub">Rivara Flow isn't a generic tool. Every feature is designed around how your type of business actually operates.</p>
+  </div>
+</section>
+
+<!-- INDUSTRY NAV -->
+<nav class="industry-nav" aria-label="Jump to industry">
+  <div class="container">
+    <div class="industry-nav__inner">
+      <a href="#hotels" class="industry-nav__link">Hotels</a>
+      <a href="#restaurants" class="industry-nav__link">Restaurants</a>
+      <a href="#agritourism" class="industry-nav__link">Agritourism</a>
+      <a href="#catering" class="industry-nav__link">Catering</a>
+      <a href="#cafeterias" class="industry-nav__link">Cafeterias</a>
+      <a href="#institutional" class="industry-nav__link">Institutional Kitchens</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HOTELS -->
+<section class="industry-section industry-section--light" id="hotels" aria-labelledby="hotels-h2">
+  <div class="container">
+    <div class="industry-grid">
+      <div class="industry-img">
+        <img src="assets/images/industries/industry-hotels.png" alt="Hotel kitchen operations" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r16);display:block;" />
+      </div>
+      <div class="industry-content">
+        <span class="sec-tag sec-tag--light">Hotels &amp; Resorts</span>
+        <h2 class="industry-h2" id="hotels-h2">Food waste is your<br>second-largest cost.</h2>
+        <p class="pain-label">Challenges you're facing</p>
+        <ul class="pain-list">
+          <li>Full-buffet waste untracked and unmeasured</li>
+          <li>Large kitchen teams with no waste accountability</li>
+          <li>EU-standard sustainability reporting needed for international guests</li>
+        </ul>
+        <p class="solution-label">What Rivara Flow does</p>
+        <ul class="solution-list">
+          <li>Per-station waste logging for buffet and à la carte</li>
+          <li>Real-time alerts when waste exceeds thresholds</li>
+          <li>ESG reports for international tour operators and booking platforms</li>
+        </ul>
+        <div class="roi-card">
+          <p class="roi-card__label">Estimated ROI</p>
+          <p>Hotels typically reduce food cost by 12–22% within 6 months. For a 50-room hotel spending €8,000/month on food, that's €960–1,760 saved every month.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESTAURANTS -->
+<section class="industry-section industry-section--light" id="restaurants" aria-labelledby="restaurants-h2">
+  <div class="container">
+    <div class="industry-grid industry-grid--reverse">
+      <div class="industry-img">
+        <img src="assets/images/industries/industry-restaurants.png" alt="Restaurant kitchen prep" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r16);display:block;" />
+      </div>
+      <div class="industry-content">
+        <span class="sec-tag sec-tag--light">Restaurants &amp; Bistros</span>
+        <h2 class="industry-h2" id="restaurants-h2">You're losing money<br>on every plate.</h2>
+        <p class="pain-label">Challenges you're facing</p>
+        <ul class="pain-list">
+          <li>Prep waste invisible — no one tracks trimmings or spoilage</li>
+          <li>Menu decisions made on intuition, not data</li>
+          <li>No way to prove sustainability credentials to conscious diners</li>
+        </ul>
+        <p class="solution-label">What Rivara Flow does</p>
+        <ul class="solution-list">
+          <li>Prep, plate waste, and spoilage tracked separately</li>
+          <li>Weekly "menu efficiency" reports showing highest-waste dishes</li>
+          <li>Public-facing sustainability score for social media and menu display</li>
+        </ul>
+        <div class="roi-card">
+          <p class="roi-card__label">Estimated ROI</p>
+          <p>Independent restaurants lose 15–20% of food cost to preventable waste. Rivara Flow typically pays for itself within 90 days.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGRITOURISM -->
+<section class="industry-section industry-section--light" id="agritourism" aria-labelledby="agritourism-h2">
+  <div class="container">
+    <div class="industry-grid">
+      <div class="industry-img">
+        <img src="assets/images/industries/industry-agritourism.png" alt="Agritourism guesthouse kitchen" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r16);display:block;" />
+      </div>
+      <div class="industry-content">
+        <span class="sec-tag sec-tag--light">Agritourism &amp; Guesthouses</span>
+        <h2 class="industry-h2" id="agritourism-h2">Your guests value<br>your sustainability story.</h2>
+        <p class="pain-label">Challenges you're facing</p>
+        <ul class="pain-list">
+          <li>Seasonal kitchen operations with highly variable waste</li>
+          <li>Home-style cooking makes it hard to standardise portions</li>
+          <li>Growing demand from eco-tourism guests for proof of sustainability</li>
+        </ul>
+        <p class="solution-label">What Rivara Flow does</p>
+        <ul class="solution-list">
+          <li>Seasonal waste analysis aligned to guest volume</li>
+          <li>Simple mobile-first interface for small kitchen teams</li>
+          <li>"Sustainability story" report you can share directly with guests</li>
+        </ul>
+        <div class="roi-card">
+          <p class="roi-card__label">Estimated ROI</p>
+          <p>Agritourism businesses that demonstrate sustainability see 18% higher repeat booking rates. Rivara Flow gives you the data to prove your values.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATERING -->
+<section class="industry-section industry-section--light" id="catering" aria-labelledby="catering-h2">
+  <div class="container">
+    <div class="industry-grid industry-grid--reverse">
+      <div class="industry-img">
+        <img src="assets/images/industries/industry-catering.png" alt="Catering event setup" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r16);display:block;" />
+      </div>
+      <div class="industry-content">
+        <span class="sec-tag sec-tag--light">Catering Companies</span>
+        <h2 class="industry-h2" id="catering-h2">Every event is<br>a waste risk.</h2>
+        <p class="pain-label">Challenges you're facing</p>
+        <ul class="pain-list">
+          <li>Over-catering is the default to avoid complaints — and it's expensive</li>
+          <li>No data on which event types generate the most waste</li>
+          <li>Client sustainability requirements increasingly in tenders</li>
+        </ul>
+        <p class="solution-label">What Rivara Flow does</p>
+        <ul class="solution-list">
+          <li>Pre-event waste forecasting based on historical event data</li>
+          <li>Post-event waste analysis by client and event type</li>
+          <li>Sustainability compliance certificates for tender submissions</li>
+        </ul>
+        <div class="roi-card">
+          <p class="roi-card__label">Estimated ROI</p>
+          <p>Catering companies that track waste reduce over-catering by an average of 23%. That's real margin returned on every job.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAFETERIAS -->
+<section class="industry-section industry-section--light" id="cafeterias" aria-labelledby="cafeterias-h2">
+  <div class="container">
+    <div class="industry-grid">
+      <div class="industry-img">
+        <img src="assets/images/industries/industry-cafeterias.png" alt="Staff cafeteria service line" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r16);display:block;" />
+      </div>
+      <div class="industry-content">
+        <span class="sec-tag sec-tag--light">Cafeterias &amp; Staff Dining</span>
+        <h2 class="industry-h2" id="cafeterias-h2">High volume means<br>high waste exposure.</h2>
+        <p class="pain-label">Challenges you're facing</p>
+        <ul class="pain-list">
+          <li>Fixed-menu cooking with no demand signal for portion sizes</li>
+          <li>Regulatory pressure from institutional clients</li>
+          <li>No sustainability KPIs to report to management</li>
+        </ul>
+        <p class="solution-label">What Rivara Flow does</p>
+        <ul class="solution-list">
+          <li>Daily waste dashboards per meal category</li>
+          <li>Portion size recommendations based on consumption patterns</li>
+          <li>Monthly KPI reports for internal sustainability goals</li>
+        </ul>
+        <div class="roi-card">
+          <p class="roi-card__label">Estimated ROI</p>
+          <p>Corporate cafeterias managing 300+ meals/day can save €2,000–5,000/month with optimised portioning. Data makes the case internally.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTITUTIONAL -->
+<section class="industry-section industry-section--light" id="institutional" aria-labelledby="institutional-h2">
+  <div class="container">
+    <div class="industry-grid industry-grid--reverse">
+      <div class="industry-img">
+        <img src="assets/images/industries/industry-institutional.png" alt="Institutional kitchen operations" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r16);display:block;" />
+      </div>
+      <div class="industry-content">
+        <span class="sec-tag sec-tag--light">Institutional Kitchens</span>
+        <h2 class="industry-h2" id="institutional-h2">Compliance is no<br>longer optional.</h2>
+        <p class="pain-label">Challenges you're facing</p>
+        <ul class="pain-list">
+          <li>Municipal and national clients demanding waste reporting</li>
+          <li>Staff turnover means constant retraining</li>
+          <li>Budget pressure requires demonstrable cost savings</li>
+        </ul>
+        <p class="solution-label">What Rivara Flow does</p>
+        <ul class="solution-list">
+          <li>Automated regulatory reports submitted directly to clients</li>
+          <li>Staff onboarding module embedded in dashboard</li>
+          <li>ROI dashboard to present savings to budget holders</li>
+        </ul>
+        <div class="roi-card">
+          <p class="roi-card__label">Estimated ROI</p>
+          <p>Hospitals, schools, and government kitchens face mandatory EU waste reporting by 2027. Rivara Flow makes compliance automatic from day one.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="cta-strip" aria-labelledby="cta-h2">
+  <div class="container">
+    <h2 class="cta-strip__h2" id="cta-h2">Not sure which plan fits your business?</h2>
+    <p class="cta-strip__sub">Talk to us — we'll help you find the right setup.</p>
+    <a href="contact.html" class="cta-btn">Book a Free Demo</a>
+  </div>
+</section>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__col"><p class="footer__col-title">Get in touch</p><ul role="list"><li><a href="mailto:contact@rivaraflow.com">contact@rivaraflow.com</a></li><li><a href="tel:+355677398906">+355 (0) 67 73 98 906</a></li><li><a href="https://linkedin.com/company/rivaraflow" target="_blank" rel="noopener">LinkedIn: Rivara Flow</a></li><li><a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener">Instagram: @rivaraflow</a></li></ul></div>
+      <div class="footer__col"><p class="footer__col-title">Company</p><ul role="list"><li><a href="about.html">About</a></li><li><a href="about.html#team">Team</a></li><li><a href="blog.html">Blog</a></li><li><a href="partners.html">Partners</a></li></ul></div>
+      <div class="footer__col"><p class="footer__col-title">Product</p><ul role="list"><li><a href="system.html">System</a></li><li><a href="platform.html">Platform</a></li><li><a href="how-it-works.html">How It Works</a></li><li><a href="compliance.html">Compliance &amp; ESG</a></li><li><a href="case-studies.html">Case Studies</a></li><li><a href="contact.html">Book a Demo</a></li></ul></div>
+      <div class="footer__col"><p class="footer__col-title">Industries</p><ul role="list"><li><a href="industries.html#restaurants">Restaurants</a></li><li><a href="industries.html#hotels">Hotels</a></li><li><a href="industries.html#agritourism">Agritourism</a></li><li><a href="industries.html#catering">Catering</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
+    </div>
+    <p class="footer__copy">&copy; <span id="year"></span> Rivara Flow. All rights reserved.</p>
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();  const burger = document.getElementById('nav-burger');
+  const drawer = document.getElementById('nav-drawer');
+  const navClose = document.getElementById('nav-close');
+  burger.addEventListener('click', () => { drawer.classList.add('open'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; });
+  navClose.addEventListener('click', () => { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; });
+  drawer.addEventListener('click', e => { if (e.target === drawer) { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; } });
+</script>
+
+</body>
+</html>

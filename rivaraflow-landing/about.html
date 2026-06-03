@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Rivara Flow</title>
+  <meta name="description" content="Learn about Rivara Flow — Albania's first smart food-waste management platform, built for the hospitality industry in the Western Balkans." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <style>
+    /* ── Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--satoshi);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    .container {
+      width: 100%;
+      max-width: 1160px;
+      margin-inline: auto;
+      padding-inline: 20px;
+    }
+    @media (min-width: 640px)  { .container { padding-inline: 32px; } }
+    @media (min-width: 1024px) { .container { padding-inline: 48px; } }
+
+    /* ══════════════════════════════════════════════
+       NAV  — beige background, purple links
+    ══════════════════════════════════════════════ */
+    .site-nav {
+      background: var(--bg);
+      border-bottom: 1px solid rgba(26,28,46,.07);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 12px;
+    }
+
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .nav__logo img {
+      height: 56px;
+      width: auto;
+      object-fit: contain;
+    }
+    @media (min-width: 768px) {
+      .nav__logo img { height: 68px; }
+    }
+
+    .nav__links {
+      display: none;
+      gap: 4px;
+    }
+    @media (min-width: 820px) { .nav__links { display: flex; align-items: center; } }
+
+    .nav__links a {
+      font-family: var(--satoshi);
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--accent-dark);
+      padding: 8px 16px;
+      border-radius: var(--r8);
+      transition: background .15s;
+    }
+    .nav__links a:hover,
+    .nav__links a.active { background: rgba(91,67,167,.07); }
+
+    .nav__right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .nav__demo {
+      display: none;
+      background: var(--accent-dark);
+      color: #fff;
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: var(--r999);
+      transition: opacity .2s;
+    }
+    @media (min-width: 640px) { .nav__demo { display: inline-flex; align-items: center; } }
+    .nav__demo:hover { opacity: .82; }
+
+    .nav__burger {
+      background: none; border: none; cursor: pointer;
+      display: flex; flex-direction: column; gap: 5px; padding: 6px;
+    }
+    .nav__burger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--accent-dark); border-radius: 2px;
+      transition: transform .26s, opacity .26s;
+    }
+    .nav__burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav__burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    @media (min-width: 820px) { .nav__burger { display: none; } }
+
+    /* Mobile drawer */
+    .nav__drawer {
+      position: fixed; inset: 0; z-index: 190;
+      background: var(--bg-dark);
+      display: flex; flex-direction: column;
+      padding: 80px 28px 32px;
+      gap: 2px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .22s;
+      overflow-y: auto;
+    }
+    .nav__drawer.open { opacity: 1; pointer-events: all; }
+    @media (min-width: 820px) { .nav__drawer { display: none !important; } }
+
+    .nav__drawer a {
+      font-family: var(--museo);
+      font-size: 22px;
+      color: rgba(248,244,237,.8);
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      transition: color .2s;
+    }
+    .nav__drawer a:hover { color: var(--primary); }
+    .nav__drawer .drawer-cta {
+      margin-top: 20px;
+      background: var(--primary);
+      color: var(--bg-dark) !important;
+      border: none !important;
+      border-radius: var(--r999);
+      font-weight: 700;
+      text-align: center;
+      padding: 14px 24px !important;
+    }
+
+    /* ══════════════════════════════════════════════
+       HERO  — dark rounded card, photo background
+    ══════════════════════════════════════════════ */
+    .hero-wrap {
+      padding: 28px 20px 0;
+    }
+    @media (min-width: 640px)  { .hero-wrap { padding: 36px 32px 0; } }
+    @media (min-width: 1024px) { .hero-wrap { padding: 44px 48px 0; } }
+
+    .hero {
+      position: relative;
+      border-radius: var(--r24);
+      overflow: hidden;
+      min-height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 32px;
+      text-align: center;
+    }
+    @media (min-width: 640px)  { .hero { min-height: 420px; padding: 64px 48px; } }
+    @media (min-width: 1024px) { .hero { min-height: 480px; padding: 80px 64px; } }
+
+    /* Photo background */
+    .hero__bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    /* Dark overlay */
+    .hero__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(13,15,28,.88) 0%,
+        rgba(13,15,28,.55) 55%,
+        rgba(13,15,28,.25) 100%
+      );
+    }
+
+    /* Fallback gradient when no image */
+    .hero__overlay--fallback {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #1a1c2e 0%, #2a1f4e 50%, #1f2b1a 100%);
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      max-width: 740px;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .hero__h1 {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(34px, 6.5vw, 68px);
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      margin-bottom: 18px;
+    }
+    .hero__h1 em {
+      font-style: normal;
+      color: var(--primary);
+    }
+
+    .hero__sub {
+      font-family: var(--satoshi);
+      font-weight: 400;
+      font-size: clamp(14px, 2vw, 17px);
+      color: rgba(255,255,255,.75);
+      line-height: 1.7;
+      max-width: 560px;
+      margin-inline: auto;
+    }
+
+    /* ══════════════════════════════════════════════
+       THE PROBLEM  — lime bg, text left / title right
+    ══════════════════════════════════════════════ */
+    .problem {
+      background: var(--primary);
+      padding: clamp(40px, 6vw, 72px) 0;
+    }
+
+    .problem__inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .problem__inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+      }
+    }
+
+    .problem__body {
+      font-family: var(--satoshi);
+      font-size: clamp(13px, 1.8vw, 15px);
+      color: rgba(26,28,46,.75);
+      line-height: 1.75;
+    }
+    .problem__body p + p { margin-top: 12px; }
+
+    .problem__heading {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(36px, 5.5vw, 64px);
+      color: var(--accent-dark);
+      line-height: 1.05;
+      letter-spacing: -.02em;
+      text-align: right;
+    }
+    @media (max-width: 767px) {
+      .problem__heading { text-align: left; font-size: clamp(30px, 8vw, 48px); }
+    }
+
+    /* ══════════════════════════════════════════════
+       OUR MISSION  — dark purple bg, title left / text right
+    ══════════════════════════════════════════════ */
+    .mission {
+      background: var(--accent);
+      padding: clamp(44px, 7vw, 80px) 0;
+      margin-top: clamp(24px, 4vw, 48px);
+    }
+
+    .mission__inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+    @media (min-width: 768px) {
+      .mission__inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 56px;
+      }
+    }
+
+    .mission__heading {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(36px, 5.5vw, 64px);
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: -.02em;
+    }
+
+    .mission__body {
+      font-family: var(--satoshi);
+      font-size: clamp(13px, 1.8vw, 15px);
+      color: rgba(255,255,255,.8);
+      line-height: 1.8;
+      text-align: right;
+    }
+    .mission__body p + p { margin-top: 12px; }
+    @media (max-width: 767px) {
+      .mission__body { text-align: left; }
+    }
+
+    /* ══════════════════════════════════════════════
+       WHAT WE STAND FOR  — beige bg, bordered cards
+    ══════════════════════════════════════════════ */
+    .values {
+      background: var(--bg);
+      padding: clamp(56px, 8vw, 100px) 0;
+    }
+
+    .values__heading {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(28px, 5vw, 52px);
+      color: var(--primary);
+      text-align: center;
+      margin-bottom: clamp(32px, 5vw, 52px);
+      letter-spacing: -.01em;
+    }
+
+    .values__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 600px) {
+      .values__grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    }
+
+    .value-card {
+      border: 2px solid var(--primary);
+      border-radius: var(--r20);
+      padding: 32px 26px;
+      background: var(--bg);
+      text-align: center;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .value-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(196,208,84,.2);
+    }
+
+    .value-card__title {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(17px, 2.2vw, 21px);
+      color: var(--accent-dark);
+      margin-bottom: 12px;
+    }
+
+    .value-card__body {
+      font-family: var(--satoshi);
+      font-size: 14px;
+      color: rgba(26,28,46,.68);
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════════════
+       CTA SECTION  — lime bg, illustrated characters
+    ══════════════════════════════════════════════ */
+    .cta-section {
+      background: var(--primary);
+      position: relative;
+      overflow: hidden;
+      padding: clamp(48px, 8vw, 88px) 0;
+    }
+
+    .cta-section__inner {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Characters — absolute positioned on desktop, hidden on mobile */
+    .cta-char {
+      display: none;
+      position: absolute;
+      bottom: 0;
+      width: 160px;
+    }
+    @media (min-width: 760px) { .cta-char { display: block; } }
+    @media (min-width: 1100px) { .cta-char { width: 200px; } }
+
+    .cta-char--left  { left: clamp(16px, 4vw, 80px); }
+    .cta-char--right { right: clamp(16px, 4vw, 80px); }
+
+    /* Fallback SVG illustrations if no images */
+    .cta-char__svg {
+      width: 100%;
+      height: auto;
+    }
+
+    .cta-section__sub {
+      font-family: var(--satoshi);
+      font-size: clamp(14px, 2vw, 17px);
+      color: rgba(26,28,46,.65);
+      margin-bottom: 4px;
+    }
+
+    .cta-section__h2 {
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(22px, 4vw, 40px);
+      color: var(--accent-dark);
+      line-height: 1.2;
+      letter-spacing: -.01em;
+    }
+
+    .cta-section__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-dark);
+      color: #fff;
+      font-family: var(--museo);
+      font-weight: 700;
+      font-size: clamp(18px, 2.5vw, 26px);
+      padding: 16px 48px;
+      border-radius: var(--r999);
+      border: none;
+      cursor: pointer;
+      transition: opacity .2s, transform .2s;
+      margin-top: 4px;
+    }
+    .cta-section__btn:hover { opacity: .88; transform: translateY(-2px); }
+
+    /* ══════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════ */
+    .footer {
+      background: var(--bg);
+      padding: 48px 0 28px;
+      border-top: 1px solid rgba(26,28,46,.08);
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 24px;
+      margin-bottom: 36px;
+    }
+    @media (min-width: 768px) {
+      .footer__grid { grid-template-columns: repeat(4, 1fr); gap: 24px 40px; }
+    }
+
+    .footer__col-title {
+      font-family: var(--satoshi);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .footer__col ul { display: flex; flex-direction: column; gap: 8px; }
+
+    .footer__col a {
+      font-size: 13px;
+      color: rgba(26,28,46,.6);
+      transition: color .2s;
+    }
+    .footer__col a:hover { color: var(--text); }
+
+    .footer__col strong {
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .footer__copy {
+      padding-top: 20px;
+      border-top: 1px solid rgba(26,28,46,.08);
+      font-size: 11px;
+      color: rgba(26,28,46,.35);
+      text-align: center;
+    }
+
+    /* ── Scroll reveal ──────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .reveal.in-view { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: .1s; }
+    .reveal-d2 { transition-delay: .2s; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav" id="site-nav" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav__inner">
+
+      <a href="index.html" class="nav__logo" aria-label="Rivara Flow home">
+        <img src="assets/images/logo.png" alt="Rivara Flow" width="200" height="68" />
+      </a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="system.html">System</a></li>
+        <li><a href="platform.html">Platform</a></li>
+        <li><a href="index.html#contact">Contacts</a></li>
+      </ul>
+
+      <div class="nav__right">
+        <a href="index.html#contact" class="nav__demo">Book a Demo</a>
+        <button class="nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <nav class="nav__drawer" id="nav-drawer" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="system.html">System</a>
+    <a href="platform.html">Platform</a>
+    <a href="industries.html">Industries</a>
+    <a href="about.html" class="active">About</a>
+    <a href="blog.html">Blog</a>
+    <a href="index.html#contact" class="drawer-cta">Book a Demo</a>
+  </nav>
+</nav>
+
+<!-- HERO -->
+<div class="hero-wrap">
+  <section class="hero" aria-labelledby="about-h1">
+
+    <!-- Background photo (add assets/images/about-hero-bg.jpg) -->
+    <img
+      class="hero__bg"
+      src="assets/images/about-hero-bg.jpg"
+      alt="Chef preparing food in a kitchen"
+      loading="eager"
+      onerror="this.style.display='none'"
+    />
+
+    <!-- Overlay — always shown; darker when no photo -->
+    <div class="hero__overlay" aria-hidden="true"></div>
+
+    <div class="hero__content">
+      <h1 class="hero__h1" id="about-h1">
+        We're turning<br>
+        waste into<br>
+        <em>savings.</em>
+      </h1>
+      <p class="hero__sub">
+        Built to help the hospitality industry eliminate invisible losses
+        and stay ahead of EU standards.
+      </p>
+    </div>
+
+  </section>
+</div>
+
+<main>
+
+<!-- THE PROBLEM -->
+<section class="problem" aria-labelledby="problem-h2">
+  <div class="container">
+    <div class="problem__inner">
+
+      <div class="problem__body reveal">
+        <p>
+          While EU markets have food waste tracking mechanisms,
+          the Western Balkans has none built for local conditions.
+          But the laws will soon be the same.
+        </p>
+        <p>
+          We give you the right language, the right pricing, the right
+          integrations, and the right regulatory mapping, all in one place.
+        </p>
+      </div>
+
+      <h2 class="problem__heading reveal reveal-d1" id="problem-h2">
+        The<br>Problem
+      </h2>
+
+    </div>
+  </div>
+</section>
+
+<!-- OUR MISSION -->
+<section class="mission" aria-labelledby="mission-h2">
+  <div class="container">
+    <div class="mission__inner">
+
+      <h2 class="mission__heading reveal" id="mission-h2">
+        Our<br>Mission
+      </h2>
+
+      <div class="mission__body reveal reveal-d1">
+        <p>
+          Every week, kitchens across Albania discard hundreds of Euros
+          worth of food and most managers have no idea it's happening.
+        </p>
+        <p>
+          We make waste manageable, and when it becomes manageable, it
+          becomes a competitive advantage.
+        </p>
+        <p>
+          Rivara Flow shows hospitality operators the data they need to
+          make decisions their competitors can't.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE STAND FOR -->
+<section class="values" aria-labelledby="values-h2">
+  <div class="container">
+
+    <h2 class="values__heading reveal" id="values-h2">What we stand for</h2>
+
+    <div class="values__grid">
+
+      <article class="value-card reveal">
+        <h3 class="value-card__title">Transparency</h3>
+        <p class="value-card__body">
+          We show you the numbers. Every gram tracked. Every cost
+          visible. All data you can act on.
+        </p>
+      </article>
+
+      <article class="value-card reveal reveal-d1">
+        <h3 class="value-card__title">Simplicity</h3>
+        <p class="value-card__body">
+          Built for kitchen staff, making their job easier. No added
+          steps, 24/7 support.
+        </p>
+      </article>
+
+      <article class="value-card reveal reveal-d2">
+        <h3 class="value-card__title">Relevance</h3>
+        <p class="value-card__body">
+          Reflecting updated regulations, built for easy use and simple
+          savings.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" aria-labelledby="cta-h2">
+
+  <!-- Left character (add assets/images/about-cta-char-left.png) -->
+  <img
+    class="cta-char cta-char--left"
+    src="assets/images/about-cta-char-left.png"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    onerror="this.style.display='none'"
+  />
+
+  <!-- Right character (add assets/images/about-cta-char-right.png) -->
+  <img
+    class="cta-char cta-char--right"
+    src="assets/images/about-cta-char-right.png"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    onerror="this.style.display='none'"
+  />
+
+  <div class="container">
+    <div class="cta-section__inner">
+      <p class="cta-section__sub">Ready to see it in your kitchen?</p>
+      <h2 class="cta-section__h2 sr-only" id="cta-h2">Book a Demo</h2>
+      <a href="index.html#contact" class="cta-section__btn">Book a Demo</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+
+      <div class="footer__col">
+        <p class="footer__col-title">Get in touch</p>
+        <ul role="list">
+          <li><a href="mailto:contact@rivaraflow.com">contact@rivaraflow.com</a></li>
+          <li><a href="tel:+355677398906">+355 (0) 67 73 98 906</a></li>
+          <li><a href="https://linkedin.com/company/rivaraflow" target="_blank" rel="noopener"><strong>LinkedIn:</strong> Rivara Flow</a></li>
+          <li><a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener"><strong>Instagram:</strong> @rivaraflow</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <p class="footer__col-title">Company</p>
+        <ul role="list">
+          <li><a href="about.html">About</a></li>
+          <li><a href="about.html#team">Team</a></li>
+          <li><a href="blog.html">News &amp; Press</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <p class="footer__col-title">Product</p>
+        <ul role="list">
+          <li><a href="system.html">System</a></li>
+          <li><a href="platform.html">Platform</a></li>
+          <li><a href="about.html#impact">Impact</a></li>
+          <li><a href="index.html#contact">Book a Demo</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <p class="footer__col-title">Industries</p>
+        <ul role="list">
+          <li><a href="industries.html">Restaurants</a></li>
+          <li><a href="industries.html">Hotels</a></li>
+          <li><a href="industries.html">Agritourism</a></li>
+        </ul>
+      </div>
+
+    </div>
+    <p class="footer__copy">&copy; <span id="yr"></span> Rivara Flow. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0;
+    margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
+    white-space: nowrap; border: 0;
+  }
+</style>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* Hamburger */
+  const burger = document.getElementById('nav-burger');
+  const drawer = document.getElementById('nav-drawer');
+  burger.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  drawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* Scroll reveal */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in-view');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

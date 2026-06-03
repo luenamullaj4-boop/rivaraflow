@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works — Rivara Flow</title>
+  <meta name="description" content="From kitchen bin to compliance report in five steps. See exactly how Rivara Flow's smart waste management system works — no technical expertise required." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/globals.css" />
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Satoshi', sans-serif; }
+    .container { max-width: 1100px; margin-inline: auto; padding-inline: 20px; }
+    @media (min-width: 768px) { .container { padding-inline: 48px; } }
+
+        /* ── Nav ── */
+    .site-nav { background: var(--bg-dark); display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
+    @media (min-width: 768px) { .site-nav { padding: 18px 48px; } }
+    .site-nav__logo img { height: 48px; width: auto; }
+    @media (min-width: 768px) { .site-nav__logo img { height: 60px; } }
+    .site-nav__desktop { display: none; list-style: none; gap: 28px; font-size: 14px; }
+    @media (min-width: 960px) { .site-nav__desktop { display: flex; align-items: center; } }
+    .site-nav__desktop a { color: rgba(248,244,217,.85); text-decoration: none; font-weight: 500; transition: color .2s; }
+    .site-nav__desktop a:hover, .site-nav__desktop a.active { color: var(--text-inv); }
+    .site-nav__right { display: flex; align-items: center; gap: 14px; }
+    .site-nav__cta { display: none; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
+    @media (min-width: 768px) { .site-nav__cta { display: inline-flex; align-items: center; } }
+    .site-nav__cta:hover { background: #d4e060; }
+    .site-nav__burger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 6px; }
+    .site-nav__burger span { display: block; width: 24px; height: 2px; background: var(--text-inv); border-radius: 2px; }
+    .nav-drawer { position: fixed; inset: 0; z-index: 200; background: var(--bg-dark); display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity .22s; }
+    .nav-drawer.open { opacity: 1; pointer-events: all; }
+    .nav-drawer__head { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid rgba(248,244,217,.1); }
+    .nav-drawer__head img { height: 48px; width: auto; }
+    .nav-drawer__close { background: none; border: none; cursor: pointer; color: var(--text-inv); font-size: 24px; line-height: 1; padding: 8px; }
+    .nav-drawer__links { flex: 1; overflow-y: auto; display: flex; flex-direction: column; padding: 24px; gap: 2px; }
+    .nav-drawer__links a { font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-size: clamp(18px, 3.5vw, 26px); text-transform: uppercase; color: rgba(248,244,217,.72); text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(248,244,217,.08); transition: color .2s, padding-left .15s; }
+    .nav-drawer__links a:hover, .nav-drawer__links a.active { color: var(--text-inv); padding-left: 8px; }
+    .nav-drawer__links a.drawer-cta { margin-top: 20px; color: var(--bg-dark); background: var(--primary); padding: 14px 24px; border-radius: var(--r999); text-align: center; border: none; }
+    .nav-drawer__links a.drawer-cta:hover { background: #d4e060; padding-left: 24px; }
+
+
+
+    /* ── Shared tokens ── */
+    .section-tag { font-family: 'Satoshi', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; display: block; }
+    .section-tag--light { color: var(--accent); }
+    .section-tag--dark  { color: var(--primary); }
+
+    /* ── 1. HERO ── */
+    .hero { background: var(--bg-dark); padding: 96px 0 80px; text-align: center; }
+    .hero__h1 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(36px, 8vw, 78px); color: var(--text-inv); line-height: 1.0; margin-bottom: 24px; }
+    .hero__h1 span { display: block; }
+    .hero__sub { font-size: clamp(16px, 2.2vw, 20px); color: rgba(248,244,217,.82); max-width: 580px; margin-inline: auto; line-height: 1.6; }
+
+    /* ── 2. STEPS ── */
+
+    /* Shared step section layout */
+    .step-section { padding: 0; }
+    .step-section--light { background: var(--bg); }
+    .step-section--dark  { background: var(--bg-dark); }
+
+    .step-inner { display: grid; gap: 48px; align-items: center; padding: 80px 0; }
+    @media (min-width: 768px) { .step-inner { grid-template-columns: 1fr 1fr; padding: 96px 0; } }
+
+    /* Dark section image on left → reverse column order on desktop */
+    .step-section--dark .step-inner--img-left { }
+    @media (min-width: 768px) {
+      .step-inner--img-left .step-content { order: 2; }
+      .step-inner--img-left .step-img    { order: 1; }
+    }
+
+    /* Step number pill */
+    .step-num { display: inline-flex; align-items: center; justify-content: center; font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: 13px; letter-spacing: .1em; border-radius: var(--r999); padding: 5px 16px; margin-bottom: 18px; }
+    .step-num--light { background: var(--accent-dark); color: var(--text-inv); }
+    .step-num--dark  { background: var(--primary); color: var(--bg-dark); }
+
+    /* Step heading */
+    .step-h3 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(22px, 3.5vw, 36px); line-height: 1.1; margin-bottom: 16px; }
+    .step-h3--light { color: var(--bg-dark); }
+    .step-h3--dark  { color: var(--text-inv); }
+
+    /* Step body */
+    .step-body { font-size: 16px; line-height: 1.75; margin-bottom: 24px; }
+    .step-body--light { color: #2e3347; }
+    .step-body--dark  { color: rgba(248,244,217,.82); }
+
+    /* Detail chips */
+    .step-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; border-radius: var(--r999); padding: 5px 14px; }
+    .chip--light { background: #e8e4cc; color: var(--accent-dark); }
+    .chip--dark  { background: rgba(196,208,84,.15); color: var(--primary); border: 1px solid rgba(196,208,84,.35); }
+
+    /* Image placeholder */
+    .step-img { display: flex; align-items: stretch; }
+    .img-placeholder { width: 100%; aspect-ratio: 4/3; border-radius: var(--r16); display: flex; align-items: center; justify-content: center; }
+    .img-placeholder--light { background: #e2ddc4; }
+    .img-placeholder--dark  { background: rgba(255,255,255,.06); border: 1px solid rgba(248,244,217,.12); }
+    .img-placeholder__label { font-size: 13px; font-style: italic; }
+    .img-placeholder--light .img-placeholder__label { color: #6b6652; }
+    .img-placeholder--dark  .img-placeholder__label { color: rgba(248,244,217,.4); }
+
+    /* ── 3. RESULTS STRIP ── */
+    .results { background: var(--bg-dark); padding: 72px 0; border-top: 1px solid rgba(248,244,217,.08); }
+    .results__inner { display: grid; gap: 0; }
+    @media (min-width: 600px) { .results__inner { grid-template-columns: repeat(3, 1fr); } }
+    .result-stat { text-align: center; padding: 32px 24px; border-bottom: 1px solid rgba(248,244,217,.1); }
+    @media (min-width: 600px) {
+      .result-stat { border-bottom: none; border-right: 1px solid rgba(248,244,217,.1); }
+      .result-stat:last-child { border-right: none; }
+    }
+    .result-stat__number { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(36px, 5vw, 56px); color: var(--primary); line-height: 1; margin-bottom: 12px; }
+    .result-stat__label { font-size: 15px; color: rgba(248,244,217,.78); line-height: 1.5; max-width: 200px; margin-inline: auto; }
+
+    /* ── 4. CTA STRIP ── */
+    .cta-strip { background: var(--primary); padding: 72px 0; text-align: center; }
+    .cta-strip__h2 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(24px, 4vw, 44px); color: var(--bg-dark); text-transform: uppercase; margin-bottom: 28px; }
+    .cta-strip__btn { display: inline-flex; align-items: center; justify-content: center; background: var(--bg-dark); color: var(--text-inv); font-weight: 700; font-size: 16px; text-decoration: none; padding: 14px 36px; border-radius: var(--r999); transition: background .2s; margin-bottom: 16px; }
+    .cta-strip__btn:hover { background: #2e3347; }
+    .cta-strip__sub { font-size: 14px; color: rgba(31,36,48,.72); margin-top: 4px; }
+
+    /* ── Footer ── */
+    .footer { background: var(--bg-dark); padding: 56px 0 32px; }
+    .footer .container { max-width: 1100px; }
+    .footer__grid { display: grid; gap: 32px; grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 768px) { .footer__grid { grid-template-columns: repeat(4, 1fr); } }
+    .footer__col-title { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(248,244,217,.65); margin-bottom: 12px; }
+    .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer__col a { font-size: 14px; color: rgba(248,244,217,.88); text-decoration: none; transition: color .2s; }
+    .footer__col a:hover { color: var(--text-inv); }
+    .footer__copy { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(248,244,217,.15); font-size: 13px; color: rgba(248,244,217,.55); text-align: center; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="site-nav">
+  <a href="index.html" class="site-nav__logo" aria-label="Rivara Flow home">
+    <img src="assets/images/logo.png" alt="Rivara Flow" width="200" height="70" />
+  </a>
+  <ul class="site-nav__desktop" role="list">
+    <li><a href="system.html">System</a></li>
+    <li><a href="platform.html">Platform</a></li>
+    <li><a href="industries.html">Industries</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <div class="site-nav__right">
+    <a href="contact.html" class="site-nav__cta">Book a Demo</a>
+    <button class="site-nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="nav-drawer__head">
+    <a href="index.html"><img src="assets/images/logo.png" alt="Rivara Flow" height="48" /></a>
+    <button class="nav-drawer__close" id="nav-close" aria-label="Close menu">&#x2715;</button>
+  </div>
+  <nav class="nav-drawer__links">
+    <a href="index.html">Home</a>
+    <a href="system.html">System</a>
+    <a href="platform.html">Platform</a>
+    <a href="how-it-works.html" class="active">How It Works</a>
+    <a href="industries.html">Industries</a>
+    <a href="compliance.html">Compliance &amp; ESG</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Blog</a>
+    <a href="partners.html">Partners</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="drawer-cta">Book a Demo</a>
+  </nav>
+</div>
+
+<!-- 1. HERO -->
+<section class="hero" aria-labelledby="hiw-h1">
+  <div class="container">
+    <span class="section-tag section-tag--dark">Simple by design</span>
+    <h1 class="hero__h1" id="hiw-h1">
+      <span>How Rivara</span>
+      <span>Flow works.</span>
+    </h1>
+    <p class="hero__sub">From kitchen bin to compliance report in five steps. No technical expertise required.</p>
+  </div>
+</section>
+
+<!-- 2. STEPS -->
+
+<!-- Step 1 — light bg, image right -->
+<section class="step-section step-section--light" aria-labelledby="step1-h3">
+  <div class="container">
+    <div class="step-inner">
+      <div class="step-content">
+        <span class="step-num step-num--light">01</span>
+        <h3 class="step-h3 step-h3--light" id="step1-h3">Install the smart<br>bin sensor</h3>
+        <p class="step-body step-body--light">Our team installs a compact camera and weight sensor into your existing kitchen bins. Installation takes 2–3 hours and requires no changes to your kitchen layout or workflow. We handle everything — you just carry on cooking.</p>
+        <div class="step-chips" role="list" aria-label="Key details">
+          <span class="chip chip--light" role="listitem">2–3 hour install</span>
+          <span class="chip chip--light" role="listitem">No new bins needed</span>
+          <span class="chip chip--light" role="listitem">Works with any bin size</span>
+        </div>
+      </div>
+      <div class="step-img" aria-hidden="true">
+        <img src="assets/images/how/step-1-install.png" alt="Smart bin sensor installation" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r16);display:block;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Step 2 — dark bg, image left -->
+<section class="step-section step-section--dark" aria-labelledby="step2-h3">
+  <div class="container">
+    <div class="step-inner step-inner--img-left">
+      <div class="step-content">
+        <span class="step-num step-num--dark">02</span>
+        <h3 class="step-h3 step-h3--dark" id="step2-h3">Toss waste<br>as normal</h3>
+        <p class="step-body step-body--dark">Staff continue exactly as before — no buttons, no scanning, no extra steps. Every time food is discarded, the sensor automatically records the weight, takes a photo, and classifies the waste category using AI. Zero friction. Zero retraining.</p>
+        <div class="step-chips" role="list" aria-label="Key details">
+          <span class="chip chip--dark" role="listitem">Zero workflow changes</span>
+          <span class="chip chip--dark" role="listitem">Automatic classification</span>
+          <span class="chip chip--dark" role="listitem">Photo evidence logged</span>
+        </div>
+      </div>
+      <div class="step-img" aria-hidden="true">
+        <img src="assets/images/how/step-2-toss.png" alt="Automatic waste capture" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r16);display:block;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Step 3 — light bg, image right -->
+<section class="step-section step-section--light" aria-labelledby="step3-h3">
+  <div class="container">
+    <div class="step-inner">
+      <div class="step-content">
+        <span class="step-num step-num--light">03</span>
+        <h3 class="step-h3 step-h3--light" id="step3-h3">Data flows to<br>your dashboard</h3>
+        <p class="step-body step-body--light">Every waste event is synced in real time to your Rivara Flow dashboard — accessible from any device, anywhere. You see waste by category, by time of day, by station, and by cost. Finally, the full picture of what's leaving your kitchen.</p>
+        <div class="step-chips" role="list" aria-label="Key details">
+          <span class="chip chip--light" role="listitem">Real-time sync</span>
+          <span class="chip chip--light" role="listitem">Any device</span>
+          <span class="chip chip--light" role="listitem">Cost-mapped data</span>
+        </div>
+      </div>
+      <div class="step-img" aria-hidden="true">
+        <img src="assets/images/how/step-3-dashboard.png" alt="Real-time waste dashboard" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r16);display:block;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Step 4 — dark bg, image left -->
+<section class="step-section step-section--dark" aria-labelledby="step4-h3">
+  <div class="container">
+    <div class="step-inner step-inner--img-left">
+      <div class="step-content">
+        <span class="step-num step-num--dark">04</span>
+        <h3 class="step-h3 step-h3--dark" id="step4-h3">Data generates<br>your action plan</h3>
+        <p class="step-body step-body--dark">Rivara Flow's intelligence layer analyses your waste patterns and surfaces specific recommendations: adjust portion sizes on a dish, change procurement quantities for a supplier, or schedule staff training on a particular category. Not generic advice — precise actions tied to your numbers.</p>
+        <div class="step-chips" role="list" aria-label="Key details">
+          <span class="chip chip--dark" role="listitem">Portion recommendations</span>
+          <span class="chip chip--dark" role="listitem">Procurement optimisation</span>
+          <span class="chip chip--dark" role="listitem">Staff training triggers</span>
+        </div>
+      </div>
+      <div class="step-img" aria-hidden="true">
+        <img src="assets/images/how/step-4-action.png" alt="Data-driven action plan" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r16);display:block;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Step 5 — light bg, image right -->
+<section class="step-section step-section--light" aria-labelledby="step5-h3">
+  <div class="container">
+    <div class="step-inner">
+      <div class="step-content">
+        <span class="step-num step-num--light">05</span>
+        <h3 class="step-h3 step-h3--light" id="step5-h3">Export compliance<br>reports</h3>
+        <p class="step-body step-body--light">One click generates EU-format waste reports for auditors, investors, and certification bodies. Track CO&#x2082; equivalents, cost savings, and waste reduction progress — all in a format ready for submission. Stay ahead of the regulations before they arrive.</p>
+        <div class="step-chips" role="list" aria-label="Key details">
+          <span class="chip chip--light" role="listitem">EU-format reports</span>
+          <span class="chip chip--light" role="listitem">CO&#x2082; tracking</span>
+          <span class="chip chip--light" role="listitem">One-click export</span>
+        </div>
+      </div>
+      <div class="step-img" aria-hidden="true">
+        <img src="assets/images/how/step-5-report.png" alt="EU compliance report export" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--r16);display:block;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. RESULTS STRIP -->
+<section class="results" aria-label="Key results">
+  <div class="container">
+    <div class="results__inner">
+      <div class="result-stat">
+        <p class="result-stat__number">15–30%</p>
+        <p class="result-stat__label">average food budget lost to waste before Rivara Flow</p>
+      </div>
+      <div class="result-stat">
+        <p class="result-stat__number">Day 1</p>
+        <p class="result-stat__label">when your dashboard is live after installation</p>
+      </div>
+      <div class="result-stat">
+        <p class="result-stat__number">1 click</p>
+        <p class="result-stat__label">to generate a full EU compliance waste report</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. CTA STRIP -->
+<section class="cta-strip" aria-labelledby="cta-h2">
+  <div class="container">
+    <h2 class="cta-strip__h2" id="cta-h2">Ready to see it in your kitchen?</h2>
+    <div>
+      <a href="contact.html" class="cta-strip__btn">Book a Free Demo</a>
+    </div>
+    <p class="cta-strip__sub">First demo is free. No commitment required.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <p class="footer__col-title">Get in touch</p>
+        <ul role="list">
+          <li><a href="mailto:contact@rivaraflow.com">contact@rivaraflow.com</a></li>
+          <li><a href="tel:+355677398906">+355 (0) 67 73 98 906</a></li>
+          <li><a href="https://linkedin.com/company/rivaraflow" target="_blank" rel="noopener">LinkedIn: Rivara Flow</a></li>
+          <li><a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener">Instagram: @rivaraflow</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-title">Company</p>
+        <ul role="list">
+          <li><a href="about.html">About</a></li>
+          <li><a href="about.html#team">Team</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="partners.html">Partners</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-title">Product</p>
+        <ul role="list">
+          <li><a href="system.html">System</a></li>
+          <li><a href="platform.html">Platform</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="compliance.html">Compliance &amp; ESG</a></li>
+          <li><a href="case-studies.html">Case Studies</a></li>
+          <li><a href="contact.html">Book a Demo</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-title">Industries</p>
+        <ul role="list">
+          <li><a href="industries.html#restaurants">Restaurants</a></li>
+          <li><a href="industries.html#hotels">Hotels</a></li>
+          <li><a href="industries.html#agritourism">Agritourism</a></li>
+          <li><a href="industries.html#catering">Catering</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer__copy">&copy; <span id="year"></span> Rivara Flow. All rights reserved.</p>
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();  const burger = document.getElementById('nav-burger');
+  const drawer = document.getElementById('nav-drawer');
+  const navClose = document.getElementById('nav-close');
+  burger.addEventListener('click', () => { drawer.classList.add('open'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; });
+  navClose.addEventListener('click', () => { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; });
+  drawer.addEventListener('click', e => { if (e.target === drawer) { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; } });
+</script>
+</body>
+</html>

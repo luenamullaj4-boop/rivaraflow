@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partners — Rivara Flow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/globals.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Satoshi', sans-serif; }
+    .container { max-width: 1100px; margin-inline: auto; padding-inline: 20px; }
+    @media (min-width: 768px) { .container { padding-inline: 48px; } }
+
+    /* Nav */
+    .site-nav { background: var(--bg-dark); display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
+    @media (min-width: 768px) { .site-nav { padding: 18px 48px; } }
+    .site-nav__logo img { height: 48px; width: auto; }
+    @media (min-width: 768px) { .site-nav__logo img { height: 60px; } }
+    .site-nav__desktop { display: none; list-style: none; gap: 28px; font-size: 14px; }
+    @media (min-width: 960px) { .site-nav__desktop { display: flex; align-items: center; } }
+    .site-nav__desktop a { color: rgba(248,244,217,.85); text-decoration: none; font-weight: 500; transition: color .2s; }
+    .site-nav__desktop a:hover, .site-nav__desktop a.active { color: var(--text-inv); }
+    .site-nav__right { display: flex; align-items: center; gap: 14px; }
+    .site-nav__cta { display: none; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
+    @media (min-width: 768px) { .site-nav__cta { display: inline-flex; align-items: center; } }
+    .site-nav__cta:hover { background: #d4e060; }
+    .site-nav__burger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 6px; }
+    .site-nav__burger span { display: block; width: 24px; height: 2px; background: var(--text-inv); border-radius: 2px; }
+    .nav-drawer { position: fixed; inset: 0; z-index: 200; background: var(--bg-dark); display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity .22s; }
+    .nav-drawer.open { opacity: 1; pointer-events: all; }
+    .nav-drawer__head { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid rgba(248,244,217,.1); }
+    .nav-drawer__head img { height: 48px; width: auto; }
+    .nav-drawer__close { background: none; border: none; cursor: pointer; color: var(--text-inv); font-size: 24px; line-height: 1; padding: 8px; }
+    .nav-drawer__links { flex: 1; overflow-y: auto; display: flex; flex-direction: column; padding: 24px; gap: 2px; }
+    .nav-drawer__links a { font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-size: clamp(18px, 3.5vw, 26px); text-transform: uppercase; color: rgba(248,244,217,.72); text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(248,244,217,.08); transition: color .2s, padding-left .15s; }
+    .nav-drawer__links a:hover, .nav-drawer__links a.active { color: var(--text-inv); padding-left: 8px; }
+    .nav-drawer__links a.drawer-cta { margin-top: 20px; color: var(--bg-dark); background: var(--primary); padding: 14px 24px; border-radius: var(--r999); text-align: center; border: none; }
+    .nav-drawer__links a.drawer-cta:hover { background: #d4e060; padding-left: 24px; }
+
+    /* Hero */
+    .hero { background: var(--bg-dark); padding: 96px 0 80px; text-align: center; }
+    .hero__tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); background: rgba(196,208,84,.12); padding: 6px 16px; border-radius: var(--r999); margin-bottom: 20px; }
+    .hero__h1 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(36px, 8vw, 78px); line-height: 1; color: var(--text-inv); text-transform: uppercase; margin-bottom: 24px; }
+    .hero__h1 span { color: var(--primary); display: block; }
+    .hero__sub { font-size: clamp(16px, 2vw, 19px); color: rgba(248,244,217,.85); max-width: 600px; margin-inline: auto; line-height: 1.7; }
+
+    /* Partnership types */
+    .types { background: var(--bg); padding: 88px 0; }
+    .types__header { margin-bottom: 52px; }
+    .sec-tag { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; display: block; }
+    .sec-h2 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(26px, 5vw, 48px); text-transform: uppercase; line-height: 1.05; color: var(--bg-dark); }
+    .types__grid { display: grid; gap: 20px; grid-template-columns: 1fr; margin-top: 48px; }
+    @media (min-width: 560px) { .types__grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 900px) { .types__grid { grid-template-columns: repeat(4, 1fr); } }
+    .type-card { background: var(--bg-dark); border-radius: var(--r16); padding: 28px 24px 32px; display: flex; flex-direction: column; gap: 14px; }
+    .type-card__name { font-family: 'MuseoModerno', sans-serif; font-weight: 800; font-size: 17px; color: var(--text-inv); line-height: 1.2; }
+    .type-card__desc { font-size: 14px; color: rgba(248,244,217,.85); line-height: 1.65; flex: 1; }
+    .type-card__link { font-size: 13px; font-weight: 700; color: var(--primary); text-decoration: none; letter-spacing: .04em; }
+    .type-card__link:hover { color: #d4e060; }
+
+    /* CTA */
+    .partner-cta { background: var(--bg); padding: 80px 0; text-align: center; border-top: 1px solid rgba(31,36,48,.1); }
+    .partner-cta__h2 { font-family: 'MuseoModerno', sans-serif; font-weight: 900; font-size: clamp(26px, 5vw, 52px); text-transform: uppercase; line-height: 1.05; color: var(--bg-dark); margin-bottom: 16px; }
+    .partner-cta__sub { font-size: 17px; color: #2e3347; line-height: 1.7; max-width: 520px; margin: 0 auto 36px; }
+    .partner-cta__btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-lime { display: inline-flex; align-items: center; justify-content: center; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 15px; text-decoration: none; padding: 14px 36px; border-radius: var(--r999); transition: background .2s; }
+    .btn-lime:hover { background: #d4e060; }
+    .btn-outline { display: inline-flex; align-items: center; justify-content: center; background: transparent; color: var(--bg-dark); font-weight: 700; font-size: 15px; text-decoration: none; padding: 14px 36px; border-radius: var(--r999); border: 2px solid rgba(31,36,48,.3); transition: border-color .2s; }
+    .btn-outline:hover { border-color: var(--bg-dark); }
+
+    /* Footer */
+    .footer { background: var(--bg-dark); padding: 56px 0 32px; }
+    .footer .container { max-width: 1100px; }
+    .footer__grid { display: grid; gap: 32px; grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 768px) { .footer__grid { grid-template-columns: repeat(4, 1fr); } }
+    .footer__col-title { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(248,244,217,.65); margin-bottom: 12px; }
+    .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer__col a { font-size: 14px; color: rgba(248,244,217,.88); text-decoration: none; transition: color .2s; }
+    .footer__col a:hover { color: var(--text-inv); }
+    .footer__copy { margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(248,244,217,.15); font-size: 13px; color: rgba(248,244,217,.55); text-align: center; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="site-nav">
+  <a href="index.html" class="site-nav__logo" aria-label="Rivara Flow home">
+    <img src="assets/images/logo.png" alt="Rivara Flow" width="200" height="70" />
+  </a>
+  <ul class="site-nav__desktop" role="list">
+    <li><a href="system.html">System</a></li>
+    <li><a href="platform.html">Platform</a></li>
+    <li><a href="industries.html">Industries</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <div class="site-nav__right">
+    <a href="contact.html" class="site-nav__cta">Book a Demo</a>
+    <button class="site-nav__burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<div class="nav-drawer" id="nav-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="nav-drawer__head">
+    <a href="index.html"><img src="assets/images/logo.png" alt="Rivara Flow" height="48" /></a>
+    <button class="nav-drawer__close" id="nav-close" aria-label="Close menu">&#x2715;</button>
+  </div>
+  <nav class="nav-drawer__links">
+    <a href="index.html">Home</a>
+    <a href="system.html">System</a>
+    <a href="platform.html">Platform</a>
+    <a href="how-it-works.html">How It Works</a>
+    <a href="industries.html">Industries</a>
+    <a href="compliance.html">Compliance &amp; ESG</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Blog</a>
+    <a href="partners.html" class="active">Partners</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html" class="drawer-cta">Book a Demo</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <p class="hero__tag">Partners &amp; Integrations</p>
+    <h1 class="hero__h1">Building the<br><span>ecosystem.</span></h1>
+    <p class="hero__sub">We partner with consultants, technology companies, sustainability organisations, and regional bodies who share our mission to eliminate food waste in Balkan hospitality.</p>
+  </div>
+</section>
+
+<!-- PARTNERSHIP TYPES -->
+<section class="types">
+  <div class="container">
+    <div class="types__header">
+      <span class="sec-tag">How we work together</span>
+      <h2 class="sec-h2">Four ways to partner with us.</h2>
+    </div>
+    <div class="types__grid">
+      <div class="type-card">
+        <p class="type-card__name">Referral Partners</p>
+        <p class="type-card__desc">Hospitality consultants, accountants, and business advisors who recommend Rivara Flow to their clients. Earn a recurring commission on every active referral.</p>
+        <a href="contact.html" class="type-card__link">Get in touch →</a>
+      </div>
+      <div class="type-card">
+        <p class="type-card__name">Tech Integrations</p>
+        <p class="type-card__desc">POS systems, ERP platforms, and hospitality software providers. Integrate Rivara Flow data into your product to give users richer operational insight.</p>
+        <a href="contact.html" class="type-card__link">Contact us →</a>
+      </div>
+      <div class="type-card">
+        <p class="type-card__name">NGO &amp; Public Sector</p>
+        <p class="type-card__desc">Sustainability organisations, municipalities, and national agencies working on food waste reduction or EU accession alignment. Subsidised pricing available for qualifying partners.</p>
+        <a href="contact.html" class="type-card__link">Get in touch →</a>
+      </div>
+      <div class="type-card">
+        <p class="type-card__name">Investment &amp; Accelerators</p>
+        <p class="type-card__desc">We're actively seeking strategic investment and accelerator partnerships in the Western Balkans and EU. If you're building the regional sustainability ecosystem, let's talk.</p>
+        <a href="contact.html" class="type-card__link">Get in touch →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER CTA -->
+<section class="partner-cta">
+  <div class="container">
+    <h2 class="partner-cta__h2">Interested in partnering?</h2>
+    <p class="partner-cta__sub">Whether you're a consultant, software company, or sustainability organisation — we'd love to hear from you.</p>
+    <div class="partner-cta__btns">
+      <a href="contact.html" class="btn-lime">Book a call</a>
+      <a href="mailto:contact@rivaraflow.com" class="btn-outline">Email us</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__col">
+        <p class="footer__col-title">Get in touch</p>
+        <ul role="list">
+          <li><a href="mailto:contact@rivaraflow.com">contact@rivaraflow.com</a></li>
+          <li><a href="tel:+355677398906">+355 (0) 67 73 98 906</a></li>
+          <li><a href="https://linkedin.com/company/rivaraflow" target="_blank" rel="noopener">LinkedIn: Rivara Flow</a></li>
+          <li><a href="https://instagram.com/rivaraflow" target="_blank" rel="noopener">Instagram: @rivaraflow</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-title">Company</p>
+        <ul role="list">
+          <li><a href="about.html">About</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="partners.html">Partners</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-title">Product</p>
+        <ul role="list">
+          <li><a href="system.html">System</a></li>
+          <li><a href="platform.html">Platform</a></li>
+          <li><a href="how-it-works.html">How It Works</a></li>
+          <li><a href="compliance.html">Compliance &amp; ESG</a></li>
+          <li><a href="case-studies.html">Case Studies</a></li>
+          <li><a href="contact.html">Book a Demo</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__col-title">Industries</p>
+        <ul role="list">
+          <li><a href="industries.html#restaurants">Restaurants</a></li>
+          <li><a href="industries.html#hotels">Hotels</a></li>
+          <li><a href="industries.html#agritourism">Agritourism</a></li>
+          <li><a href="industries.html#catering">Catering</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="footer__copy">&copy; <span id="year"></span> Rivara Flow. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const burger = document.getElementById('nav-burger');
+  const drawer = document.getElementById('nav-drawer');
+  const close  = document.getElementById('nav-close');
+  burger.addEventListener('click', () => { drawer.classList.add('open'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; });
+  close.addEventListener('click',  () => { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; });
+  drawer.addEventListener('click', e => { if (e.target === drawer) { drawer.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; } });
+</script>
+</body>
+</html>
