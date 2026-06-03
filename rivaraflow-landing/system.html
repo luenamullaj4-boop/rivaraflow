@@ -13,32 +13,20 @@
   <style>
     /* ── System page ─────────────────────────── */
 
-    /* Shared nav overrides for non-hero pages */
-    .sys-nav {
-      background: var(--bg-dark);
-      display: flex; align-items: center;
-      justify-content: space-between;
-      padding: 18px 24px;
-      position: sticky; top: 0; z-index: 50;
-    }
-    @media (min-width: 768px) { .sys-nav { padding: 20px 48px; } }
-    .sys-nav__logo img { height: 52px; width: auto; }
-    @media (min-width: 768px) { .sys-nav__logo img { height: 64px; } }
-
-    .site-nav { background: var(--bg-dark); display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; position: sticky; top: 0; z-index: 100; }
+    .site-nav { background: var(--bg); display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(156,123,227,.12); }
     @media (min-width: 768px) { .site-nav { padding: 18px 48px; } }
     .site-nav__logo img { height: 48px; width: auto; }
     @media (min-width: 768px) { .site-nav__logo img { height: 60px; } }
     .site-nav__desktop { display: none; list-style: none; gap: 28px; font-size: 14px; }
     @media (min-width: 960px) { .site-nav__desktop { display: flex; align-items: center; } }
-    .site-nav__desktop a { color: rgba(248,244,217,.85); text-decoration: none; font-weight: 500; transition: color .2s; }
-    .site-nav__desktop a:hover, .site-nav__desktop a.active { color: var(--text-inv); }
+    .site-nav__desktop a { color: var(--accent-dark); text-decoration: none; font-weight: 500; transition: color .2s; }
+    .site-nav__desktop a:hover, .site-nav__desktop a.active { color: var(--accent); }
     .site-nav__right { display: flex; align-items: center; gap: 14px; }
-    .site-nav__cta { display: none; background: var(--primary); color: var(--bg-dark); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
+    .site-nav__cta { display: none; background: var(--accent-dark); color: var(--text-inv); font-weight: 700; font-size: 14px; text-decoration: none; padding: 10px 22px; border-radius: var(--r999); white-space: nowrap; }
     @media (min-width: 768px) { .site-nav__cta { display: inline-flex; align-items: center; } }
-    .site-nav__cta:hover { background: #d4e060; }
+    .site-nav__cta:hover { background: var(--accent); }
     .site-nav__burger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 6px; }
-    .site-nav__burger span { display: block; width: 24px; height: 2px; background: var(--text-inv); border-radius: 2px; }
+    .site-nav__burger span { display: block; width: 24px; height: 2px; background: var(--accent-dark); border-radius: 2px; }
     .nav-drawer { position: fixed; inset: 0; z-index: 200; background: var(--bg-dark); display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity .22s; }
     .nav-drawer.open { opacity: 1; pointer-events: all; }
     .nav-drawer__head { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid rgba(248,244,217,.1); }
@@ -47,46 +35,20 @@
     .nav-drawer__links { flex: 1; overflow-y: auto; display: flex; flex-direction: column; padding: 24px; gap: 2px; }
     .nav-drawer__links a { font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-size: clamp(18px, 3.5vw, 26px); text-transform: uppercase; color: rgba(248,244,217,.72); text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(248,244,217,.08); transition: color .2s, padding-left .15s; }
     .nav-drawer__links a:hover, .nav-drawer__links a.active { color: var(--text-inv); padding-left: 8px; }
-    .nav-drawer__links a.drawer-cta { margin-top: 20px; color: var(--bg-dark); background: var(--primary); padding: 14px 24px; border-radius: var(--r999); text-align: center; border: none; }
-    .nav-drawer__links a.drawer-cta:hover { background: #d4e060; padding-left: 24px; }
-
-    /* ── Hero ── */
-    .sys-hero {
-      background: var(--bg-dark);
-      text-align: center;
-      padding: 64px 20px 72px;
-    }
-    .sys-hero__tag {
-      display: inline-block;
-      font-family: var(--satoshi); font-size: 13px; font-weight: 700;
-      letter-spacing: .1em; text-transform: uppercase;
-      color: var(--primary); margin-bottom: 20px;
-    }
-    .sys-hero__h1 {
-      font-family: var(--museo); font-weight: 900;
-      font-size: clamp(36px, 8vw, 80px);
-      line-height: 1;
-      color: var(--text-inv);
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-    .sys-hero__h1 span { color: var(--primary); display: block; }
-    .sys-hero__sub {
-      font-family: var(--satoshi); font-size: clamp(14px, 2vw, 17px);
-      color: rgba(248,244,217,.7); max-width: 600px;
-      margin: 20px auto 0; line-height: 1.65;
-    }
+    .nav-drawer__links a.drawer-cta { margin-top: 20px; color: var(--text-inv); background: var(--accent-dark); padding: 14px 24px; border-radius: var(--r999); text-align: center; border: none; }
+    .nav-drawer__links a.drawer-cta:hover { background: var(--accent); padding-left: 24px; }
 
     /* ── Pricing ── */
-    .pricing { padding: 72px 0; background: var(--bg); }
+    .pricing { padding: 88px 0 72px; background: var(--bg); }
     .pricing__inner {
       max-width: 1100px; margin-inline: auto;
       padding-inline: 20px;
     }
     .pricing__title {
-      font-family: var(--museo); font-weight: 700;
-      font-size: clamp(26px, 5vw, 48px);
-      color: var(--text); text-align: center;
+      font-family: var(--museo); font-weight: 900;
+      font-size: clamp(32px, 6vw, 60px);
+      color: var(--accent); text-align: center;
+      text-transform: uppercase;
       margin-bottom: 48px;
     }
     .pricing__grid {
@@ -178,9 +140,9 @@
     .compare { padding: 72px 0; background: var(--bg); border-top: 1px solid rgba(156,123,227,.1); }
     .compare__inner { max-width: 1100px; margin-inline: auto; padding-inline: 20px; }
     .compare__title {
-      font-family: var(--museo); font-weight: 700;
-      font-size: clamp(24px, 5vw, 44px);
-      color: var(--text); text-align: center;
+      font-family: var(--museo); font-weight: 900;
+      font-size: clamp(32px, 6vw, 60px);
+      color: var(--primary); text-align: center;
       text-transform: uppercase; margin-bottom: 40px;
     }
     .compare-table { width: 100%; border-collapse: collapse; }
@@ -241,7 +203,7 @@
     .faq__inner { max-width: 760px; margin-inline: auto; padding-inline: 20px; }
     .faq__title {
       font-family: var(--museo); font-weight: 900;
-      font-size: clamp(28px, 6vw, 52px);
+      font-size: clamp(36px, 7vw, 68px);
       color: var(--accent); text-transform: uppercase;
       line-height: 1; margin-bottom: 40px;
     }
@@ -313,20 +275,6 @@
     <a href="contact.html" class="drawer-cta">Book a Demo</a>
   </nav>
 </div>
-
-<!-- HERO -->
-<section class="sys-hero">
-  <p class="sys-hero__tag">Rivara Flow System</p>
-  <h1 class="sys-hero__h1">
-    Smarter Kitchens,
-    <span>Zero Waste.</span>
-  </h1>
-  <p class="sys-hero__sub">
-    Save up to €17K per kitchen annually with Rivara Flow's smart bin tracking,
-    staff training, and automated EU compliance reporting.
-    No extra work — just real results.
-  </p>
-</section>
 
 <!-- PRICING -->
 <section class="pricing" id="pricing">
